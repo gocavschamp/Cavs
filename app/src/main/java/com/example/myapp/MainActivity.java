@@ -1,4 +1,4 @@
-package com.example.myapp.testapplication;
+package com.example.myapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
