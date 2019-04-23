@@ -4,6 +4,7 @@ buildscript {
     ext.kotlin_version = '1.3.10'
 
     repositories {
+        maven { url "https://jitpack.io" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
         mavenCentral() // add repository
@@ -22,6 +23,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url "https://jitpack.io" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
         mavenCentral() // add repository
@@ -29,7 +31,20 @@ allprojects {
         jcenter()
     }
 }
+ext {
+    compileSdkVersion = 26
+    minSdkVersion = 15
+    targetSdkVersion = 26
+    buildToolsVersion = '28.0.3'
+    appTargetSdkVersion = 26
+    versionCode = 19022801
+    versionName = "QP-2.0.0-190228-01"//(internalTest)
 
+    sdkSourceCompatibility = 1.7
+    sdkTargetCompatibility = 1.7
+    appSourceCompatibility = 1.7
+    appTargetCompatibility = 1.7
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
