@@ -3,8 +3,6 @@ package com.nucarf.base.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +13,9 @@ import android.widget.Toast;
 import com.nucarf.base.R;
 import com.nucarf.base.utils.toast.BadTokenListener;
 import com.nucarf.base.utils.toast.ToastCompat;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 /**
  * Created by Administrator on 2018/4/25.

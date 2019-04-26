@@ -1,6 +1,7 @@
 package com.nucarf.base.widget.recycleview;
 
-import android.support.v7.widget.GridLayoutManager;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 
 /**
  * Created by lizhixian.

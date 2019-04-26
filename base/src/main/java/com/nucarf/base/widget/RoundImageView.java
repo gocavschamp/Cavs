@@ -6,14 +6,15 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.nucarf.base.R;
 import com.nucarf.base.utils.ScreenUtil;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 
 /**

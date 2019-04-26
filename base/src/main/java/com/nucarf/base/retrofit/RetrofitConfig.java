@@ -53,6 +53,7 @@ public class RetrofitConfig {
 
     //友盟 AppKey：
     //5c19c610b465f56e03000259
-    public static final String UM_APPKEY = "5c19c610b465f56e03000259";
+//    public static final String UM_APPKEY = "5c19c610b465f56e03000259";
+    public static final String UM_APPKEY = "5c19c610b465f56e03000";
 
 }
