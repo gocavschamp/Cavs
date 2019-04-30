@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapp.utils.ExampleUtil;
 import com.nucarf.base.utils.SharePreUtils;
 
 import java.util.Set;
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
     }
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
     private void setAlias() {
-        if (!com.example.jpushdemo.ExampleUtil.isValidTagAndAlias("yuwenming")) {
+        if (!ExampleUtil.isValidTagAndAlias("yuwenming")) {
             Toast.makeText( this,"yicunzai", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -66,7 +67,7 @@ public class MainActivity extends Activity {
                     logs = "Failed with errorCode = " + code;
                     Log.e(TAG, logs);
             }
-            com.example.jpushdemo.ExampleUtil.showToast(logs, getApplicationContext());
+             ExampleUtil.showToast(logs, getApplicationContext());
         }
     };
     private static final int MSG_SET_ALIAS = 1001;

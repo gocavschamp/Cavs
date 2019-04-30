@@ -1,4 +1,4 @@
-package com.example.jpushdemo;
+package com.example.myapp.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

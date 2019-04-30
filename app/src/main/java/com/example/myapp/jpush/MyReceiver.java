@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.myapp.MainActivity;
 import com.example.myapp.R;
+import com.example.myapp.utils.ExampleUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +25,7 @@ import cn.jpush.android.api.JPushInterface;
 
 /**
  * 自定义接收器
- * 
+ *
  * 如果不定义这个 Receiver，则：
  * 1) 默认用户会打开主界面
  * 2) 接收不到自定义消息
@@ -139,7 +140,7 @@ public class MyReceiver extends BroadcastReceiver {
 		}
 		return sb.toString();
 	}
-	
+
 	//send msg to MainActivity
 	private void processCustomMessage(Context context, Bundle bundle) {
 		if (MainActivity.isForeground) {
@@ -147,7 +148,7 @@ public class MyReceiver extends BroadcastReceiver {
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
 			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
 			msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-			if (!com.example.jpushdemo.ExampleUtil.isEmpty(extras)) {
+			if (!ExampleUtil.isEmpty(extras)) {
 				try {
 					JSONObject extraJson = new JSONObject(extras);
 					if (extraJson.length() > 0) {
