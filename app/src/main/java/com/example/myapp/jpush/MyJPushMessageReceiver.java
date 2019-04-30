@@ -1,6 +1,8 @@
-package com.example.jpushdemo;
+package com.example.myapp.jpush;
 
 import android.content.Context;
+
+import com.example.myapp.utils.TagAliasOperatorHelper;
 
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.service.JPushMessageReceiver;

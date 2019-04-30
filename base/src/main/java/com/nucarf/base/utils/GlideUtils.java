@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -12,6 +11,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by quantan.liu on 2017/menu_mycenter_nopressed/23.
@@ -50,9 +51,9 @@ public class GlideUtils {
             return;
         }
         url = url.replace("https", "http").replace("{size}", "middle");
-        Glide.with(fragment).asDrawable()
-                .load(url)
-                .into(requestListener);
+//        Glide.with(fragment).asDrawable()
+//                .load(url)
+//                .into(requestListener);
     }
 
     public static void load(Context mContext, String url, ImageView iv) {
@@ -107,10 +108,10 @@ public class GlideUtils {
         RequestOptions requestOptions = new RequestOptions()
                 .centerCrop();
 
-        Glide.with(fragment)
-                .load(url)
-                .apply(requestOptions)
-                .into(iv);
+//        Glide.with(fragment)
+//                .load(url)
+//                .apply(requestOptions)
+//                .into(iv);
     }
 
     public static void load(Fragment fragment, String url, int def, ImageView iv) {
@@ -121,10 +122,10 @@ public class GlideUtils {
         RequestOptions requestOptions = new RequestOptions()
                 .centerCrop().placeholder(def).error(def);
 
-        Glide.with(fragment)
-                .load(url)
-                .apply(requestOptions)
-                .into(iv);
+//        Glide.with(fragment)
+//                .load(url)
+//                .apply(requestOptions)
+//                .into(iv);
     }
 
     public static void load(Context mContext, String url, int def, ImageView iv) {

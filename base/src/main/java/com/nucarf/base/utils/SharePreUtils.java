@@ -175,4 +175,11 @@ public class SharePreUtils {
         return SharedPreferencesUtil.getSharedPreferences(BaseAppCache.getContext()).getString(SharedKeys.SP_DOWNLOAD_PATH, "");
 
     }
+
+    public static void setIsSetAlias(boolean isSetAlias) {
+        SharedPreferencesUtil.setValue(BaseAppCache.getContext(), SharedKeys.ISSETALIAS, isSetAlias);
+    }
+    public static boolean getIsSetAlias( ) {
+       return SharedPreferencesUtil.getBooleanValue(BaseAppCache.getContext(), SharedKeys.ISSETALIAS,false);
+    }
 }
