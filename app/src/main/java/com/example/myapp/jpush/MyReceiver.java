@@ -1,5 +1,6 @@
 package com.example.myapp.jpush;
 
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.myapp.MainActivity;
+import com.example.myapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,9 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -46,6 +51,27 @@ public class MyReceiver extends BroadcastReceiver {
 				Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
 				int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 				Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+				CustomPushNotificationBuilder builder = new
+						CustomPushNotificationBuilder(context,
+						R.layout.customer_notitfication_layout,
+						R.id.icon,
+						R.id.title,
+						R.id.text,
+						R.id.time);
+				// 指定定制的 Notification Layout
+				builder.statusBarDrawable = R.drawable.jpush_notification_icon;
+				// 指定最顶层状态栏小图标
+				builder.layoutIconDrawable = R.drawable.jpush_notification_icon;
+				// 指定下拉状态栏时显示的通知图标
+				JPushInterface.setPushNotificationBuilder(1, builder);
+//				BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(context);
+//				builder.statusBarDrawable = R.drawable.ic_launcher_background;
+//				builder.notificationFlags = Notification.FLAG_AUTO_CANCEL
+//						| Notification.FLAG_SHOW_LIGHTS;  //设置为自动消失和呼吸灯闪烁
+//				builder.notificationDefaults = Notification.DEFAULT_SOUND
+//						| Notification.DEFAULT_VIBRATE
+//						| Notification.DEFAULT_LIGHTS;  // 设置为铃声、震动、呼吸灯闪烁都要
+//				JPushInterface.setPushNotificationBuilder(1, builder);
 
 			} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 				Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
