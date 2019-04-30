@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapp.database.greenDao.db.DaoMaster;
 import com.example.myapp.database.greenDao.db.DaoSession;
+import com.nucarf.base.BuildConfig;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.BaseAppCache;
 import com.umeng.commonsdk.UMConfigure;

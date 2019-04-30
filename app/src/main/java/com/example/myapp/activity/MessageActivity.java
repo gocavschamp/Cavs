@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.myapp.R;
 
+
 public class MessageActivity extends AppCompatActivity {
 
     @Override
