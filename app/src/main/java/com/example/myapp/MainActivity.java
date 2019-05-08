@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         registerMessageReceiver();  // used for receive msg
-
+//修改 测试分支
         if (!SharePreUtils.getIsSetAlias()) {
             setAlias();
         }
