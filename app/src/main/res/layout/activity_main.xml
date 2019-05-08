@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+    <!--tl_indicator_color：指示器的颜色-->
+    <!--tl_indicator_height：指示器的高度-->
+    <!--tl_indicator_width：指示器的宽度-->
+    <!--tl_textUnselectColor：Tab未选中时字体的颜色-->
+    <!--tl_textSelectColor：Tab选中时字体的颜色-->
+    <!--tl_textsize：字体大小-->
+    <!--tl_indicator_width_equal_title：设置指示器宽度与文本宽度一致-->
+    <!--tl_tab_space_equal：设置Tab大小等分-->
+    <!--tl_divider_color：分割线的颜色-->
+    <!--tl_divider_width：分割线的宽度-->
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:tl_divider_color="@color/colorAccent"
+        app:tl_divider_width="1dp"
+        app:tl_indicator_color="@color/colorPrimaryDark"
+        app:tl_indicator_height="3dp"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_tab_space_equal="true"
+        app:tl_textSelectColor="@color/colorPrimaryDark"
+        app:tl_textUnselectColor="@android:color/black"
+        app:tl_textsize="18sp"></com.flyco.tablayout.SlidingTabLayout>
 
 
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

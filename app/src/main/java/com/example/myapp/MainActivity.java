@@ -1,44 +1,61 @@
 package com.example.myapp;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
+import android.os.Message;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.myapp.utils.ExampleUtil;
+import com.flyco.tablayout.SlidingTabLayout;
+import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.SharePreUtils;
 
 import java.util.Set;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName().toString();
+    @BindView(R.id.stl_main)
+    SlidingTabLayout stlMain;
+    @BindView(R.id.vp_main)
+    ViewPager vpMain;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         registerMessageReceiver();  // used for receive msg
 
-        if(!SharePreUtils.getIsSetAlias()) {
+        if (!SharePreUtils.getIsSetAlias()) {
             setAlias();
         }
     }
+
+    @Override
+    protected void initData() {
+
+
+
+    }
+
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
     private void setAlias() {
         if (!ExampleUtil.isValidTagAndAlias("yuwenming")) {
-            Toast.makeText( this,"yicunzai", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "yicunzai", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -49,7 +66,7 @@ public class MainActivity extends Activity {
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
         @Override
         public void gotResult(int code, String alias, Set<String> tags) {
-            String logs ;
+            String logs;
             switch (code) {
                 case 0:
                     logs = "Set tag and alias success";
@@ -67,13 +84,13 @@ public class MainActivity extends Activity {
                     logs = "Failed with errorCode = " + code;
                     Log.e(TAG, logs);
             }
-             ExampleUtil.showToast(logs, getApplicationContext());
+            ExampleUtil.showToast(logs, getApplicationContext());
         }
     };
     private static final int MSG_SET_ALIAS = 1001;
     private final Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_ALIAS:
@@ -89,7 +106,7 @@ public class MainActivity extends Activity {
             }
         }
     };
-    
+
     public static boolean isForeground = false;
 
     //for receive customer msg from jpush server
@@ -122,7 +139,7 @@ public class MainActivity extends Activity {
 //                    }
 //                    setCostomMsg(showMsg.toString());
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }

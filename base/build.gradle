@@ -72,6 +72,8 @@ dependencies {
     //沉浸式状态栏
     api 'com.gyf.barlibrary:barlibrary:2.3.0'
     api 'com.jakewharton:butterknife:8.8.1'
+    //tablayout
+    api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     //    implementation files('libs/AMap3DMap_6.7.0_AMapSearch_6.5.0_AMapLocation_4.4.0_20190213.jar')
     api project(':PickerView')
     api project(':umeng')

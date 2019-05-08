@@ -18,7 +18,7 @@ import com.zhy.autolayout.config.AutoLayoutConifg;
 import androidx.multidex.MultiDex;
 import cn.jpush.android.api.JPushInterface;
 
-public class MyApplication extends Application {
+public class MyApplication1 extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
