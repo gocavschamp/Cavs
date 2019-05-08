@@ -252,7 +252,7 @@ if (buildWithTinker()) {
         packageConfig {
             // configField("key", "value"), 默认我们自动从基准安装包与新安装包的Manifest中读取tinkerId,并自动写入configField。
             // 在这里，你可以定义其他的信息，在运行时可以通过TinkerLoadResult.getPackageConfigByName得到相应的数值。
-            // 但是建议直接通过修改代码来实现，例如BuildConfig。
+            // 但是建议直接通过修改代码来实现，  例如BuildConfig。
             configField("platform", "all")
             configField("patchVersion", "1.0")
 //            configField("patchMessage", "tinker is sample to use")
