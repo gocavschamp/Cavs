@@ -3,6 +3,7 @@ package com.nucarf.base.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import com.gyf.barlibrary.ImmersionBar;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 /**
  * Created by Administrator on 2018/5/5.

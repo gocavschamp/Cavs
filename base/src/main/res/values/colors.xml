@@ -16,5 +16,6 @@
     <color name="transparent_60">#66000000</color>
     <color name="transparent_75">#BF000000</color>
     <color name="color_333333">#333333</color>
+    <color name="color_eeeeee">#eeeeee</color>
 
 </resources>

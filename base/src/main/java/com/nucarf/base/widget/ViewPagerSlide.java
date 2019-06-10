@@ -1,10 +1,10 @@
 package com.nucarf.base.widget;
 
 import android.content.Context;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import androidx.viewpager.widget.ViewPager;
 
 /**
  * 说明：ViewPager 可滑动控制 <br>
@@ -17,6 +17,7 @@ public class ViewPagerSlide extends ViewPager {
 
 
     private boolean isSlidAble = true;
+
 
     public ViewPagerSlide(Context context) {
         super(context);

@@ -2,15 +2,15 @@ package com.nucarf.base.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nucarf.base.utils.LogUtils;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

@@ -1,6 +1,7 @@
 package com.nucarf.base.retrofit.logiclayer;
 
 
+import com.nucarf.base.R;
 import com.nucarf.base.retrofit.LoginEvent;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.BaseAppCache;
@@ -64,11 +65,16 @@ public class BaseResult<T> {
                 }
                 return true;
             } else if (code.equals(RetrofitConfig.STATUS_GOTOLOGIN)) {
+                SharePreUtils.setjwt_token(BaseAppCache.getContext(), "");
+                EventBus.getDefault().post(new LoginEvent());
                 return false;
             } else if (code.equals(RetrofitConfig.STATUS_NO_EXITS)) {
                 return false;
+            }else if (code.equals(RetrofitConfig.STATUS_COMPANY_OR_ID_ERROR)) {
+                return false;
             } else {
-                ToastUtils.showShort(getMessage() instanceof String ? getMessage() + "" : "");
+                ToastUtils.show_middle_pic(R.mipmap.ic_launcher, getMessage() instanceof String ? getMessage() + "" : "", 0);
+
                 if (code.equals("1")) {
                     if (getMessage() instanceof String) {
                         String message = (String) getMessage();
@@ -82,7 +88,8 @@ public class BaseResult<T> {
                 return false;
             }
         } catch (Exception e) {
-            ToastUtils.showShort("网络错误");
+            ToastUtils.show_middle_pic(R.mipmap.ic_launcher, "网络错误", 0);
+
             return false;
         }
     }

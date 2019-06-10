@@ -1,8 +1,8 @@
 package com.nucarf.base.widget.recycleview;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
-import androidx.recyclerview.widget.RecyclerView;
 
 
 /**

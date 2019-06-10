@@ -7,10 +7,10 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.view.View;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.view.View;
+
 
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {

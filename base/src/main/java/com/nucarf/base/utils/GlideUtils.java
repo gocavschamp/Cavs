@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -12,7 +13,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 
-import androidx.fragment.app.Fragment;
 
 /**
  * Created by quantan.liu on 2017/menu_mycenter_nopressed/23.
@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 public class GlideUtils {
 
-    /**
+    /**E
      * 加载图片回掉
      *
      * @param url

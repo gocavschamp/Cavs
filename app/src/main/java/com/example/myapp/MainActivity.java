@@ -8,15 +8,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.util.TypedValue;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.myapp.mian.adapter.ViewPagerAdapterMain;
 import com.example.myapp.utils.ExampleUtil;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.SharePreUtils;
+import com.nucarf.base.widget.ViewPagerSlide;
 
 import java.util.Set;
 
@@ -25,21 +30,28 @@ import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, OnTabSelectListener {
 
     private static final String TAG = MainActivity.class.getSimpleName().toString();
+    @BindView(R.id.vp_main)
+    ViewPagerSlide vpMain;
     @BindView(R.id.stl_main)
     SlidingTabLayout stlMain;
-    @BindView(R.id.vp_main)
-    ViewPager vpMain;
+    //    @BindView(R.id.stl_main)
+//    SlidingTabLayout tabLayout;
+//    @BindView(R.id.vp_main)
+//    ViewPagerSlide vpMain;
+    private ViewPagerAdapterMain viewPagerAdapterMain;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+
         registerMessageReceiver();  // used for receive msg
-//修改 测试分支
+        //修改 测试分支
         if (!SharePreUtils.getIsSetAlias()) {
             setAlias();
         }
@@ -47,9 +59,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        initViewPager();
 
+    }
 
-
+    private void initViewPager() {
+        viewPagerAdapterMain = new ViewPagerAdapterMain(getSupportFragmentManager());
+        vpMain.setAdapter(viewPagerAdapterMain);
+        vpMain.setSlidAble(false);
+        vpMain.setOffscreenPageLimit(viewPagerAdapterMain.COUNT);
+        vpMain.addOnPageChangeListener(this);
+//        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息"});
+        stlMain.setViewPager(vpMain, new String[]{"首页", "首页", "wodededeeee"});
+        stlMain.setOnTabSelectListener(this);
     }
 
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
@@ -122,6 +144,40 @@ public class MainActivity extends BaseActivity {
         filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         filter.addAction(MESSAGE_RECEIVED_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onTabSelect(int position) {
+        for (int i = 0; i < stlMain.getTabCount(); i++) {
+            if (i == position) {
+                TextView titleView = stlMain.getTitleView(i);
+                titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            } else {
+                TextView titleView = stlMain.getTitleView(i);
+                titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            }
+        }
+
+    }
+
+    @Override
+    public void onTabReselect(int position) {
+
     }
 
     public class MessageReceiver extends BroadcastReceiver {

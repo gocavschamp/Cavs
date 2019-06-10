@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.tinker.sample.android.Log;
+package com.example.tinker.Log;
 
 import android.util.Log;
 

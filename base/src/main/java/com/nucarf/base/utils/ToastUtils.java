@@ -336,6 +336,21 @@ public class ToastUtils {
         }
 
     }
+    public static void show_middle_pic(int resId, CharSequence msg, int duration) {
+        try {
+            if (null != BaseAppCache.getContext() && !"".equals(BaseAppCache.getContext())) {
+                if (0 > duration) {
+                    duration = LENGTH_SHORT;
+                }
+                toast_pic(BaseAppCache.getContext(), resId, msg, duration);
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+
+    }
 
     public static void show_middle(Context ctx, int resId, int duration) {
         try {

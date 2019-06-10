@@ -98,7 +98,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         if (null != unbinder) {
             unbinder.unbind();
         }
-        ImmersionBar.with(this).destroy();
+//        ImmersionBar.with(this).destroy();
         super.onDestroy();
     }
 }

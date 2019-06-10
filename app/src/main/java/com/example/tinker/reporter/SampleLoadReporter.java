@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.tinker.sample.android.reporter;
+package com.example.tinker.reporter;
 
 import android.content.Context;
 import android.os.Looper;

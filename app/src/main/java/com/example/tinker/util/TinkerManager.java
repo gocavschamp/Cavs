@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.tinker.sample.android.util;
+package com.example.tinker.util;
 
+import com.example.tinker.crash.SampleUncaughtExceptionHandler;
+import com.example.tinker.reporter.SampleLoadReporter;
+import com.example.tinker.reporter.SamplePatchListener;
+import com.example.tinker.reporter.SamplePatchReporter;
+import com.example.tinker.service.SampleResultService;
 import com.tencent.tinker.lib.listener.PatchListener;
 import com.tencent.tinker.lib.patch.AbstractPatch;
 import com.tencent.tinker.lib.patch.UpgradePatch;
@@ -24,13 +29,7 @@ import com.tencent.tinker.lib.reporter.PatchReporter;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.lib.util.UpgradePatchRetry;
-import com.tencent.tinker.entry.ApplicationLike;
-
-import tinker.sample.android.crash.SampleUncaughtExceptionHandler;
-import tinker.sample.android.reporter.SampleLoadReporter;
-import tinker.sample.android.reporter.SamplePatchListener;
-import tinker.sample.android.reporter.SamplePatchReporter;
-import tinker.sample.android.service.SampleResultService;
+import com.tencent.tinker.loader.app.ApplicationLike;
 
 /**
  * Created by zhangshaowen on 16/7/3.
@@ -38,7 +37,7 @@ import tinker.sample.android.service.SampleResultService;
 public class TinkerManager {
     private static final String TAG = "Tinker.TinkerManager";
 
-    private static ApplicationLike                applicationLike;
+    private static ApplicationLike applicationLike;
     private static SampleUncaughtExceptionHandler uncaughtExceptionHandler;
     private static boolean isInstalled = false;
 

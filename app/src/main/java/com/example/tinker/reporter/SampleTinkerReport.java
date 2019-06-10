@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.tinker.sample.android.reporter;
+package com.example.tinker.reporter;
 
+import com.example.tinker.util.Utils;
 import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
-import tinker.sample.android.util.Utils;
 
 /**
  * a simple tinker data reporter
