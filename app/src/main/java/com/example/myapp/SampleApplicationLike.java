@@ -35,6 +35,7 @@ import com.example.tinker.util.SampleApplicationContext;
 import com.example.tinker.util.TinkerManager;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.BaseAppCache;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.listener.DefaultPatchListener;
 import com.tencent.tinker.lib.patch.UpgradePatch;
@@ -114,6 +115,12 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         super.onCreate();
         initTinker();
         BaseAppCache.setContext(this.getApplication().getBaseContext());
+        if (LeakCanary.isInAnalyzerProcess(this.getApplication())) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this.getApplication());
         //屏幕适配
         AutoLayoutConifg.getInstance().useDeviceSize();
 
