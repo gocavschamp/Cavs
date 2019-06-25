@@ -35,7 +35,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".login.view.LoginActivity"></activity>
+        <activity android:name=".homepage.homedemo.BottomSheetBihaverActivity"></activity>
+        <activity android:name=".login.view.LoginActivity" />
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard"

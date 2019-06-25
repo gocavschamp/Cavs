@@ -19,6 +19,7 @@ import com.example.myapp.mian.adapter.ViewPagerAdapterMain;
 import com.example.myapp.utils.ExampleUtil;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.widget.ViewPagerSlide;
@@ -48,8 +49,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        ButterKnife.bind(this);
-
+        ImmersionBar.with(this).statusBarDarkFont(false, 0.2f).init();
         registerMessageReceiver();  // used for receive msg
         //修改 测试分支
         if (!SharePreUtils.getIsSetAlias()) {
@@ -69,8 +69,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         vpMain.setSlidAble(false);
         vpMain.setOffscreenPageLimit(viewPagerAdapterMain.COUNT);
         vpMain.addOnPageChangeListener(this);
-//        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息"});
-        stlMain.setViewPager(vpMain, new String[]{"首页", "首页", "wodededeeee"});
+        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息"});
+//        stlMain.setViewPager(vpMain, new String[]{"首页", "首页", "wodededeeee"});
         stlMain.setOnTabSelectListener(this);
     }
 
