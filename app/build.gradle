@@ -147,6 +147,12 @@ dependencies {
     implementation project(':base')
     api 'com.android.support:design:28.0.0'
 
+    //dagger2
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+    implementation 'com.google.dagger:dagger-android:2.21'
+    implementation 'com.google.dagger:dagger-android-support:2.21'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     //热修改
     //tinker的核心库
 //    implementation("com.tencent.tinker:tinker-android-lib:1.9.1") { changing = true }

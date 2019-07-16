@@ -10,29 +10,32 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myapp.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.nucarf.base.ui.BaseActivity;
+import com.example.myapp.dragger.BaseMvpActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class BottomSheetBihaverActivity extends BaseActivity {
+public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPresenter>implements BottomSheetCotract.View, BaseQuickAdapter.RequestLoadMoreListener {
 
     //    @BindView(R.id.map)
 //    MapView map;
-    @BindView(R.id.bt)
-    Button bt;
     @BindView(R.id.rl_content)
     RelativeLayout rlContent;
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.bt)
+    Button btn;
     private List<String> data;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private BottomSheetAdapter bottomSheetAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,28 +60,70 @@ public class BottomSheetBihaverActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
 //        map.onDestroy();
     }
 
     @Override
     protected void initData() {
         setSupportActionBar(toolbar);
-        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.recycleview));
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.recycleview));
         bottomSheetBehavior.setBottomSheetCallback(new MyBottomSheetCallback());
         recycleview.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
 
-        BottomSheetAdapter bottomSheetAdapter = new BottomSheetAdapter(R.layout.default_normal_layout);
+        bottomSheetAdapter = new BottomSheetAdapter(R.layout.default_normal_layout);
         recycleview.setAdapter(bottomSheetAdapter);
-        data = new ArrayList();
+        bottomSheetAdapter.setEnableLoadMore(true);
+        bottomSheetAdapter.setOnLoadMoreListener(this,recycleview);
         getData();
-        bottomSheetAdapter.setNewData(data);
     }
 
     private void getData() {
-        for (int i = 0; i < 10; i++) {
-            data.add("data-------" + i);
+        if(mPresenter!=null) {
+            mPresenter.loadData(true);
         }
     }
+
+    @OnClick(R.id.bt)
+    public void onViewClicked() {
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+
+    @Override
+    public void onSucess() {
+
+    }
+
+    @Override
+    public void onReLoad() {
+
+    }
+
+    @Override
+    protected void initInject() {
+//        getActivityComponent().inject(this);
+        mPresenter = new BottomSheetPresenter(this);
+    }
+
+    @Override
+    public void setData(boolean isRefresh, List data,boolean isEnd) {
+        if(isRefresh) {
+            bottomSheetAdapter.setNewData(data);
+        }else {
+            bottomSheetAdapter.addData(data);
+            bottomSheetAdapter.loadMoreComplete();
+        }
+        if(isEnd) {
+            bottomSheetAdapter.loadMoreEnd();
+        }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        mPresenter.loadData(false);
+    }
+
 
     class MyBottomSheetCallback extends BottomSheetBehavior.BottomSheetCallback {
 

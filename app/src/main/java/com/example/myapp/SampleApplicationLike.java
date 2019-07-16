@@ -30,6 +30,9 @@ import androidx.multidex.MultiDex;
 
 import com.example.myapp.database.greenDao.db.DaoMaster;
 import com.example.myapp.database.greenDao.db.DaoSession;
+import com.example.myapp.dragger.component.AppComponent;
+import com.example.myapp.dragger.component.DaggerAppComponent;
+import com.example.myapp.dragger.module.AppModule;
 import com.example.tinker.Log.MyLogImp;
 import com.example.tinker.util.SampleApplicationContext;
 import com.example.tinker.util.TinkerManager;
@@ -88,6 +91,7 @@ import cn.jpush.android.api.JPushInterface;
         loadVerifyFlag = false)
 public class SampleApplicationLike extends DefaultApplicationLike {
     private static final String TAG = "Tinker.SampleApplicationLike";
+    private static MyApplication instance;
 
     public SampleApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
                                  long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
@@ -114,6 +118,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     public void onCreate() {
         super.onCreate();
         initTinker();
+        instance = (MyApplication) this.getApplication();
         BaseAppCache.setContext(this.getApplication().getBaseContext());
         if (LeakCanary.isInAnalyzerProcess(this.getApplication())) {
             // This process is dedicated to LeakCanary for heap analysis.
@@ -238,6 +243,15 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         TinkerPatch.init(builder.build());
     }
 
+    public static synchronized MyApplication getInstance() {
+        return instance;
+    }
+
+    public static AppComponent getAppComponent() {
+        return DaggerAppComponent.builder()
+                .appModule(new AppModule(instance))
+                .build();
+    }
     /**
      * 初始化GreenDao,直接在Application中进行初始化操作
      *

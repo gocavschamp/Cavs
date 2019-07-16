@@ -26,7 +26,6 @@
             android:id="@+id/rl_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_eeeeee"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <!--<com.amap.api.maps.MapView-->
@@ -47,7 +46,8 @@
             android:id="@+id/recycleview"
             layout="@layout/default_recycleview"
             app:behavior_hideable="true"
-            app:behavior_peekHeight="100dp"
+            android:background="@color/main_color"
+            app:behavior_peekHeight="200dp"
             app:layout_behavior="@string/bottom_sheet_behavior"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
