@@ -1,5 +1,6 @@
 package com.example.myapp;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.widget.ViewPagerSlide;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.Set;
 
@@ -30,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, OnTabSelectListener {
 
@@ -61,6 +64,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void initData() {
         initViewPager();
 
+        getPemision();
+    }
+
+    private void getPemision() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+
+            }
+        });
     }
 
     private void initViewPager() {

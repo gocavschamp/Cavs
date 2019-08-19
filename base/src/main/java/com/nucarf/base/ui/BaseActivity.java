@@ -1,12 +1,14 @@
 package com.nucarf.base.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.R;
 import com.umeng.analytics.MobclickAgent;
-import com.zhy.autolayout.AutoLayoutActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -16,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseActivity extends AutoLayoutActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected Context mContext;
 
@@ -31,6 +33,12 @@ public abstract class BaseActivity extends AutoLayoutActivity {
                 .keyboardEnable(true).init();
         registerEventBus();
 //        PushAgent.getInstance(this).onAppStart();
+    }
+    @Override
+    public Resources getResources() {
+        //需要升级到 v1.1.2 及以上版本才能使用 AutoSizeCompat
+//        AutoSizeCompat.autoConvertDensityOfGlobal((super.getResources()));//如果没有自定义需求用这个方法
+        return super.getResources();
     }
 
     @Override

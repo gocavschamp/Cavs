@@ -13,7 +13,6 @@ import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.BaseAppCache;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
-import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import androidx.multidex.MultiDex;
 import cn.jpush.android.api.JPushInterface;
@@ -28,7 +27,7 @@ public class MyApplication1 extends Application {
         super.onCreate();
         BaseAppCache.setContext(this);
         //屏幕适配
-        AutoLayoutConifg.getInstance().useDeviceSize();
+//        AutoLayoutConifg.getInstance().useDeviceSize();
 
         initGreenDao();
 

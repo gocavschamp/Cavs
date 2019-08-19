@@ -17,11 +17,28 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class BaseResult<T> {
 
-
+    private String errorCode;
+    private String errorMsg;
     private String code;
     private T result;
     private Object post;
     private Object message;
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
 
     public String getCode() {
         return code;

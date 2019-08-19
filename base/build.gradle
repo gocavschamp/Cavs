@@ -45,11 +45,10 @@ dependencies {
     api 'com.google.android.material:material:1.0.0'
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
     //微信
-//    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-
+    //    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //图片加载
     api 'com.github.bumptech.glide:glide:4.2.0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+    //    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     // Retrofit库
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.squareup.retrofit2:converter-gson:2.1.0'
@@ -60,8 +59,14 @@ dependencies {
     // RxAndroid
     api 'io.reactivex:rxandroid:1.2.0'
     api 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    //适配库
-    api 'com.zhy:autolayout:1.4.5'
+    //  rxjava配套解绑工具
+    api 'com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC2'
+    //加载框
+    api 'com.kaopiz:kprogresshud:1.2.0'
+//    //适配库
+//    api 'com.zhy:autolayout:1.4.5'
+    //适配库autosize
+    api 'me.jessyan:autosize:1.1.2'
     //注解
     api 'androidx.annotation:annotation:1.0.0'
     //权限
@@ -80,7 +85,7 @@ dependencies {
     //    implementation files('libs/AMap3DMap_6.7.0_AMapSearch_6.5.0_AMapLocation_4.4.0_20190213.jar')
     api project(':PickerView')
     api project(':umeng')
-
     //动态url 更换
     api 'me.jessyan:retrofit-url-manager:1.4.0'
+    api files('libs/Msc.jar')
 }

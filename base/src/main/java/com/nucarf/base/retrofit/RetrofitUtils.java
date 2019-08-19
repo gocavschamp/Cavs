@@ -48,7 +48,7 @@ public enum RetrofitUtils {
     //基于特定的url生成的 RestAdapter
     public <T> T getRxjavaClient(Class<T> clazz) {
         Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl(RetrofitConfig.TEST_HOST_URL);//配置服务器路径
+        builder.baseUrl(RetrofitConfig.TEST_WAN_ANDROID);//配置服务器路径
         //设置OKHttpClient为网络客户端
         builder.client(OkHttpUtils.INSTANCE.getClient());
         builder.addConverterFactory(GsonConverterFactory.create());

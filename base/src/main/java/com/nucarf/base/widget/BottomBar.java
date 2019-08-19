@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.nucarf.base.R;
-import com.zhy.autolayout.AutoRelativeLayout;
 
 import androidx.annotation.Nullable;
 
@@ -39,7 +38,7 @@ public class BottomBar extends RelativeLayout implements View.OnClickListener {
     LinearLayout LL_bottom_item_mycenter;
     LinearLayout LL_bottom_item_oil_code;
     LinearLayout LL_bottom_item_station_list;
-    private AutoRelativeLayout bottom_layout;
+    private RelativeLayout bottom_layout;
     private View view_line;
 
     public BottomBar(Context context) {
@@ -72,7 +71,7 @@ public class BottomBar extends RelativeLayout implements View.OnClickListener {
         LL_bottom_item_mycenter = (LinearLayout) findViewById(R.id.ll_bottom_item_mycenter);
         LL_bottom_item_oil_code = (LinearLayout) findViewById(R.id.ll_bottom_item_oil_code);
         LL_bottom_item_station_list = (LinearLayout) findViewById(R.id.ll_bottom_item_station_list);
-        bottom_layout = (AutoRelativeLayout) findViewById(R.id.bottom_layout);
+        bottom_layout = (RelativeLayout) findViewById(R.id.bottom_layout);
         view_line = (View) findViewById(R.id.view_line);
         LL_bottom_item_mycenter.setOnClickListener(this);
         LL_bottom_item_oil_code.setOnClickListener(this);
