@@ -241,23 +241,24 @@ public class XunFeiYuYinActivity extends BaseMvpActivity<XunFeiPresenter> implem
                 checkLocation(etResult.getText().toString());
             }
         }
-    @Override
-    public void onVolumeChanged(int volume, byte[] data) {
-        ToastUtils.showShort("当前正在说话，音量大小：" + volume);
-        Log.d(TAG, "返回音频数据：" + data.length);
-    }
 
-    @Override
-    public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-        // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
-        // 若使用本地能力，会话id为null
-        //	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
-        //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
-        //		Log.d(TAG, "session id =" + sid);
-        //	}
-    }
+        @Override
+        public void onVolumeChanged(int volume, byte[] data) {
+            ToastUtils.showShort("当前正在说话，音量大小：" + volume);
+            Log.d(TAG, "返回音频数据：" + data.length);
+        }
 
-}  ;
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
+            // 若使用本地能力，会话id为null
+            //	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
+            //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
+            //		Log.d(TAG, "session id =" + sid);
+            //	}
+        }
+
+    };
 
     private void checkLocation(String text) {
         if (text.contains("到")) {
@@ -284,11 +285,11 @@ public class XunFeiYuYinActivity extends BaseMvpActivity<XunFeiPresenter> implem
 //        String type = "地名地址信息|汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|公共设施";
             String type = "地名地址信息";
             query1 = new PoiSearch.Query(strings[0], type, "");// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-            query1.setPageSize(10);// 设置每页最多返回多少条poiitem
+            query1.setPageSize(5);// 设置每页最多返回多少条poiitem
             query1.setPageNum(currentPage);// 设置查第一页
             poiSearch1 = new PoiSearch(this, query1);
             query2 = new PoiSearch.Query(strings[1], type, "");// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-            query2.setPageSize(10);// 设置每页最多返回多少条poiitem
+            query2.setPageSize(5);// 设置每页最多返回多少条poiitem
             query2.setPageNum(currentPage);// 设置查第一页
             poiSearch2 = new PoiSearch(this, query2);
             poiSearch1.setOnPoiSearchListener(this);
@@ -309,41 +310,41 @@ public class XunFeiYuYinActivity extends BaseMvpActivity<XunFeiPresenter> implem
             if (result != null && result.getQuery() != null) { // 搜索poi的结果
                 if (result.getQuery().equals(query1)) { // 是否是同一条
                     ArrayList<PoiItem> poiItems = result.getPois();// 取得第一页的poiitem数据，页数从数字0开始
-                    for (int i = 0; i < poiItems.size(); i++) {
-                        if (i == 0 && poiItems.get(i).getLatLonPoint() != null) {
-                            Tip tip = new Tip();
-                            tip.setPostion(poiItems.get(i).getLatLonPoint());
-                            tip.setName(poiItems.get(i).getTitle());
-                            tip.setDistrict("" + poiItems.get(i).getTitle() + "(" + poiItems.get(i).getProvinceName() + ")");
-                            mTipList.add(tip);
-                            if (mTipList.size() == 2) {
-                                closeLoading();
-                                if (!mTipList.get(0).equals(tip)) {
-                                    Collections.reverse(mTipList);
-                                }
-                                LogUtils.e(mTipList.toString() + "");
+                    if (poiItems.size() != 0 && poiItems.get(0).getLatLonPoint() != null) {
+                        Tip tip = new Tip();
+                        tip.setPostion(poiItems.get(0).getLatLonPoint());
+                        tip.setName(poiItems.get(0).getTitle());
+                        tip.setDistrict("" + poiItems.get(0).getTitle() + "(" + poiItems.get(0).getProvinceName() + ")");
+                        mTipList.add(tip);
+                        closeLoading();
+                        if (mTipList.size() == 2) {
+                            if (!mTipList.get(0).equals(tip)) {
+                                Collections.reverse(mTipList);
                             }
-                            break;
+                            LogUtils.e(mTipList.toString() + "");
                         }
+                    } else {
+                        ToastUtils.showShort("暂无相关搜索数据", 0);
+                        closeLoading();
                     }
                 } else if (result.getQuery().equals(query2)) {
                     ArrayList<PoiItem> poiItems = result.getPois();// 取得第一页的poiitem数据，页数从数字0开始
-                    for (int i = 0; i < poiItems.size(); i++) {
-                        if (i == 0 && poiItems.get(i).getLatLonPoint() != null) {
-                            Tip tip = new Tip();
-                            tip.setPostion(poiItems.get(i).getLatLonPoint());
-                            tip.setName(poiItems.get(i).getTitle());
-                            tip.setDistrict("" + poiItems.get(i).getTitle() + "(" + poiItems.get(i).getProvinceName() + ")");
-                            mTipList.add(tip);
-                            if (mTipList.size() == 2) {
-                                closeLoading();
-                                if (!mTipList.get(1).equals(tip)) {
-                                    Collections.reverse(mTipList);
-                                }
-                                LogUtils.e(mTipList.toString() + "");
+                    if (poiItems.size() != 0 && poiItems.get(0).getLatLonPoint() != null) {
+                        Tip tip = new Tip();
+                        tip.setPostion(poiItems.get(0).getLatLonPoint());
+                        tip.setName(poiItems.get(0).getTitle());
+                        tip.setDistrict("" + poiItems.get(0).getTitle() + "(" + poiItems.get(0).getProvinceName() + ")");
+                        mTipList.add(tip);
+                        closeLoading();
+                        if (mTipList.size() == 2) {
+                            if (!mTipList.get(1).equals(tip)) {
+                                Collections.reverse(mTipList);
                             }
-                            break;
+                            LogUtils.e(mTipList.toString() + "");
                         }
+                    } else {
+                        ToastUtils.showShort("暂无相关搜索数据", 0);
+                        closeLoading();
                     }
                 } else {
                     ToastUtils.showShort("暂无相关搜索数据", 0);
