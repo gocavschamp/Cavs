@@ -97,7 +97,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         // 调   用 Handler 来异步设置别名
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming"));
+        // 调   用 Handler 来异步设置别名
+        // 调   用 Handler 来异步设置别名
+        // 调   用 Handler 来异步设置别名dev001
+        //  dev001修改
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111"));
     }
 
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
