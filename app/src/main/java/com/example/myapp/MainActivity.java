@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         }
 
         // 调   用 Handler 来异步设置别名
-        // 调   用 Handler 来异步设置别名dev-001
+        // 调   用 Handler 来异步设置别名
         // 调   用 Handler 来异步设置别名
         // 调   用 Handler 来异步设置别名
         //  dev001修改
