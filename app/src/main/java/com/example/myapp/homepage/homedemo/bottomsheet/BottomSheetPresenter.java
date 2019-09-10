@@ -2,6 +2,7 @@ package com.example.myapp.homepage.homedemo.bottomsheet;
 
 
 import com.example.myapp.api.AppService;
+import com.example.myapp.bean.ArticleBean;
 import com.example.myapp.bean.ArticleListBean;
 import com.nucarf.base.mvp.BasePAV;
 import com.nucarf.base.retrofit.RetrofitUtils;
@@ -10,6 +11,7 @@ import com.nucarf.base.utils.BaseAppCache;
 import com.nucarf.base.utils.SharePreUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -32,37 +34,31 @@ public class BottomSheetPresenter extends BasePAV<BottomSheetCotract.View> imple
         if (data == null) {
             data = new ArrayList();
         }
+        mView.showLoading();
         if (isRefresh) {
-            mView.showLoading();
             data.clear();
-        } else {
-            RetrofitUtils.INSTANCE.getRxjavaClient(AppService.class)
-                    .getArticleList(mPage)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<BaseResult<ArrayList<ArticleListBean>>>() {
-                        @Override
-                        public void accept(BaseResult<ArrayList<ArticleListBean>> articleListBeanBaseResult) throws Exception {
-                            mView.setData(isRefresh, articleListBeanBaseResult.getResult(), false);
-                        }
-                    });
-
+            mPage = 0;
         }
+        RetrofitUtils.INSTANCE.getRxjavaClient(AppService.class)
+                .getArticleList(mPage)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResult<ArticleBean>>() {
+                    @Override
+                    public void accept(BaseResult<ArticleBean> articleListBeanBaseResult) throws Exception {
+                        mPage++;
+                        int total = articleListBeanBaseResult.getData().getTotal();
+                        isEnd = mView.getDataSize() >= total;
+                        mView.setData(isRefresh, articleListBeanBaseResult.getData().getDatas(), isEnd);
+                        mView.closeLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
 
-//        RetrofitUtils.INSTANCE.getClient(AppService.class).appRegister().enqueue();
-        SharePreUtils.getUserName(BaseAppCache.getContext());
-        for (int i = 0; i < 9; i++) {
-//            data.add("data-------" + i);
-        }
-        if (data.size() > 17) {
-            isEnd = true;
+                    }
+                });
 
-        } else {
-            isEnd = false;
-
-        }
-//        mView.setData(isRefresh, data, isEnd);
-        mView.closeLoading();
 
     }
 

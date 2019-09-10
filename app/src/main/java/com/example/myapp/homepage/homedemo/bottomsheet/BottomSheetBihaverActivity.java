@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myapp.R;
+import com.example.myapp.activity.WebActivity;
 import com.example.myapp.bean.ArticleListBean;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -87,6 +88,16 @@ public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPrese
             marginTop = toolbar.getHeight();
         });
         getData();
+        addListetner();
+    }
+
+    private void addListetner() {
+        bottomSheetAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WebActivity.lauch(mContext,bottomSheetAdapter.getData().get(position).getTitle(),bottomSheetAdapter.getData().get(position).getLink());
+            }
+        });
     }
 
     private void getData() {
@@ -128,6 +139,11 @@ public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPrese
         if(isEnd) {
             bottomSheetAdapter.loadMoreEnd();
         }
+    }
+
+    @Override
+    public int getDataSize() {
+        return bottomSheetAdapter.getData().size();
     }
 
     @Override

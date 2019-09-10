@@ -36,6 +36,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.WebActivity"></activity>
         <activity
             android:name=".homepage.homedemo.xunfei.XunFeiYuYinActivity"
             android:configChanges="keyboard"
@@ -60,14 +61,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--&lt;!&ndash; autolayout &ndash;&gt;-->
-        <!--<meta-data-->
-        <!--android:name="design_width"-->
-        <!--android:value="375" />-->
-        <!--<meta-data-->
-        <!--android:name="design_height"-->
-        <!--android:value="667" /> &lt;!&ndash; 适配全面屏 &ndash;&gt;-->
+        </activity> <!-- &lt;!&ndash; autolayout &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="design_width" -->
+        <!-- android:value="375" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="design_height" -->
+        <!-- android:value="667" /> &lt;!&ndash; 适配全面屏 &ndash;&gt; -->
         <!-- autolayout  屏幕适配框架 -->
         <meta-data
             android:name="design_width_in_dp"
@@ -184,8 +184,8 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="1e082ae790c343c3d9ff7c2961e15d0b" />
-        <service android:name="com.amap.api.location.APSService" />
-        <!-- 高德地图 -->
+
+        <service android:name="com.amap.api.location.APSService" /> <!-- 高德地图 -->
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default" />

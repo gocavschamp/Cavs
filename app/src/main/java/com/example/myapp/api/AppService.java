@@ -1,5 +1,6 @@
 package com.example.myapp.api;
 
+import com.example.myapp.bean.ArticleBean;
 import com.example.myapp.bean.ArticleListBean;
 import com.example.myapp.bean.StringBean;
 import com.nucarf.base.retrofit.logiclayer.BaseResult;
@@ -39,6 +40,6 @@ public interface AppService {
     Call<BaseResult<StringBean>> loginByMsg(@QueryMap Map<String, String> baseParam, @FieldMap Map<String, String> request);
 
     @GET("article/list/{page}/json")
-    Observable<BaseResult<ArrayList<ArticleListBean>>> getArticleList(@Path("page") int page);
+    Observable<BaseResult<ArticleBean>> getArticleList(@Path("page") int page);
 
 }

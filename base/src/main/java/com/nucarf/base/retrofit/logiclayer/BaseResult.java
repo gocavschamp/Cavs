@@ -21,6 +21,7 @@ public class BaseResult<T> {
     private String errorMsg;
     private String code;
     private T result;
+    private T data;
     private Object post;
     private Object message;
 
@@ -46,6 +47,14 @@ public class BaseResult<T> {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
     public T getResult() {

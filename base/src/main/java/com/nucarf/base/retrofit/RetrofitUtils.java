@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -52,7 +52,7 @@ public enum RetrofitUtils {
         //设置OKHttpClient为网络客户端
         builder.client(OkHttpUtils.INSTANCE.getClient());
         builder.addConverterFactory(GsonConverterFactory.create());
-        builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         Retrofit specialSingleton = builder.build();
         return specialSingleton.create(clazz);
     }
@@ -64,7 +64,7 @@ public enum RetrofitUtils {
         //设置OKHttpClient为网络客户端
         builder.client(OkHttpUtilsCache.INSTANCE.getClient());
         builder.addConverterFactory(GsonConverterFactory.create());
-        builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         Retrofit specialSingleton = builder.build();
         return specialSingleton.create(clazz);
     }

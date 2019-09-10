@@ -9,6 +9,7 @@ import java.util.List;
 public interface BottomSheetCotract {
     interface View extends BaseView {
         void setData(boolean isRefresh, List<ArticleListBean> data, boolean isEnd);
+        int getDataSize();
     }
 
     interface Presenter extends BasePresenter<View> {

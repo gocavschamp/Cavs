@@ -125,7 +125,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
             // You should not init your app in this process.
             return;
         }
-        LeakCanary.install(this.getApplication());
+//        LeakCanary.install(this.getApplication());
         //屏幕适配
 //        AutoLayoutConifg.getInstance().useDeviceSize();
         AutoSizeConfig.getInstance().setExcludeFontScale(true);
