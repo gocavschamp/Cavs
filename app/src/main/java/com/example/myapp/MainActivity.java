@@ -46,7 +46,9 @@ public class MainActivity extends Activity {
         // 调   用 Handler 来异步设置别名
         // 调   用 Handler 来异步设置别名
         // 调   用 Handler 来异步设置别名dev001
+        // 调   用 Handler 来异步设置别名dev002
         //  dev001修改
+        //  dev002修改
         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111"));
     }
 
