@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
         }
     }
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
+    // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以002。
+    // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以002。
     private void setAlias() {
         if (!ExampleUtil.isValidTagAndAlias("yuwenming")) {
             Toast.makeText( this,"yicunzai", Toast.LENGTH_SHORT).show();
