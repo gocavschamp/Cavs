@@ -48,6 +48,8 @@ public class MainActivity extends Activity {
         // 调   用 Handler 来异步设置别名dev001
         //  dev001修改
         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111"));
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111    dev"));
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111    dev"));
     }
 
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
