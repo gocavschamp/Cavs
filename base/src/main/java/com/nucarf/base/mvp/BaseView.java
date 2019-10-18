@@ -38,7 +38,7 @@ public interface BaseView {
     /**
      * 网络异常
      */
-    void onNetError();
+    void onNetError(int errorCode,String errorMsg);
 
     /**
      * 重新加载

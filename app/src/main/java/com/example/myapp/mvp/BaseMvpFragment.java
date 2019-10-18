@@ -15,6 +15,7 @@ import com.example.myapp.dragger.module.FragmentModule;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.nucarf.base.mvp.BasePresenter;
 import com.nucarf.base.mvp.BaseView;
+import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.BaseAppCache;
 import com.nucarf.base.utils.NetUtils;
 import com.nucarf.base.utils.ToastUtils;
@@ -52,7 +53,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
     public void onResume() {
         super.onResume();
         if (!NetUtils.isNetworkAvailable(BaseAppCache.getContext())) {
-            onNetError();
+            onNetError(1,"");
         }
     }
 
@@ -123,7 +124,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
     }
 
     @Override
-    public void onNetError() {
+    public void onNetError(int errorCode,String errorMsg) {
         ToastUtils.showShort("请检查网络是否连接");
     }
 

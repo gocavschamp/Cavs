@@ -63,12 +63,12 @@ public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPrese
 //        map.onPause();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
-//        map.onDestroy();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        mPresenter.detachView();
+////        map.onDestroy();
+//    }
 
     @Override
     protected void initData() {
