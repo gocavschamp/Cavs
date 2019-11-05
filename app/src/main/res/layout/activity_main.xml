@@ -24,14 +24,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        app:tl_divider_color="@color/colorAccent"
-        app:tl_divider_width="1dp"
-        app:tl_indicator_color="@color/colorPrimaryDark"
-        app:tl_indicator_height="3dp"
+        app:tl_indicator_color="@color/main_color"
+        app:tl_indicator_height="2dp"
         app:tl_indicator_width_equal_title="true"
         app:tl_tab_space_equal="true"
-        app:tl_textSelectColor="@color/colorPrimaryDark"
-        app:tl_textUnselectColor="@android:color/black"
+        app:tl_textSelectColor="@color/main_color"
+        app:tl_textUnselectColor="@color/color_333333"
         app:tl_textsize="18sp"></com.flyco.tablayout.SlidingTabLayout>
 
 

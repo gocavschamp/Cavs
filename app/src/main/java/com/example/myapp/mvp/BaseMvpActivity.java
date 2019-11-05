@@ -80,7 +80,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     @Override
     public void showLoading() {
         if (alertDialog == null) {
-            alertDialog = DialogUtils.dialogPro(mContext, "请稍后...", false);
+            alertDialog = DialogUtils.dialogPro(mContext, "请稍后...", true);
         } else {
             if (!alertDialog.isShowing()) {
                 alertDialog.show();
