@@ -48,7 +48,7 @@ public class CustomImageView extends ImageView {
 //        setWillNotDraw(true);
     }
     private void init(Context context) {
-        this.animate().rotationX(720).scaleX(1.5f).setDuration(5000).start();
+        this.animate().rotationX(720).scaleX(1.1f).setDuration(5000).start();
 
     }
     @Override

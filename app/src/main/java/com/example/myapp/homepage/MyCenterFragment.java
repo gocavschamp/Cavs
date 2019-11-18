@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapp.R;
+import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
@@ -21,6 +22,8 @@ public class MyCenterFragment extends BaseLazyFragment implements View.OnClickLi
     TextView tvBottomSheet;
     @BindView(R.id.tv_xunfei_yuyin)
     TextView tvXunfeiYuyin;
+    @BindView(R.id.tv_rxjava)
+    TextView tvRxjava;
 
     private MyCenterFragment() {
     }
@@ -44,23 +47,29 @@ public class MyCenterFragment extends BaseLazyFragment implements View.OnClickLi
     protected void initView() {
         tvBottomSheet = mRootView.findViewById(R.id.tv_bottom_sheet);
         tvXunfeiYuyin = mRootView.findViewById(R.id.tv_xunfei_yuyin);
+        tvRxjava = mRootView.findViewById(R.id.tv_rxjava);
         tvBottomSheet.setOnClickListener(this);
         tvXunfeiYuyin.setOnClickListener(this);
+        tvRxjava.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_xunfei_yuyin :
+            case R.id.tv_xunfei_yuyin:
                 UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
 
                 break;
-            case R.id.tv_bottom_sheet :
+            case R.id.tv_bottom_sheet:
                 UiGoto.startAty(mActivity, BottomSheetBihaverActivity.class);
 
+                break;
+            case R.id.tv_rxjava:
+                UiGoto.startAty(mActivity, RxjavaDemoActivity.class);
                 break;
         }
 
     }
+
 }

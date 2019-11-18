@@ -1,6 +1,7 @@
 package com.example.myapp.homepage.homedemo.xunfei;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -32,7 +33,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.nucarf.base.mvp.BaseView;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ToastUtils;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +42,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
+//import rx.functions.Action1;
 
 public class XunFeiYuYinActivity extends BaseMvpActivity<XunFeiPresenter> implements XunFeiCotract.View, PoiSearch.OnPoiSearchListener {
 
@@ -88,11 +90,13 @@ public class XunFeiYuYinActivity extends BaseMvpActivity<XunFeiPresenter> implem
         getPemision();
     }
 
+    @SuppressLint("CheckResult")
     private void getPemision() {
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO).subscribe(new Action1<Boolean>() {
+        RxPermissions rxPermissions = new RxPermissions (this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
+        .subscribe(new Consumer<Boolean>() {
             @Override
-            public void call(Boolean aBoolean) {
+            public void accept(Boolean aBoolean) throws Exception {
 
             }
         });
