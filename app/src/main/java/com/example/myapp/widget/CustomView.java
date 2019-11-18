@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -139,7 +140,7 @@ public class CustomView extends View {
 //        canvas.skew(0,0.5f);
         canvas.drawBitmap(bitmap, 125, 400, text_paint);
         canvas.restore();
-
+        Camera camera = new Camera();
 
 //        @SuppressLint("ObjectAnimatorBinding") ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(bitmap, "rotationY", 0.0f, 90.0f, 0.0F);
 //        objectAnimator.setDuration(2000);
