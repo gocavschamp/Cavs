@@ -13,6 +13,7 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,9 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
@@ -32,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxjavaDemoActivity extends BaseActivity {
 
+    private static final String TAG = "rxjava ：";
     @BindView(R.id.tv_rx_creat)
     TextView tvRxCreat;
     @BindView(R.id.tv_result)
@@ -76,10 +80,13 @@ public class RxjavaDemoActivity extends BaseActivity {
         }, () -> {
             tvResult.append("\n onComplete");
 
+        }, disposable -> {
+            Disposable d = disposable;
+
         });
     }
 
-    @OnClick({R.id.tv_rx_creat, R.id.tv_rx_just, R.id.tv_rx_from_filter,R.id.tv_rx_flowable, R.id.tv_rx_flowable_syan})
+    @OnClick({R.id.tv_rx_creat, R.id.tv_rx_just, R.id.tv_rx_from_filter, R.id.tv_rx_flowable, R.id.tv_rx_flowable_syan, R.id.tv_rx_interval})
     public void onViewClicked(View view) {
         tvResult.setText("结果：");
         switch (view.getId()) {
@@ -98,7 +105,47 @@ public class RxjavaDemoActivity extends BaseActivity {
             case R.id.tv_rx_flowable_syan:
                 flowableSyanRxjava();
                 break;
+            case R.id.tv_rx_interval:
+                intervalRxjava();
+                break;
         }
+    }
+
+    /**
+     * 定时器
+     */
+    private void intervalRxjava() {
+
+        Observable.interval(1, 4, TimeUnit.SECONDS)
+//                .repeatWhen()
+                .subscribe(new Observer<Long>() {
+                    private Disposable didpose;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        didpose = d;
+                        Log.d(TAG, "onSubscribe: onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        Log.d(TAG, "onNext: " + aLong);
+                        if (aLong == 10)
+                            if (!didpose.isDisposed())
+                                didpose.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
     }
 
     @SuppressLint("CheckResult")
@@ -108,6 +155,8 @@ public class RxjavaDemoActivity extends BaseActivity {
                     @Override
                     public void accept(Number number) throws Exception {
                         tvResult.append("\n" + number);
+                        if (number.equals(222)) {
+                        }
 
                     }
                 }, new Consumer<Throwable>() {
@@ -138,12 +187,33 @@ public class RxjavaDemoActivity extends BaseActivity {
                         return integer >= 3;
                     }
                 })
-                .subscribe(new Consumer<Integer>() {
+                .subscribe(new Observer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
                         tvResult.append("\n from " + integer);
                     }
-                });
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                })
+//                .subscribe(new Consumer<Integer>() {
+//                    @Override
+//                    public void accept(Integer integer) throws Exception {
+//                    }
+//                })
+        ;
     }
 
     @SuppressLint("CheckResult")
@@ -156,13 +226,14 @@ public class RxjavaDemoActivity extends BaseActivity {
 
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-                tvResult.append("\n flowable " + 1);
+                Log.d(TAG, "subscribe: 观察者需求count" + emitter.requested());
+                Log.d(TAG, "subscribe:  flowable " + 1);
                 emitter.onNext(34);
-                tvResult.append("\n flowable " + 2);
+                Log.d(TAG, "subscribe: flowable " + 2);
                 emitter.onNext(5678);
-                tvResult.append("\n flowable " + 3);
+                Log.d(TAG, "subscribe: flowable " + 3);
                 emitter.onNext(9349);
-                tvResult.append("\n flowable " + 4);
+                Log.d(TAG, "subscribe: flowable " + 4);
                 emitter.onNext(3434);
                 emitter.onComplete();
 
@@ -178,35 +249,37 @@ public class RxjavaDemoActivity extends BaseActivity {
 
             @Override
             public void onNext(Integer integer) {
-                tvResult.append("\n flowable " + integer);
+                Log.d(TAG, "onNext: flowable " + integer);
             }
 
             @Override
             public void onError(Throwable t) {
+                Log.d(TAG, "onError: " + t);
 
             }
 
             @Override
             public void onComplete() {
-                tvResult.append("\n flowable " + "onComplete");
+                Log.d(TAG, "onNext:flowable " + "onComplete");
 
             }
         };
-        tvResult.append("\n 同步");
+        Log.d(TAG, ": Flowable 同步");
         integerFlowable.subscribe(subscriber);
     }
+
     @SuppressLint("CheckResult")
     private void flowableSyanRxjava() {
         Flowable<Integer> integerFlowable = Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
             public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
-                tvResult.append("\n flowable " + 1);
+                tvResult.append("\n emitter  " + 1);
                 emitter.onNext(34);
-                tvResult.append("\n flowable " + 2);
+                tvResult.append("\n emitter " + 2);
                 emitter.onNext(5678);
-                tvResult.append("\n flowable " + 3);
+                tvResult.append("\n emitter " + 3);
                 emitter.onNext(9349);
-                tvResult.append("\n flowable " + 4);
+                tvResult.append("\n emitter " + 4);
                 emitter.onNext(3434);
                 emitter.onComplete();
 
@@ -217,12 +290,11 @@ public class RxjavaDemoActivity extends BaseActivity {
             @Override
             public void onSubscribe(Subscription s) {
                 s.request(3);
-
             }
 
             @Override
             public void onNext(Integer integer) {
-                tvResult.append("\n flowable " + integer);
+                tvResult.append("\n subscriber " + integer);
             }
 
             @Override
@@ -232,14 +304,14 @@ public class RxjavaDemoActivity extends BaseActivity {
 
             @Override
             public void onComplete() {
-                tvResult.append("\n flowable " + "onComplete");
+                tvResult.append("\n subscriber " + "onComplete");
 
             }
         };
 //        tvResult.append("\n 同步");
 //        integerFlowable.subscribe(subscriber);
 
-        tvResult.append("\n 异步");
+        tvResult.append("\n Flowable 异步");
         integerFlowable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
