@@ -1,6 +1,8 @@
 package com.example.myapp.homepage.homedemo.bottomsheet;
 
 
+import android.util.Log;
+
 import androidx.lifecycle.LifecycleOwner;
 
 import com.example.myapp.api.AppService;
@@ -47,27 +49,24 @@ public class BottomSheetPresenter extends BasePAV<BottomSheetCotract.View> imple
         RetrofitUtils.INSTANCE.getRxjavaClient(AppService.class)
                 .getArticleList(mPage)
                 .compose(RxSchedulers.io_main())
-                .compose(RxSchedulers.handleResult())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) mView)))
-                .subscribe(new Consumer<ArticleBean>() {
+                .subscribe(new Consumer<BaseResult<ArticleBean>>() {
                     @Override
-                    public void accept(ArticleBean articleBean) throws Exception {
+                    public void accept(BaseResult<ArticleBean> articleBean) throws Exception {
                         mPage++;
-                        int total = articleBean.getTotal();
+                        int total = articleBean.getData().getTotal();
                         isEnd = mView.getDataSize() >= total;
-                        mView.setData(isRefresh, articleBean.getDatas(), isEnd);
+                        mView.setData(isRefresh, articleBean.getData().getDatas(), isEnd);
                         mView.closeLoading();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        Log.d(RxSchedulers.TAG, "apply: " +throwable);
+                        mView.closeLoading();
                     }
-                })
-        ;
-
+                });
 
     }
-
 
 }

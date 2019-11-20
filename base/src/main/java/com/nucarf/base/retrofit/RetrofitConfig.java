@@ -55,7 +55,7 @@ public class RetrofitConfig {
     //正式 http://api.startvshow.com/
 //    public static final String TEST_HOST_URL = "http://tapi.nucarf.cn/V1/";
     public static final String TEST_HOST_URL = "http://2019_0418_invoice_new.api.yidian.nucarf.cn/V1/";
-    public static final String TEST_WAN_ANDROID = "https://www.wanandroid.com/";
+    public static final String TEST_WAN_ANDROID = "https://www.wanandroid.com/";//玩安卓api
     /**
      * 正式：'https://wechat.nucarf.com';
      */

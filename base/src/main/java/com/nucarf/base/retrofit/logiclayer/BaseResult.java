@@ -1,9 +1,12 @@
 package com.nucarf.base.retrofit.logiclayer;
 
 
+import android.util.Log;
+
 import com.nucarf.base.R;
 import com.nucarf.base.retrofit.LoginEvent;
 import com.nucarf.base.retrofit.RetrofitConfig;
+import com.nucarf.base.retrofit.RxSchedulers;
 import com.nucarf.base.utils.BaseAppCache;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;
@@ -83,25 +86,25 @@ public class BaseResult<T> {
 
     public boolean isSuccessed() {
         try {
-            if (code.equals(RetrofitConfig.STATUS_NCARF_SUCCESS)) {
+            if (errorCode.equals(RetrofitConfig.STATUS_NCARF_SUCCESS)) {
                 if (getMessage() instanceof MessageBean) {
                     //第一次成功登陆时返回数据
                     MessageBean messageBean = (MessageBean) getMessage();
                     SharePreUtils.setIsNewUser(BaseAppCache.getContext(), !messageBean.getNew_user().equals("0"));
                 }
                 return true;
-            } else if (code.equals(RetrofitConfig.STATUS_GOTOLOGIN)) {
+            } else if (errorCode.equals(RetrofitConfig.STATUS_GOTOLOGIN)) {
                 SharePreUtils.setjwt_token(BaseAppCache.getContext(), "");
                 EventBus.getDefault().post(new LoginEvent());
                 return false;
-            } else if (code.equals(RetrofitConfig.STATUS_NO_EXITS)) {
+            } else if (errorCode.equals(RetrofitConfig.STATUS_NO_EXITS)) {
                 return false;
-            }else if (code.equals(RetrofitConfig.STATUS_COMPANY_OR_ID_ERROR)) {
+            }else if (errorCode.equals(RetrofitConfig.STATUS_COMPANY_OR_ID_ERROR)) {
                 return false;
             } else {
                 ToastUtils.show_middle_pic(R.mipmap.ic_launcher, getMessage() instanceof String ? getMessage() + "" : "", 0);
-
-                if (code.equals("1")) {
+                Log.d(RxSchedulers.TAG, "apply: " );
+                if (errorCode.equals("1")) {
                     if (getMessage() instanceof String) {
                         String message = (String) getMessage();
                         if (message.equals("token_invalid")) {

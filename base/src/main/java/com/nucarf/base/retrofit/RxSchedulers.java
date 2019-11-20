@@ -1,6 +1,8 @@
 package com.nucarf.base.retrofit;
 
 
+import android.util.Log;
+
 import com.nucarf.base.retrofit.logiclayer.BaseResult;
 
 import io.reactivex.BackpressureStrategy;
@@ -26,6 +28,7 @@ public class RxSchedulers {
 
     final static ObservableTransformer Stf = upstream -> upstream.subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread());
+    public static String TAG = "tag";
 
     static <T> ObservableTransformer<T, T> applySchedulers() {
         return Stf;
@@ -74,7 +77,7 @@ public class RxSchedulers {
                     @Override
                     public Observable<T> apply(BaseResult<T> tGankHttpResponse) {
                         if (tGankHttpResponse.isSuccessed()) {
-                            return createData(tGankHttpResponse.getResult());
+                            return createData(tGankHttpResponse.getData());
                         } else {
                             return Observable.error(new Throwable("服务器 error"));
                         }
@@ -99,6 +102,7 @@ public class RxSchedulers {
                     emitter.onComplete();
                 } catch (Exception e) {
                     emitter.onError(e);
+                    Log.d(RxSchedulers.TAG, ": " + e);
                 }
             }
         });

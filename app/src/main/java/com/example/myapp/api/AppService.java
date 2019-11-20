@@ -39,7 +39,7 @@ public interface AppService {
     @POST("Member/login")
     Call<BaseResult<StringBean>> loginByMsg(@QueryMap Map<String, String> baseParam, @FieldMap Map<String, String> request);
 
-    @GET("article/list/{page}/json")
+    @GET("article/list/{page}/json")//玩安卓api
     Observable<BaseResult<ArticleBean>> getArticleList(@Path("page") int page);
 
 }
