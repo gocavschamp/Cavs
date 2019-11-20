@@ -29,6 +29,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
@@ -46,6 +47,17 @@ public class RxjavaDemoActivity extends BaseActivity {
     TextView tvRxFromFilter;
     @BindView(R.id.tv_rx_flowable)
     TextView tvRxFlowable;
+    @BindView(R.id.tv_rx_flowable_syan)
+    TextView tvRxFlowableSyan;
+    @BindView(R.id.tv_rx_interval)
+    TextView tvRxInterval;
+    @BindView(R.id.tv_concat)
+    TextView tvConcat;
+    @BindView(R.id.tv_merge)
+    TextView tvMerge;
+    @BindView(R.id.tv_rx_zip)
+    TextView tvRxZip;
+    private Disposable didpose;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,9 +98,11 @@ public class RxjavaDemoActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_rx_creat, R.id.tv_rx_just, R.id.tv_rx_from_filter, R.id.tv_rx_flowable, R.id.tv_rx_flowable_syan, R.id.tv_rx_interval})
+    @OnClick({R.id.tv_rx_creat, R.id.tv_rx_just, R.id.tv_rx_from_filter, R.id.tv_rx_flowable, R.id.tv_rx_flowable_syan, R.id.tv_rx_interval
+            , R.id.tv_concat, R.id.tv_merge, R.id.tv_rx_zip})
     public void onViewClicked(View view) {
         tvResult.setText("结果：");
+        cancelRxjava();
         switch (view.getId()) {
             case R.id.tv_rx_creat:
                 creatRxjava();
@@ -108,19 +122,133 @@ public class RxjavaDemoActivity extends BaseActivity {
             case R.id.tv_rx_interval:
                 intervalRxjava();
                 break;
+            case R.id.tv_concat:
+                concatRxjava();
+                break;
+            case R.id.tv_merge:
+                mergeRxjava();
+                break;
+            case R.id.tv_rx_zip:
+                zipRxjava();
+                break;
         }
     }
+
+    private void zipRxjava() {
+        Observable.zip(Observable.just(1, 2, 3), Observable.just("A", "B", "C", "D"), new BiFunction<Integer, String, String>() {
+            @Override
+            public String apply(Integer integer, String s) throws Exception {
+                return integer + "$" + s;
+            }
+        })
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.d(TAG, "onNext: " + s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    private void mergeRxjava() {
+        Observable<Integer> observable1 = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                emitter.onNext(2);
+                emitter.onNext(3);
+                emitter.onNext(3);
+                emitter.onNext(3);
+                emitter.onNext(3);
+            }
+        });
+        Observable<Integer> observable2 = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(4);
+                emitter.onNext(5);
+                emitter.onNext(6);
+                emitter.onNext(7);
+                emitter.onNext(7);
+                emitter.onNext(7);
+                emitter.onNext(7);
+            }
+        });
+        Observable.merge(observable1, observable2)
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        didpose = d;
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d(TAG, "onNext: " + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
+    }
+
+    private void concatRxjava() {
+        Observable.concat(Observable.just(1, 2, 3), Observable.just(4, 5, 6, 7))
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        didpose = d;
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d(TAG, "onNext: " + integer);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: ");
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
+    }
+
 
     /**
      * 定时器
      */
     private void intervalRxjava() {
 
-        Observable.interval(1, 4, TimeUnit.SECONDS)
+        Observable.interval(1, 2, TimeUnit.SECONDS)
 //                .repeatWhen()
                 .subscribe(new Observer<Long>() {
-                    private Disposable didpose;
-
                     @Override
                     public void onSubscribe(Disposable d) {
                         didpose = d;
@@ -190,7 +318,7 @@ public class RxjavaDemoActivity extends BaseActivity {
                 .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        didpose = d;
                     }
 
                     @Override
@@ -208,11 +336,6 @@ public class RxjavaDemoActivity extends BaseActivity {
 
                     }
                 })
-//                .subscribe(new Consumer<Integer>() {
-//                    @Override
-//                    public void accept(Integer integer) throws Exception {
-//                    }
-//                })
         ;
     }
 
@@ -318,4 +441,15 @@ public class RxjavaDemoActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cancelRxjava();
+    }
+
+    private void cancelRxjava() {
+        if (didpose != null && !didpose.isDisposed()) {
+            didpose.dispose();
+        }
+    }
 }

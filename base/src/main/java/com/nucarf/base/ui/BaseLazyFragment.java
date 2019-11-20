@@ -3,7 +3,9 @@ package com.nucarf.base.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,9 @@ import com.gyf.barlibrary.ImmersionBar;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/5/5.
@@ -38,6 +43,7 @@ public abstract class BaseLazyFragment extends Fragment {
     protected boolean mIsImmersion;
 
     protected ImmersionBar mImmersionBar;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -49,6 +55,7 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(setLayoutId(), container, false);
+        unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -172,5 +179,13 @@ public abstract class BaseLazyFragment extends Fragment {
     @SuppressWarnings("unchecked")
     protected <T extends View> T findActivityViewById(@IdRes int id) {
         return (T) mActivity.findViewById(id);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 }
