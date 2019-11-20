@@ -49,14 +49,15 @@ public class BottomSheetPresenter extends BasePAV<BottomSheetCotract.View> imple
         RetrofitUtils.INSTANCE.getRxjavaClient(AppService.class)
                 .getArticleList(mPage)
                 .compose(RxSchedulers.io_main())
+                .compose(RxSchedulers.handleResult())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) mView)))
-                .subscribe(new Consumer<BaseResult<ArticleBean>>() {
+                .subscribe(new Consumer<ArticleBean>() {
                     @Override
-                    public void accept(BaseResult<ArticleBean> articleBean) throws Exception {
+                    public void accept(ArticleBean articleBean) throws Exception {
                         mPage++;
-                        int total = articleBean.getData().getTotal();
+                        int total = articleBean.getTotal();
                         isEnd = mView.getDataSize() >= total;
-                        mView.setData(isRefresh, articleBean.getData().getDatas(), isEnd);
+                        mView.setData(isRefresh, articleBean.getDatas(), isEnd);
                         mView.closeLoading();
                     }
                 }, new Consumer<Throwable>() {
