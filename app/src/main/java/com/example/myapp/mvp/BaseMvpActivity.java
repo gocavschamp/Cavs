@@ -101,8 +101,8 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     }
 
     @Override
-    public void onNetError(int errorCode,String errorMsg) {
-        ToastUtils.showShort("请检查网络是否连接");
+    public void onNetError(int errorCode, String errorMsg) {
+        ToastUtils.showShort("" + errorMsg);
     }
 
     protected abstract void initInject();

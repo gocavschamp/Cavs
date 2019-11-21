@@ -125,7 +125,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
 
     @Override
     public void onNetError(int errorCode,String errorMsg) {
-        ToastUtils.showShort("请检查网络是否连接");
+        ToastUtils.showShort(""+errorMsg);
     }
 
     @Override
