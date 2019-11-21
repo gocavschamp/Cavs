@@ -11,7 +11,7 @@ public class ArticleBean {
 
     private int curPage;
     private int offset;
-    private int over;
+    private boolean over;
     private int pageCount;
     private int size;
     private int total;
@@ -41,11 +41,11 @@ public class ArticleBean {
         this.offset = offset;
     }
 
-    public int isOver() {
+    public boolean isOver() {
         return over;
     }
 
-    public void setOver(int over) {
+    public void setOver(boolean over) {
         this.over = over;
     }
 
