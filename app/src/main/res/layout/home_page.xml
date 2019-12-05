@@ -47,6 +47,16 @@
             android:text="rxjava  demo"
             android:textColor="@color/color_333333"
             android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_mult_item"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="recycle mult_item  demo"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

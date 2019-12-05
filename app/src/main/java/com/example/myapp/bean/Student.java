@@ -1,12 +1,14 @@
 package com.example.myapp.bean;
 
+import com.example.myapp.homepage.homedemo.multitem.MultipleItem;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
 
 @Entity
-public class Student {
+public class Student extends MultipleItem {
     @Id(autoincrement = true)
     Long id;
     @Unique
@@ -31,6 +33,11 @@ public class Student {
         this.address = address;
         this.schoolName = schoolName;
         this.grade = grade;
+    }
+
+    @Override
+    public int getItemType() {
+        return MultipleItem.THREE;
     }
 
     @Generated(hash = 1556870573)

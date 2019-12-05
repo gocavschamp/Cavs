@@ -1,5 +1,7 @@
 package com.example.myapp.bean;
 
+import com.example.myapp.homepage.homedemo.multitem.MultipleItem;
+
 import java.util.List;
 
 /**
@@ -7,14 +9,25 @@ import java.util.List;
  *
  * @author hzy
  * */
-public class ArticleBean {
+public class ArticleBean extends MultipleItem {
 
     private int curPage;
     private int offset;
+    private String name;
     private boolean over;
     private int pageCount;
     private int size;
     private int total;
+
+    @Override
+    public int getItemType() {
+        return MultipleItem.TWO;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private List<ArticleListBean> datas;
 
     public List<ArticleListBean> getDatas() {
@@ -71,5 +84,10 @@ public class ArticleBean {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+
+    public String getName() {
+        return name;
     }
 }

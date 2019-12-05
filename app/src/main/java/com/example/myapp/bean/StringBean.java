@@ -1,8 +1,10 @@
 package com.example.myapp.bean;
 
+import com.example.myapp.homepage.homedemo.multitem.MultipleItem;
+
 import java.io.Serializable;
 
-public class StringBean implements Serializable {
+public class StringBean extends MultipleItem implements Serializable {
     private String pay_code;
     private String company_name;
     private String code;
@@ -69,11 +71,17 @@ public class StringBean implements Serializable {
     }
 
 
+    @Override
+    public int getItemType() {
+        return MultipleItem.ONE;
+    }
+
     public String getPay_code() {
         return pay_code;
     }
 
     public void setPay_code(String pay_code) {
+
         this.pay_code = pay_code;
     }
 }

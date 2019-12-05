@@ -145,7 +145,7 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:1.2.7'
     // 此处以JCore 1.2.7 版本为例。
     implementation project(':base')
-    api 'com.android.support:design:28.0.0'
+    api 'com.google.android.material:material:1.0.0'
 
     //dagger2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'

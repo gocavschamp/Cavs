@@ -1,11 +1,13 @@
 package com.example.myapp.bean;
 
+import com.example.myapp.homepage.homedemo.multitem.MultipleItem;
+
 /**
  * Created by hzy on 2019/1/24
  *
  * @author hzy
  * */
-public class TagsBean {
+public class TagsBean extends MultipleItem {
 
     /**
      * name : 公众号
@@ -14,6 +16,11 @@ public class TagsBean {
 
     private String name;
     private String url;
+
+    @Override
+    public int getItemType() {
+        return MultipleItem.THREE;
+    }
 
     public String getName() {
         return name;

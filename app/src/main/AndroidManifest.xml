@@ -36,7 +36,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".homepage.homedemo.RxjavaDemoActivity"></activity>
+        <activity android:name=".homepage.homedemo.multitem.MultItemActivity"></activity>
+        <activity android:name=".homepage.homedemo.RxjavaDemoActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity
             android:name=".homepage.homedemo.xunfei.XunFeiYuYinActivity"

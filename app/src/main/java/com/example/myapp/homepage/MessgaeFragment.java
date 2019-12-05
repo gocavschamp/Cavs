@@ -9,12 +9,14 @@ import androidx.core.widget.NestedScrollView;
 
 import com.example.myapp.R;
 import com.example.myapp.widget.CustomView;
+import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.OnKeyboardListener;
 import com.nucarf.base.ui.BaseLazyFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusChangeListener, View.OnClickListener {
+public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusChangeListener, View.OnClickListener, OnKeyboardListener {
 
 
     @BindView(R.id.tvTitle)
@@ -46,6 +48,7 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
 
     @Override
     protected void initData() {
+        ImmersionBar immersionBar = ImmersionBar.with(this).setOnKeyboardListener(this);
 //        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
 //            @Override
 //            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -133,6 +136,13 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
                 });
 
                 break;
+        }
+    }
+
+    @Override
+    public void onKeyboardChange(boolean isPopup, int keyboardHeight) {
+        if(!isPopup) {
+            scrollView.smoothScrollTo(0,0);
         }
     }
 }
