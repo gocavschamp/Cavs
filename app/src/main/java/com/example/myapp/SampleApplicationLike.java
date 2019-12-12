@@ -56,6 +56,7 @@ import com.tinkerpatch.sdk.tinker.callback.ResultCallBack;
 import com.tinkerpatch.sdk.tinker.service.TinkerServerResultService;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.uzmap.pkg.openapi.APICloud;
 
 import java.util.HashMap;
 
@@ -130,7 +131,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
 //        AutoLayoutConifg.getInstance().useDeviceSize();
         AutoSizeConfig.getInstance().setExcludeFontScale(true);
         initGreenDao(this.getApplication());
-
+        APICloud.initialize(this.getApplication());//初始化APICloud，SDK中所有的API均需要初始化后方可调用执行
         //友盟分享统计
         ApplicationInfo appInfo = null;
         try {

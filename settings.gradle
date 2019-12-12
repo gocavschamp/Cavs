@@ -1,1 +1,1 @@
-include ':app', ':umeng', ':PickerView', ':base'
+include ':app', ':umeng', ':PickerView', ':base', ':apicloudlib'

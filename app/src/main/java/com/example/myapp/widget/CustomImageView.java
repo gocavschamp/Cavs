@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.animation.AnticipateInterpolator;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -48,7 +49,7 @@ public class CustomImageView extends ImageView {
 //        setWillNotDraw(true);
     }
     private void init(Context context) {
-        this.animate().rotationX(720).scaleX(1.1f).setDuration(5000).start();
+        this.animate().rotationX(720).setInterpolator(new AnticipateInterpolator()).scaleX(1.1f).setDuration(5000).start();
 
     }
     @Override

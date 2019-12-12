@@ -36,7 +36,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".homepage.homedemo.multitem.MultItemActivity"></activity>
+        <activity
+            android:name=".homepage.homedemo.apiclound.ApiCloundTestActivity"
+            android:configChanges="orientation|locale|keyboardHidden|screenLayout|screenSize|smallestScreenSize|keyboard"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".homepage.homedemo.multitem.MultItemActivity" />
         <activity android:name=".homepage.homedemo.RxjavaDemoActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity

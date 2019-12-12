@@ -14,14 +14,16 @@
         android:textSize="18dp" />
 
     <com.example.myapp.widget.CustomLinealayout
+        android:id="@+id/cl_layout"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical">
 
         <com.example.myapp.widget.CustomImageView
+            android:id="@+id/ci_pic"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/lakers_test" />
 
         <TextView
