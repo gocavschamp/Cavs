@@ -10,12 +10,16 @@ import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 
@@ -40,7 +44,10 @@ public class CustomView extends View {
     Paint c_paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Paint d_paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Bitmap bitmap;
-
+    private Matrix mBitmapMatrix;
+    private RectF mBitmapRectF;
+    private boolean canDrag;
+    PointF lastPoint = new PointF(0, 0);
     public CustomView(Context context) {
         super(context);
         init(context);
@@ -63,7 +70,15 @@ public class CustomView extends View {
     }
 
     private void init(Context context) {
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lakers_test);
+        // 调整图片大小
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.outWidth = 960/2;
+        options.outHeight = 800/2;
+
+        bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.lakers_test, options);
+        mBitmapRectF = new RectF(0,0,bitmap.getWidth(), bitmap.getHeight());
+        mBitmapMatrix = new Matrix();
+//        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lakers_test);
     }
 
     @Override
@@ -81,6 +96,43 @@ public class CustomView extends View {
         super.onLayout(changed, left, top, right, bottom);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN:
+                // ▼ 判断是否是第一个手指 && 是否包含在图片区域内
+                if (event.getPointerId(event.getActionIndex()) == 0 && mBitmapRectF.contains((int)event.getX(), (int)event.getY())){
+                    canDrag = true;
+                    lastPoint.set(event.getX(), event.getY());
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
+                // ▼ 判断是否是第一个手指
+                if (event.getPointerId(event.getActionIndex()) == 0){
+                    canDrag = false;
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                // 如果存在第一个手指，且这个手指的落点在图片区域内
+                if (canDrag) {
+                    // ▼ 注意 getX 和 getY
+                    int index = event.findPointerIndex(0);
+                    // Log.i(TAG, "index="+index);
+                    mBitmapMatrix.postTranslate(event.getX(index)-lastPoint.x, event.getY(index)-lastPoint.y);
+                    lastPoint.set(event.getX(index), event.getY(index));
+
+                    mBitmapRectF = new RectF(0,0,bitmap.getWidth(), bitmap.getHeight());
+                    mBitmapMatrix.mapRect(mBitmapRectF);
+
+                    invalidate();
+                }
+                break;
+        }
+
+        return true;
+    }
     @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -129,18 +181,18 @@ public class CustomView extends View {
         canvas.drawText("湖人总冠军", 55, 300 + text_paint.getFontSpacing() * 2, text_paint);
         float measureText = text_paint.measureText(text);
         canvas.drawLine(255, 300 + text_paint.getFontSpacing() * 2, 255 + measureText, 300 + text_paint.getFontSpacing() * 2, circle_paint);
-
-        canvas.save();
-        canvas.clipRect(25, 300, 25 + bitmap.getWidth(), 300 + bitmap.getHeight());
-        canvas.drawBitmap(bitmap, 25, 300, text_paint);
-        canvas.restore();
-        canvas.save();
-        canvas.rotate(45,75,400);
-        canvas.scale(1.1f,1.1f);
-//        canvas.skew(0,0.5f);
-        canvas.drawBitmap(bitmap, 125, 400, text_paint);
-        canvas.restore();
-        Camera camera = new Camera();
+//
+//        canvas.save();
+//        canvas.clipRect(25, 300, 25 + bitmap.getWidth(), 300 + bitmap.getHeight());
+        canvas.drawBitmap(bitmap, mBitmapMatrix, text_paint);
+//        canvas.restore();
+//        canvas.save();
+//        canvas.rotate(45,75,400);
+//        canvas.scale(1.1f,1.1f);
+////        canvas.skew(0,0.5f);
+//        canvas.drawBitmap(bitmap, 125, 400, text_paint);
+//        canvas.restore();
+//        Camera camera = new Camera();
 
 //        @SuppressLint("ObjectAnimatorBinding") ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(bitmap, "rotationY", 0.0f, 90.0f, 0.0F);
 //        objectAnimator.setDuration(2000);

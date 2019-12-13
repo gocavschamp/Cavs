@@ -3,8 +3,14 @@ package com.example.myapp.homepage.homedemo.apiclound;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.myapp.R;
 import com.uzmap.pkg.openapi.ExternalActivity;
@@ -27,7 +33,20 @@ public class ApiCloundTestActivity extends ExternalActivity {
 
             }
         };
-        this.addHtml5EventListener(html5EventListener);
+        View decorView = getWindow().getDecorView();
+        FrameLayout contentParent =
+                (FrameLayout) decorView.findViewById(android.R.id.content);
+        TextView x = new TextView(this);
+        x.setText("这是一个TextView");
+        x.setGravity(Gravity.CENTER);
+        x.setBackgroundColor(Color.RED);
+        x.setClickable(true);
+        x.setLayoutParams(
+                new ViewGroup.LayoutParams(
+                        200,
+                        200));
+        contentParent.addView(x);
+
     }
     @Override
     protected void onPageStarted(WebViewProvider provider, String url, Bitmap favicon) {
@@ -63,12 +82,13 @@ public class ApiCloundTestActivity extends ExternalActivity {
 
     @Override
     public void onBackPressed() {
-        if (mProvider.canGoBack()) {
-            mProvider.goBack();
-            return;
-        } else {
-            finish();
-        }
-        super.onBackPressed();
+        evaluateJavascript("api.closeWin();");
+//        mProvider.goBack();
+        return;
+//        if (mProvider.canGoBack()) {
+//        } else {
+//            finish();
+//        }
+//        super.onBackPressed();
     }
 }
