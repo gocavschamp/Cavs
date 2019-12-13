@@ -46,6 +46,8 @@ public class ApiCloundTestActivity extends ExternalActivity {
                         200,
                         200));
         contentParent.addView(x);
+//        View v = getLocalActivityManager().startActivity("one", mFirstPgaeIntent).getDecorView();
+//        contentParent.addView(v);
 
     }
     @Override
