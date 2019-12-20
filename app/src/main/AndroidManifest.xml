@@ -44,7 +44,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".homepage.homedemo.multitem.MultItemActivity" />
         <activity android:name=".homepage.homedemo.RxjavaDemoActivity" />
-        <activity android:name=".activity.WebActivity" />
         <activity
             android:name=".homepage.homedemo.xunfei.XunFeiYuYinActivity"
             android:configChanges="keyboard"
@@ -58,6 +57,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".login.view.LoginActivity" />
+        <activity
+            android:name=".homepage.homedemo.amap.SearchWayResultActivity"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard"

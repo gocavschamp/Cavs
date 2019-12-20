@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <include layout="@layout/default_title_layout" />
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_default_title_layout"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.amap.api.maps.MapView>
+
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="@dimen/dp_56"
+            android:layout_alignParentBottom="true"
+            android:layout_height="@dimen/dp_64"
+            android:layout_marginLeft="@dimen/px_5"
+            android:src="@mipmap/menu_code_no_pressed" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

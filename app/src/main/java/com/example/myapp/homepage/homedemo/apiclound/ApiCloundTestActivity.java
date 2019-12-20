@@ -41,10 +41,10 @@ public class ApiCloundTestActivity extends ExternalActivity {
         x.setGravity(Gravity.CENTER);
         x.setBackgroundColor(Color.RED);
         x.setClickable(true);
-        x.setLayoutParams(
-                new ViewGroup.LayoutParams(
-                        200,
-                        200));
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                200,
+                200);
+        x.setLayoutParams(layoutParams);
         contentParent.addView(x);
 //        View v = getLocalActivityManager().startActivity("one", mFirstPgaeIntent).getDecorView();
 //        contentParent.addView(v);

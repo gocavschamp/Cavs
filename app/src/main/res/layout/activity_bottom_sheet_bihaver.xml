@@ -9,19 +9,25 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#ffffff"
-                  />
+                android:background="#ffffff">
+
+                <com.nucarf.base.widget.TitleLayout
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
+
         <RelativeLayout
             android:id="@+id/rl_content"
             android:layout_width="match_parent"
@@ -29,27 +35,27 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <!--<com.amap.api.maps.MapView-->
-                <!--android:id="@+id/map"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
+            <!--android:id="@+id/map"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
             <!--</com.amap.api.maps.MapView>-->
             <Button
-                android:layout_width="wrap_content"
-                android:text="打开"
                 android:id="@+id/bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content" />
+                android:text="打开" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview"
             layout="@layout/default_recycleview"
-            app:behavior_hideable="true"
-            android:background="@color/main_color"
-            app:behavior_peekHeight="200dp"
-            app:layout_behavior="@string/bottom_sheet_behavior"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent" />
+            android:background="@color/main_color"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="200dp"
+            app:layout_behavior="@string/bottom_sheet_behavior" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

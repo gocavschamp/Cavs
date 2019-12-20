@@ -84,12 +84,12 @@
 
         <provider
             android:name="com.uzmap.pkg.uzapp.UProvider"
-            android:authorities="com.uzmap.pkg.any.ups"
+            android:authorities="${applicationId}.ups"
             android:exported="false"
             android:label="udmg" />
         <provider
             android:name="com.uzmap.pkg.uzapp.DataProvider"
-            android:authorities="com.uzmap.pkg.any.upms"
+            android:authorities="${applicationId}.upms"
             android:exported="false"
             android:grantUriPermissions="true" />
 

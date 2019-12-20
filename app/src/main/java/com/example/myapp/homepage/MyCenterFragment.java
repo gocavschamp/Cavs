@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.myapp.R;
 import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
+import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
@@ -16,8 +17,9 @@ import com.nucarf.base.utils.UiGoto;
 import java.util.Random;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class MyCenterFragment extends BaseLazyFragment implements View.OnClickListener {
+public class MyCenterFragment extends BaseLazyFragment {
 
 
     @BindView(R.id.tvTitle)
@@ -53,29 +55,21 @@ public class MyCenterFragment extends BaseLazyFragment implements View.OnClickLi
 
     @Override
     protected void initView() {
-        tvBottomSheet = mRootView.findViewById(R.id.tv_bottom_sheet);
-        tvXunfeiYuyin = mRootView.findViewById(R.id.tv_xunfei_yuyin);
-        tvRxjava = mRootView.findViewById(R.id.tv_rxjava);
-        tvMultItem = mRootView.findViewById(R.id.tv_mult_item);
-        tvApiclound = mRootView.findViewById(R.id.tv_apiclound);
-        tvBottomSheet.setOnClickListener(this);
-        tvXunfeiYuyin.setOnClickListener(this);
-        tvRxjava.setOnClickListener(this);
-        tvMultItem.setOnClickListener(this);
-        tvApiclound.setOnClickListener(this);
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_xunfei_yuyin:
-                UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
 
-                break;
+    @OnClick({R.id.tv_bottom_sheet, R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.tv_bottom_sheet:
                 UiGoto.startAty(mActivity, BottomSheetBihaverActivity.class);
-
+                break;
+            case R.id.tv_amap:
+                UiGoto.startAty(mActivity, SearchWayResultActivity.class);
+                break;
+            case R.id.tv_xunfei_yuyin:
+                UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
                 break;
             case R.id.tv_rxjava:
                 UiGoto.startAty(mActivity, RxjavaDemoActivity.class);
@@ -84,7 +78,6 @@ public class MyCenterFragment extends BaseLazyFragment implements View.OnClickLi
                 UiGoto.startAty(mActivity, MultItemActivity.class);
                 break;
             case R.id.tv_apiclound:
-                //http://www.baidu.com
                 Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
                 int nextInt = new Random().nextInt();
                 if (nextInt % 2 == 0) {
@@ -93,7 +86,5 @@ public class MyCenterFragment extends BaseLazyFragment implements View.OnClickLi
                 mActivity.startActivity(intent);
                 break;
         }
-
     }
-
 }

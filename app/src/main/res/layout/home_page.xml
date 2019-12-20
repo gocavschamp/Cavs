@@ -67,6 +67,16 @@
             android:text="apiclound  demo"
             android:textColor="@color/color_333333"
             android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_amap"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:text="amap  demo"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

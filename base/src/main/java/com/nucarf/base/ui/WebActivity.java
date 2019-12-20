@@ -1,4 +1,4 @@
-package com.example.myapp.activity;
+package com.nucarf.base.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,32 +21,32 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapp.R;
+import com.nucarf.base.R;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;
-import com.nucarf.base.utils.UiGoto;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WebActivity extends AppCompatActivity {
 
-    @BindView(R.id.webView)
     WebView webView;
     private String url;
 
-    public static void lauch(Context context, String title, String url ) {
+    public static void lauch(Context context, String title, String url) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("title", title);
         intent.putExtra("url", url);
         context.startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
+        webView = findViewById(R.id.webView);
         url = getIntent().getStringExtra("url");
         String title = getIntent().getStringExtra("title");
         initWeb();
@@ -82,7 +82,7 @@ public class WebActivity extends AppCompatActivity {
         webView.getSettings().setSupportMultipleWindows(false);
         // 修改ua使得web端正确判断
         String ua = webView.getSettings().getUserAgentString();
-        webView.getSettings().setUserAgentString(ua+";isApp");
+        webView.getSettings().setUserAgentString(ua + ";isApp");
         // 设置允许JS弹窗
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
