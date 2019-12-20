@@ -1,5 +1,6 @@
 package com.example.myapp.homepage.homedemo.amap;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -52,10 +53,15 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class SearchWayResultActivity extends BaseActivity implements AMap.OnPolylineClickListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
 
@@ -312,15 +318,26 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
         }
     }
 
+    @SuppressLint("CheckResult")
     private void scalMap() {
-        //缩放地图
-        List<LatLng> list1 = new ArrayList<LatLng>();
-        List<NewPointsBean> points = searchWayBean.getPoints();
-        LatLng latLng = new LatLng(Double.parseDouble(points.get(0).getLat()), Double.parseDouble(points.get(0).getLng()));
-        LatLng latLng1 = new LatLng(Double.parseDouble(points.get(points.size() - 1).getLat()), Double.parseDouble(points.get(points.size() - 1).getLng()));
-        list1.add(latLng);
-        list1.add(latLng1);
-        zoomToSpan(list1);
+        Disposable subscribe = Observable.timer(500, TimeUnit.MILLISECONDS)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        //缩放地图
+                        List<LatLng> list1 = new ArrayList<LatLng>();
+                        LineBean lineBean = searchWayBean.getLine().get(0);
+                        String[] split = lineBean.getPolyline().split(";");
+                        LatLng latLng = new LatLng(Double.parseDouble(split[0].split(",")[1]), Double.parseDouble(split[0].split(",")[0]));
+                        LatLng latLng1 = new LatLng(Double.parseDouble(split[split.length-1].split(",")[1]), Double.parseDouble(split[split.length-1].split(",")[0]));
+                        list1.add(latLng);
+                        list1.add(latLng1);
+                        zoomToSpan(list1);
+                    }
+                });
+        addSubscribe(subscribe);
+
     }
 
     //开启子线程绘制地图
@@ -352,6 +369,8 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
                     MarkerOptions markerOption = new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromView(imageView))
                             .visible(true)
+                            .title(newPointsBean.getName())
+                            .snippet(newPointsBean.getSa_id())
                             .zIndex(("1".equals(newPointsBean.getIs_discount()) ? 1f : 0f))
                             .position(latLng);
                     markerOptionlst.add(markerOption);
@@ -367,6 +386,7 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
     }
 
     private void endCanvs() {
+        scalMap();
     }
 
     /**
@@ -378,9 +398,9 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
             b.include(latLng);
         }
         LatLngBounds bounds = b.build();
-        int top_padding = ScreenUtil.dip2px(120);
-        int bottom_padding = ScreenUtil.dip2px(180);
-        int left_right_padding = ScreenUtil.dip2px(50);
+        int top_padding = ScreenUtil.dip2px(100);
+        int bottom_padding = ScreenUtil.dip2px(100);
+        int left_right_padding = ScreenUtil.dip2px(100);
         aMap.moveCamera(CameraUpdateFactory
                 .newLatLngBoundsRect(bounds, left_right_padding, left_right_padding, top_padding, bottom_padding));
 
@@ -502,10 +522,10 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
         LogUtils.e("click--polyline--" + polyline.getId());
         for (int i = 0; i < polylinelist.size(); i++) {
             if (polylinelist.get(i).getId().equals(polyline.getId())) {
-                polyline.setCustomTexture(BitmapDescriptorFactory.fromResource(R.drawable.jpush_ic_richpush_actionbar_back));
+                polyline.setCustomTexture(BitmapDescriptorFactory.fromResource(R.drawable.uz_icon));
                 polyline.setZIndex(0f);
             } else {
-                polylinelist.get(i).setCustomTexture(BitmapDescriptorFactory.fromResource(R.drawable.jpush_notification_icon));
+                polylinelist.get(i).setCustomTexture(BitmapDescriptorFactory.fromResource(R.drawable.uz_pull_down_refresh_arrow));
                 polylinelist.get(i).setZIndex(-0.1f);
             }
         }

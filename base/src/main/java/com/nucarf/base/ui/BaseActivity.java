@@ -16,6 +16,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -23,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
 
     private Unbinder unbinder;
+    private CompositeDisposable mCompositeDisposable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
+    protected void unSubscribe() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.clear();
+        }
+    }
+
+    protected void addSubscribe(Disposable subscription) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(subscription);
+    }
     protected abstract void initData();
 
     /**
@@ -102,6 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     @Override
     protected void onDestroy() {
+        unSubscribe();
         unRegisterEventBus();
         if (null != unbinder) {
             unbinder.unbind();
