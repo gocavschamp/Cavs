@@ -1,7 +1,5 @@
 package com.example.myapp.homepage.homedemo.apiclound;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,20 +9,17 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
-import com.example.myapp.R;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.uzmap.pkg.openapi.ExternalActivity;
 import com.uzmap.pkg.openapi.Html5EventListener;
 import com.uzmap.pkg.openapi.WebViewProvider;
 
-public class ApiCloundTestActivity extends ExternalActivity {
+public class ApiCloundTest2Activity extends ExternalActivity {
 
     private static final String TAG = "tag--";
     private WebViewProvider mProvider;
-    private TextView textView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,30 +35,26 @@ public class ApiCloundTestActivity extends ExternalActivity {
         View decorView = getWindow().getDecorView();
         FrameLayout contentParent =
                 (FrameLayout) decorView.findViewById(android.R.id.content);
-        View rootView = contentParent.getRootView();
-        textView = new TextView(this);
-        textView.setVisibility(View.GONE);
-        textView.setText("这是一个TextView");
-        textView.setGravity(Gravity.CENTER);
-        textView.setBackgroundColor(Color.RED);
-        textView.setClickable(true);
+        TextView x = new TextView(this);
+        x.setText("这是一个TextView");
+        x.setGravity(Gravity.CENTER);
+        x.setBackgroundColor(Color.RED);
+        x.setClickable(true);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                 200,
                 200);
-        textView.setLayoutParams(layoutParams);
-        contentParent.addView(textView);
-        textView.setOnClickListener(new View.OnClickListener() {
+        x.setLayoutParams(layoutParams);
+//        contentParent.addView(x);
+        x.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mFirstPgaeIntent = new Intent(ApiCloundTestActivity.this, ApiCloundTest2Activity.class);
-                startActivity(mFirstPgaeIntent);
+//        Intent mFirstPgaeIntent = new Intent(ApiCloundTest2Activity.this, MultItemActivity.class);
 //                View v = getLocalActivityManager().startActivity("one", mFirstPgaeIntent).getDecorView();
 //                contentParent.addView(v);
             }
         });
 
     }
-
     @Override
     protected void onPageStarted(WebViewProvider provider, String url, Bitmap favicon) {
         super.onPageStarted(provider, url, favicon);
@@ -76,7 +67,6 @@ public class ApiCloundTestActivity extends ExternalActivity {
         super.onPageFinished(provider, url);
         Log.d(TAG, "onPageFinished: " + url);
         mProvider = provider;
-        textView.setVisibility(View.VISIBLE);
 
     }
 
