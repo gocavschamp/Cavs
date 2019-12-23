@@ -59,7 +59,7 @@ public class MyCenterFragment extends BaseLazyFragment {
 
 
 
-    @OnClick({R.id.tv_bottom_sheet, R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
+    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing,R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_sheet:
@@ -75,6 +75,9 @@ public class MyCenterFragment extends BaseLazyFragment {
                 UiGoto.startAty(mActivity, RxjavaDemoActivity.class);
                 break;
             case R.id.tv_mult_item:
+                UiGoto.startAty(mActivity, MultItemActivity.class);
+                break;
+            case R.id.tv_zxing:
                 UiGoto.startAty(mActivity, MultItemActivity.class);
                 break;
             case R.id.tv_apiclound:

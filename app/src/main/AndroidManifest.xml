@@ -36,6 +36,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".homepage.homedemo.zxing.QrcodeZxingDemoActivity"></activity>
+        <activity
+            android:name="com.google.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".homepage.homedemo.apiclound.ApiCloundTestActivity"
             android:configChanges="orientation|locale|keyboardHidden|screenLayout|screenSize|smallestScreenSize|keyboard"
