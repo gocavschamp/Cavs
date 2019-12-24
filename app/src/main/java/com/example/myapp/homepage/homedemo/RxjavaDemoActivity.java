@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.myapp.R;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.ui.BaseActivityWithTitle;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -34,7 +35,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
-public class RxjavaDemoActivity extends BaseActivity {
+public class RxjavaDemoActivity extends BaseActivityWithTitle {
 
     private static final String TAG = "rxjava ：";
     @BindView(R.id.tv_rx_creat)

@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
    >
 
-    <include layout="@layout/default_title_layout" />
 
     <RelativeLayout
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_default_title_layout"
         android:background="@color/white"
         android:clickable="true">
 

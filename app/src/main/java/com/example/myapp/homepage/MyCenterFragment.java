@@ -11,6 +11,7 @@ import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
+import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.utils.UiGoto;
 
@@ -78,7 +79,7 @@ public class MyCenterFragment extends BaseLazyFragment {
                 UiGoto.startAty(mActivity, MultItemActivity.class);
                 break;
             case R.id.tv_zxing:
-                UiGoto.startAty(mActivity, MultItemActivity.class);
+                UiGoto.startAty(mActivity, QrcodeZxingDemoActivity.class);
                 break;
             case R.id.tv_apiclound:
                 Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);

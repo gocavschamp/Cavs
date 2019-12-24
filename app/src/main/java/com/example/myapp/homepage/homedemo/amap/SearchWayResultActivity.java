@@ -38,6 +38,7 @@ import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.retrofit.RetrofitUtils;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.AppUtil;
 import com.nucarf.base.utils.AssetUtil;
 import com.nucarf.base.utils.BaseAppCache;
@@ -63,20 +64,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class SearchWayResultActivity extends BaseActivity implements AMap.OnPolylineClickListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
+public class SearchWayResultActivity extends BaseActivityWithTitle implements AMap.OnPolylineClickListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
 
-    @BindView(R.id.rl_left)
-    RelativeLayout rlLeft;
-    @BindView(R.id.tv_center_title)
-    TextView tvCenterTitle;
-    @BindView(R.id.tv_right)
-    TextView tvRight;
-    @BindView(R.id.iv_right)
-    ImageView ivRight;
-    @BindView(R.id.rl_right)
-    RelativeLayout rlRight;
-    @BindView(R.id.rl_default_title_layout)
-    RelativeLayout rlDefaultTitleLayout;
     @BindView(R.id.map)
     MapView mapView;
     @BindView(R.id.iv_location)
@@ -120,14 +109,9 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_way_result);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).titleBar(rlDefaultTitleLayout).init();
         mapView.onCreate(savedInstanceState);// 此方法必须重写
-        tvCenterTitle.setText("查询结果");
-        tvRight.setText("切换始终");
-        ivRight.setVisibility(View.VISIBLE);
-        tvCenterTitle.setTextColor(getResources().getColor(R.color.color_333333));
-        tvRight.setTextColor(getResources().getColor(R.color.color_333333));
-        rlDefaultTitleLayout.setBackgroundColor(getResources().getColor(R.color.white));
+        titlelayout.setTitleText("查询结果");
+        titlelayout.setRightText("切换始终");
         if (aMap == null) {
             aMap = mapView.getMap();
         }
@@ -183,7 +167,7 @@ public class SearchWayResultActivity extends BaseActivity implements AMap.OnPoly
     }
 
     private void addListener() {
-        rlRight.setOnClickListener(new View.OnClickListener() {
+        titlelayout.setRightClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MobclickAgent.onEvent(BaseAppCache.getContext(), "yz_lxcx_19");

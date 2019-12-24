@@ -14,6 +14,7 @@ import com.example.myapp.bean.ArticleBean;
 import com.example.myapp.bean.StringBean;
 import com.example.myapp.bean.Student;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.ui.BaseActivityWithTitle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MultItemActivity extends BaseActivity {
+public class MultItemActivity extends BaseActivityWithTitle {
 
     @BindView(R.id.recycleview)
     RecyclerView recycleview;

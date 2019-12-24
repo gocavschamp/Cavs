@@ -32,9 +32,9 @@ import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.myapp.R;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.camera.CameraManager;
-import com.nucarf.member.R;
 
 import java.util.Collection;
 import java.util.HashSet;

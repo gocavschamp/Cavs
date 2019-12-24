@@ -179,7 +179,7 @@ public class CaptureActivity extends Activity implements Callback {
                                         if (TextUtils.isEmpty(resultString)) {
                                             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            EventBus.getDefault().post(resultString);
+                                            EventBus.getDefault().post("QRCODE:" + resultString);
                                         }
                                         CaptureActivity.this.finish();
                                     } else {
@@ -285,27 +285,7 @@ public class CaptureActivity extends Activity implements Callback {
         if (TextUtils.isEmpty(resultString)) {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
-            if (resultString.contains("GST-")) {
-                String replace = resultString.replace("GST-", "");
-                //跳转油站付款页面
-                StationAddOilActivity.lauch(CaptureActivity.this, replace);
-            } else if (resultString.contains("/T/ta/e/")) {
-                String substring = resultString.substring(resultString.indexOf("/T/ta/e/") + 8, resultString.length());
-                if (SharePreUtils.getOpenTransfer()) {
-                    GiveOilWithQcodeActivity.lauch(CaptureActivity.this, substring);
-                } else {
-                    ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "此功能暂时无法使用", 0);
-                }
-            } else if (resultString.contains("HY-")) {
-                String replace = resultString.replace("HY-", "");
-                CreatTicketActivity.lauch(CaptureActivity.this, replace, "3");
-            } else if (resultString.contains("CX-")) {
-                String replace = resultString.replace("CX-", "");
-                CreatTicketActivity.lauch(CaptureActivity.this, replace, "4");
-            } else {
-                ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "无法识别二维码", 0);
-
-            }
+            EventBus.getDefault().post("QRCODE:" + resultString);
         }
         CaptureActivity.this.finish();
     }

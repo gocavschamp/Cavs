@@ -7,26 +7,29 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.myapp.R;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.ScreenUtil;
+import com.nucarf.base.widget.TitleLayout;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
-public class QrcodeZxingDemoActivity extends BaseActivity {
+public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
 
     @BindView(R.id.iv_code)
     ImageView ivCode;
@@ -44,7 +47,17 @@ public class QrcodeZxingDemoActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        titlelayout.setTitleText("QRCODE");
         creatQrCode("湖人总冠军！！！");
+    }
+
+    @Subscribe
+    public void onEvent(String event) {
+        if (event.startsWith("QRCODE:")) {
+            String replaceFirst = event.replaceFirst("QRCODE:", "");
+            etName.setText(replaceFirst);
+
+        }
     }
 
     private void creatQrCode(String code_str) {//only_petrol
