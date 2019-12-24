@@ -4,6 +4,12 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.R;
 import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
 import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
@@ -15,6 +21,8 @@ import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.utils.UiGoto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -35,6 +43,13 @@ public class MyCenterFragment extends BaseLazyFragment {
     TextView tvMultItem;
     @BindView(R.id.tv_apiclound)
     TextView tvApiclound;
+    @BindView(R.id.recycleview)
+    RecyclerView recycleview;
+    @BindView(R.id.tv_amap)
+    TextView tvAmap;
+    @BindView(R.id.tv_zxing)
+    TextView tvZxing;
+    private MycenterAdapter mycenterAdapter;
 
     private MyCenterFragment() {
     }
@@ -51,16 +66,61 @@ public class MyCenterFragment extends BaseLazyFragment {
     @Override
     protected void initData() {
 
+        List<String> data = new ArrayList<>();
+        data.add("bottom_sheet");
+        data.add("xunfei_yuyin");
+        data.add("rxjava");
+        data.add("recycleview多布局");
+        data.add("apicloud");
+        data.add("高德地图");
+        data.add("二维码zxing");
+        mycenterAdapter.setNewData(data);
+
 
     }
 
     @Override
     protected void initView() {
+        recycleview.setLayoutManager(new GridLayoutManager(mActivity,3,RecyclerView.VERTICAL,false));
+        mycenterAdapter = new MycenterAdapter(R.layout.mycenter_item);
+        recycleview.setAdapter(mycenterAdapter);
+        mycenterAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String item = mycenterAdapter.getData().get(position);
+                switch (position) {
+                    case 0 :
+                        UiGoto.startAty(mActivity, BottomSheetBihaverActivity.class);
+                        break;
+                    case 1 :
+                        UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
+                        break;
+                    case 2 :
+                        UiGoto.startAty(mActivity, RxjavaDemoActivity.class);
+                        break;
+                    case 3 :
+                        UiGoto.startAty(mActivity, MultItemActivity.class);
+                        break;
+                    case 4 :
+                        Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
+                        mActivity.startActivity(intent);
+                        break;
+                    case 5 :
+                        UiGoto.startAty(mActivity, SearchWayResultActivity.class);
+                        break;
+                    case 6 :
+                        UiGoto.startAty(mActivity, QrcodeZxingDemoActivity.class);
+                        break;
+                    case 7 :
+
+                        break;
+                }
+            }
+        });
     }
 
 
-
-    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing,R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
+    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing, R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_sheet:
@@ -83,12 +143,20 @@ public class MyCenterFragment extends BaseLazyFragment {
                 break;
             case R.id.tv_apiclound:
                 Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
-                int nextInt = new Random().nextInt();
-                if (nextInt % 2 == 0) {
-//                    intent.putExtra("startUrl", "https://docs.apicloud.com/Dev-Guide/SuperWebview-guide-for-android");
-                }
                 mActivity.startActivity(intent);
                 break;
+        }
+    }
+
+    private class MycenterAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+        public MycenterAdapter(int layout) {
+            super(layout);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            helper.setText(R.id.tv_info,item);
+
         }
     }
 }

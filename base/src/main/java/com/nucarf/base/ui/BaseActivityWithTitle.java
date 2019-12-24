@@ -173,9 +173,11 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
         }
         mCompositeDisposable.add(subscription);
     }
+
     @Override
     protected void onDestroy() {
         unRegisterEventBus();
+        unSubscribe();
         if (null != unbinder) {
             unbinder.unbind();
         }

@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapp.R;
+import com.example.myapp.homepage.homedemo.xunfei.XunFeiCotract;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
-import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.ui.BaseActivityWithTitle;
+import com.nucarf.base.ui.WebActivity;
+import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ScreenUtil;
-import com.nucarf.base.widget.TitleLayout;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,6 +38,8 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
     EditText etName;
     @BindView(R.id.bt_scanner)
     Button btScanner;
+    @BindView(R.id.bt_go_lauch)
+    Button btGoLauch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,9 +75,28 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
         }
     }
 
-    @OnClick(R.id.bt_scanner)
-    public void onViewClicked() {
-        checkPermissions();
+    @OnClick({R.id.bt_scanner, R.id.bt_go_lauch})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_go_lauch:
+//                WebActivity.lauch(mContext, "访问链接", etName.getText().toString());
+//                跳转浏览器访问
+                try {
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(etName.getText().toString() + "");
+                    intent.setData(content_url);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                } catch (Exception e) {
+                    LogUtils.e(e.toString());
+                }
+                break;
+            case R.id.bt_scanner:
+                checkPermissions();
+
+                break;
+        }
 
     }
 

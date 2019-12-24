@@ -62,16 +62,17 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView();
         if (isLazyLoad()) {
             mIsPrepare = true;
             mIsImmersion = true;
             onLazyLoad();
         } else {
             initData();
-            if (isImmersionBarEnabled())
+            if (isImmersionBarEnabled()) {
                 initImmersionBar();
+            }
         }
-        initView();
         setListener();
     }
 

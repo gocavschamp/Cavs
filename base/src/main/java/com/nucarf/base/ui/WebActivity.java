@@ -28,7 +28,7 @@ import com.nucarf.base.utils.SharePreUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends BaseActivityWithTitle {
 
     WebView webView;
     private String url;
@@ -42,14 +42,20 @@ public class WebActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
         webView = findViewById(R.id.webView);
         url = getIntent().getStringExtra("url");
         String title = getIntent().getStringExtra("title");
+        titlelayout.setTitleText(title);
         initWeb();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initWeb() {
