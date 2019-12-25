@@ -11,6 +11,7 @@ android {
         versionName "1.0.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary true//支持矢量图
         multiDexKeepProguard file("tinkerMultidexKeep.pro")
         //keep specific classes using proguard syntax
         ndk {
@@ -41,6 +42,8 @@ android {
 
     buildTypes {
         release {
+            // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
+            applicationIdSuffix ""
             // 不显示Log
             signingConfig signingConfigs.release
             minifyEnabled false
@@ -58,6 +61,8 @@ android {
             ]
         }
         debug {
+            // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
+            applicationIdSuffix "debug"
             signingConfig signingConfigs.debug
             debuggable true
             //开启混淆
