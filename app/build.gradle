@@ -65,8 +65,9 @@ android {
         // 测试类型，给测试人员
         debug {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
-            applicationIdSuffix "debug"//applicationId 添加后缀
+            applicationIdSuffix ".debug"//applicationId 添加后缀
             signingConfig signingConfigs.debug
+            manifestPlaceholders = [APP_LOGO_ICON: "@mipmap/ic"]
             debuggable true
             minifyEnabled false//开启混淆
             buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
@@ -85,6 +86,7 @@ android {
         }
         // 本地类型，和后端联调使用
         local {
+            applicationIdSuffix ".local"//applicationId 添加后缀
             minifyEnabled false//开启混淆
             buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
