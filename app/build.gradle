@@ -10,9 +10,11 @@ android {
         versionCode 191213
         versionName "1.0.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled true //支持分包
+        resConfigs "zh", "en"// 这样我们编译出的apk中，只有 “默认” 、 “中文zh” 和 “英文en” 两种资源
         vectorDrawables.useSupportLibrary true//支持矢量图
         multiDexKeepProguard file("tinkerMultidexKeep.pro")
+        resValue('string', 'age', '12year')// 添加至 res/value，通过 R.string.age 获取
         //keep specific classes using proguard syntax
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
@@ -41,13 +43,13 @@ android {
     }
 
     buildTypes {
+        // 发布类型
         release {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
             applicationIdSuffix ""
-            // 不显示Log
             signingConfig signingConfigs.release
             minifyEnabled false
-            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "LOG_DEBUG", "false"// 不显示Log
 //            zipAlignEnabled false// 移除无用的resource文件
 //            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
@@ -60,21 +62,17 @@ android {
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
             ]
         }
+        // 测试类型，给测试人员
         debug {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
-            applicationIdSuffix "debug"
+            applicationIdSuffix "debug"//applicationId 添加后缀
             signingConfig signingConfigs.debug
             debuggable true
-            //开启混淆
-            minifyEnabled false
-            // 显示Log
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            //这里是给versionName添加后缀
-//            versionNameSuffix "_debug"
-            //是否进行代码格式化
-//            zipAlignEnabled false
-            // 移除无用的resource文件
-//            shrinkResources false
+            minifyEnabled false//开启混淆
+            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+            versionNameSuffix "_debug"//这里是给versionName添加后缀
+//            zipAlignEnabled false  //是否进行代码格式化
+//            shrinkResources false // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
             manifestPlaceholders = [
                     APP_IS_TEST_VALUE    : true,
@@ -84,6 +82,12 @@ android {
                     JPUSH_APPKEY         : "502b8e17dc24899f6d66105a", //JPush 上注册的包名对应的 Appkey.
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
             ]
+        }
+        // 本地类型，和后端联调使用
+        local {
+            minifyEnabled false//开启混淆
+            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
         }
     }
 

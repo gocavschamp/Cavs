@@ -134,6 +134,7 @@ public class ApiCloundTest2Activity extends ExternalActivity {
             case R.id.tv_head:
                 if (mainFragment.isVisible()) {
                     fragmentManager.beginTransaction().replace(R.id.fl_content, twoFragment).commitAllowingStateLoss();
+                    twoFragment.getSuperWebview();
                     drawerlayout.closeDrawers();
                 } else {
                     fragmentManager.beginTransaction().replace(R.id.fl_content, mainFragment).commitAllowingStateLoss();
