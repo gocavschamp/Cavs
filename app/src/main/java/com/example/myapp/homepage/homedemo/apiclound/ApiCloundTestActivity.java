@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
+import com.example.myapp.BuildConfig;
 import com.example.myapp.R;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.uzmap.pkg.openapi.ExternalActivity;
@@ -29,7 +30,7 @@ public class ApiCloundTestActivity extends ExternalActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        String applicationId = BuildConfig.APPLICATION_ID;
 
         Html5EventListener html5EventListener = new Html5EventListener("save") {
             @Override

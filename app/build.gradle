@@ -36,12 +36,37 @@ android {
             storeFile file('../keystore/fly.jks')
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
+
+    flavorDimensions "mode"
+    productFlavors {
+        happy {
+            dimension "mode"
+            resValue "string", "app_name", "Happy"
+            resValue "string", "app_welcome", "欢迎来到Happy"
+            resValue "string", "company_name", "Happy"
+            // 修改 AndroidManifest.xml 里渠道变量
+            manifestPlaceholders = [
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_comment_glod",
+                    launcherIcon: "@mipmap/icon_comment_glod"
+
+            ]
+
+        }
+        sad {
+            dimension "mode"
+            resValue "string", "app_name", "Sad"
+            resValue "string", "app_welcome", "欢迎来到Sad"
+            resValue "string", "company_name", "Sad"
+            manifestPlaceholders = [
+
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_center_habit",
+                    launcherIcon: "@mipmap/icon_center_habit"
+
+            ]
         }
     }
-
     buildTypes {
         // 发布类型
         release {
@@ -50,10 +75,11 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             buildConfigField "boolean", "LOG_DEBUG", "false"// 不显示Log
-//            zipAlignEnabled false// 移除无用的resource文件
+            zipAlignEnabled false//会对应用程序进行字节对齐，对齐后会减少了运行应用程序时消耗的内存。
 //            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
             manifestPlaceholders = [
+                    APP_LOGO_ICON        : "@mipmap/icon_comment_glod",
                     APP_IS_TEST_VALUE    : false,
                     HOST_URL_VALUE       : "http://tapi.nucarf.cn/V1/",
                     WECHAT_HOST_URL_VALUE: "https://wechat.nucarf.com",
@@ -67,15 +93,20 @@ android {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
             applicationIdSuffix ".debug"//applicationId 添加后缀
             signingConfig signingConfigs.debug
-            manifestPlaceholders = [APP_LOGO_ICON: "@mipmap/ic"]
             debuggable true
             minifyEnabled false//开启混淆
-            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
             versionNameSuffix "_debug"//这里是给versionName添加后缀
-//            zipAlignEnabled false  //是否进行代码格式化
+            zipAlignEnabled true  //会对应用程序进行字节对齐，对齐后会减少了运行应用程序时消耗的内存。
 //            shrinkResources false // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
+            //在 BuildConfig 类中添加值 可以通过 BuildConfig 进行获取
+            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+            buildConfigField('String', 'name', '"ywm"')
+            buildConfigField('int', 'age', '26')
+            // 添加至 res/value，通过 R.string.age 获取
+            resValue('string', 'age', '12 years old')
             manifestPlaceholders = [
+                    APP_LOGO_ICON        : "@mipmap/icon_center_habit",
                     APP_IS_TEST_VALUE    : true,
                     HOST_URL_VALUE       : "http://2019_0418_invoice_new.api.yidian.nucarf.cn/V1/",
                     WECHAT_HOST_URL_VALUE: "http://twechat.nucarf.cn",
@@ -86,7 +117,13 @@ android {
         }
         // 本地类型，和后端联调使用
         local {
-            applicationIdSuffix ".local"//applicationId 添加后缀
+            // 会拷贝 debug 的配置
+            initWith debug{
+                // 在这里进行我们自己的配置
+                matchingFallbacks = ['debug','release']
+                applicationIdSuffix ".local"//applicationId 添加后缀
+
+            }
             minifyEnabled false//开启混淆
             buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
@@ -117,6 +154,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 }
 repositories {
