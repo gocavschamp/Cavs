@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,6 +15,7 @@ import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
+import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
 import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
@@ -23,12 +23,11 @@ import com.nucarf.base.utils.UiGoto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MyCenterFragment extends BaseLazyFragment {
+public class HomeFragment extends BaseLazyFragment {
 
 
     @BindView(R.id.tvTitle)
@@ -51,11 +50,11 @@ public class MyCenterFragment extends BaseLazyFragment {
     TextView tvZxing;
     private MycenterAdapter mycenterAdapter;
 
-    private MyCenterFragment() {
+    private HomeFragment() {
     }
 
-    public static MyCenterFragment newInstance() {
-        return new MyCenterFragment();
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
 
     @Override
@@ -74,6 +73,7 @@ public class MyCenterFragment extends BaseLazyFragment {
         data.add("apicloud");
         data.add("高德地图");
         data.add("二维码zxing");
+        data.add("列表播放");
         mycenterAdapter.setNewData(data);
 
 
@@ -112,6 +112,7 @@ public class MyCenterFragment extends BaseLazyFragment {
                         UiGoto.startAty(mActivity, QrcodeZxingDemoActivity.class);
                         break;
                     case 7 :
+                        UiGoto.startAty(mActivity, VideoListActivity.class);
 
                         break;
                 }

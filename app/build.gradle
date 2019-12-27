@@ -118,9 +118,9 @@ android {
         // 本地类型，和后端联调使用
         local {
             // 会拷贝 debug 的配置
-            initWith debug{
+            initWith debug {
                 // 在这里进行我们自己的配置
-                matchingFallbacks = ['debug','release']
+                matchingFallbacks = ['debug', 'release']
                 applicationIdSuffix ".local"//applicationId 添加后缀
 
             }

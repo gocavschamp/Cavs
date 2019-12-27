@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.example.myapp.dragger.ActivityScope;
 import com.example.myapp.dragger.module.ActivityModule;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
+import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
 import com.example.myapp.login.view.LoginActivity;
 
@@ -22,8 +23,9 @@ public interface ActivityComponent {
 
     void inject(LoginActivity loginActivity);
 
-    void inject(BottomSheetBihaverActivity bottomSheetBihaverActivity);
-    void inject(XunFeiYuYinActivity xunFeiYuYinActivity);
+    void inject(BottomSheetBihaverActivity activity);
+    void inject(XunFeiYuYinActivity activity);
+    void inject(VideoListActivity activity);
 //
 //    void inject(SearchActivity searchActivity);
 //

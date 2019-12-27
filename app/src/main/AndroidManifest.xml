@@ -37,7 +37,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".homepage.homedemo.zxing.QrcodeZxingDemoActivity"/>
+        <activity android:name=".homepage.homedemo.videolist.VideoListActivity"></activity>
+        <activity android:name=".homepage.homedemo.zxing.QrcodeZxingDemoActivity" />
         <activity
             android:name="com.google.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"

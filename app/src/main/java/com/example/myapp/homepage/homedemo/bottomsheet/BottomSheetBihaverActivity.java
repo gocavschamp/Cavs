@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPresenter>implements BottomSheetCotract.View, BaseQuickAdapter.RequestLoadMoreListener {
+public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPresenter>implements BottomSheetContract.View, BaseQuickAdapter.RequestLoadMoreListener {
 
     //    @BindView(R.id.map)
 //    MapView map;

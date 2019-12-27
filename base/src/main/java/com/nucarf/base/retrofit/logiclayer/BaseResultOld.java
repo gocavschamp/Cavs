@@ -3,8 +3,8 @@ package com.nucarf.base.retrofit.logiclayer;
 import com.nucarf.base.utils.ToastUtils;
 
 /**
- * Creator: mrni-mac on 16-menu_code_no_pressed-4.
- * Email  : nishengwen_android@163.com
+ * Creator: kakaluote.
+ * Email  : kakaluote.com
  */
 public class BaseResultOld<T> {
 

@@ -38,6 +38,16 @@
         <attr name="indicator_star_size" format="integer" />
         <attr name="indicator_star_chose" format="integer" />
     </declare-styleable>
+
+    <!--titlelayout-->
+    <declare-styleable name="TitleLayout">
+        <attr name="title_center_text" format="string" />
+        <attr name="title_left_text" format="string" />
+        <attr name="title_right_text" format="string" />
+        <attr name="title_left_icon" format="reference" />
+        <attr name="title_center_size" format="dimension" />
+        <attr name="title_center_color" format="reference" />
+    </declare-styleable>
     <!--圆角图片-->
     <declare-styleable name="round_image">
         <attr name="top_left" format="boolean" />

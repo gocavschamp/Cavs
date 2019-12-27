@@ -8,8 +8,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Creator: mrni-mac on 16-menu_code_no_pressed-4.
- * Email  : nishengwen_android@163.com
+ * Creator: kakaluote.
+ * Email  : kakaluote.com
  */
 public enum RetrofitUtils {
     INSTANCE;

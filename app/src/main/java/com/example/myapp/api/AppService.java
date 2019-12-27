@@ -3,6 +3,7 @@ package com.example.myapp.api;
 import com.example.myapp.bean.ArticleBean;
 import com.example.myapp.bean.ArticleListBean;
 import com.example.myapp.bean.StringBean;
+import com.example.myapp.homepage.homedemo.videolist.VideoListData;
 import com.nucarf.base.retrofit.logiclayer.BaseResult;
 
 import java.util.ArrayList;
@@ -39,7 +40,13 @@ public interface AppService {
     @POST("Member/login")
     Call<BaseResult<StringBean>> loginByMsg(@QueryMap Map<String, String> baseParam, @FieldMap Map<String, String> request);
 
-    @GET("article/list/{page}/json")//玩安卓api
+    @GET("article/list/{page}/json")
+//玩安卓api
     Observable<BaseResult<ArticleBean>> getArticleList(@Path("page") int page);
+
+    //https://haokan.baidu.com/videoui/api/videorec?tab=yingshi&act=pcFeed&pd=pc&num=5&shuaxin_id=1577413362081
+    @GET
+//好看视频
+    Observable<BaseResult<VideoListData>> getVideoList(@Url String url);
 
 }

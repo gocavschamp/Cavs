@@ -2,13 +2,13 @@ package com.nucarf.base.retrofit.api;
 
 /**
  * Creator: mrni-mac on 16-menu_code_no_pressed-5.
- * Email  : nishengwen_android@163.com
+ * Email  : kakaluote.com
  */
 public interface TestHttp {
 
     /**
-     * Creator: mrni-mac on 16-menu_code_no_pressed-4.
-     * Email  : nishengwen_android@163.com
+     * Creator: kakaluote.
+     * Email  : kakaluote.com
      * <p/>
      * <p/>
      * <p/>

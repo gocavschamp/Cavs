@@ -153,9 +153,9 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
         } else {
             //未知错误
             ex.setErrorMsg("未知错误");
+            String displayMessage = ex.getErrorMsg();
+            Log.d("<----TAG---->", "onError: " + e.getMessage());
         }
-        String displayMessage = ex.getErrorMsg();
-        Log.d("<----TAG---->", "onError: " + displayMessage);
 //        if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
 //            mView.onNetError(1, mErrorMsg);
 //        } else if (e instanceof ApiException) {
