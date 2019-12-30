@@ -56,4 +56,16 @@
         <attr name="bottom_left" format="boolean" />
         <attr name="round_radius" format="dimension" />
     </declare-styleable>
+
+    <!--点赞飘心-->
+    <declare-styleable name="PeriscopeLayout">
+        <attr name="drawableArrays" format="reference" />
+        <attr name="heartGravity">
+            <enum name="left" value="-1" />
+            <enum name="center" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="heartMarginLeft" format="dimension" ></attr>
+        <attr name="heartMarginRight" format="dimension" ></attr>
+    </declare-styleable>
 </resources>

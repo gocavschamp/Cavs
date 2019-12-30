@@ -221,5 +221,6 @@ dependencies {
         changing = true
     }
     implementation project(path: ':apicloudlib')
+    implementation project(path: ':exoplayerlibrary')
 }
 apply from: 'tinkerpatch.gradle'

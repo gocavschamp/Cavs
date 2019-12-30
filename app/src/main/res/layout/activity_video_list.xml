@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,7 +20,16 @@
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/titlelayout"
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:background="@color/black_20"
+        android:layout_height="300dp"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

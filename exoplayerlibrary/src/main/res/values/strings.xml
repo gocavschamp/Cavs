@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ExoPlayerLibrary</string>
+    <string name="error_drm_unknown">error_drm_unknown</string>
+    <string name="error_drm_unsupported_before_api_18">error_drm_unsupported_before_api_18</string>
+    <string name="error_drm_unsupported_scheme">error_drm_unsupported_scheme</string>
+</resources>
