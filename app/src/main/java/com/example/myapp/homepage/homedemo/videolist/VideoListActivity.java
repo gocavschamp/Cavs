@@ -38,7 +38,7 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).titleBar(titlelayout).init();
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).titleBar(titlelayout).statusBarColor(R.color.white).init();
     }
 
     @Override
