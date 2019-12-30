@@ -15,6 +15,8 @@ import com.nucarf.base.utils.AndroidUtil;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import java.util.Random;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
@@ -26,15 +28,31 @@ public class VideoListPresenter extends BasePAV<VideoListContract.View> implemen
     @Inject
     public VideoListPresenter() {
     }
+    // 随机生成16位字符串
+    public String getRandomNumberStr() {
+        String base = "0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 3; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
     @Override
     public void loadData(boolean isRefresh) {
-        String url = "https://haokan.baidu.com/videoui/api/videorec?tab=yingshi&act=pcFeed&pd=pc&num=5&shuaxin_id=1577413362081";
+        if(isRefresh) {
+            mView.showLoading();
+        }
+        String randomNumberStr = getRandomNumberStr();
+        String url = "https://haokan.baidu.com/videoui/api/videorec?tab=gaoxiao&act=pcFeed&pd=pc&num=20&shuaxin_id=" + (System.currentTimeMillis()-1)+""+randomNumberStr;
+//        String url = "https://haokan.baidu.com/videoui/api/videorec?tab=yingshi&act=pcFeed&pd=pc&num=5&shuaxin_id=1577413362081";
         RetrofitUtils.INSTANCE.getRxjavaClient(AppService.class)
                 .getVideoList(url)
                 .compose(RxSchedulers.io_main())
                 .compose(RxSchedulers.handleResult())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) mView)))
-                .subscribe(new CommonSubscriber<VideoListData>(mView,true) {
+                .subscribe(new CommonSubscriber<VideoListData>(mView, true) {
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -43,8 +61,7 @@ public class VideoListPresenter extends BasePAV<VideoListContract.View> implemen
                     @Override
                     public void onNext(VideoListData articleBean) {
                         mView.closeLoading();
-
-                        mView.setData(isRefresh,articleBean.getResponse().getVideos(),false);
+                        mView.setData(isRefresh, articleBean.getResponse().getVideos(), false);
 
                     }
                 });

@@ -2,7 +2,6 @@ package com.example.myapp.homepage.homedemo.videolist;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> implements VideoListContract.View, ExoPlayerListener, View.OnClickListener {
+public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> implements VideoListContract.View, ExoPlayerListener, View.OnClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.titlelayout)
     TitleLayout titlelayout;
@@ -73,6 +72,7 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
                 }
             }
         });
+        videoListAdapter.setOnLoadMoreListener(this,recycleview);
         View mVideoView = View.inflate(mContext, R.layout.video_layout, null);
         flContent.addView(mVideoView);
         if (mExoPlayer != null) {
@@ -128,7 +128,8 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
 
     @Override
     public void setData(boolean isRefresh, List<VideoListData.ResponseBean.VideosBean> data, boolean isEnd) {
-        videoListAdapter.setNewData(data);
+        videoListAdapter.loadMoreComplete();
+        videoListAdapter.addData(data);
     }
 
     @Override
@@ -184,5 +185,12 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (null != mPresenter) {
+            mPresenter.loadData(false);
+        }
     }
 }
