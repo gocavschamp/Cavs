@@ -87,16 +87,67 @@ public class NumberUtils {
         return sortMap;
     }
 
-//实现一个比较器类
-
+    /**
+     * 实现一个比较器类
+     */
     static class MapKeyComparator implements Comparator<String> {
 
         @Override
         public int compare(String s1, String s2) {
             return s1.compareTo(s2);  //从小到大排序
         }
-
+    }
+    /**
+     * 数字抹零
+     * 抹零字段 结算开关（1关 2抹百位 3抹拾位 4抹个位 5抹小数位 6小数点后一位 7小数点后2位（不进位） 8小数点后2位（进位））
+     *
+     * @param position
+     * @return
+     */
+    public static String getFormatNumber(String position, String number) {
+        switch (Integer.parseInt(position)) {
+            case 1:
+                return number;
+            case 2:
+                BigDecimal divide = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("100000"));
+                return ((int) divide.doubleValue()) * 1000 + "";
+            case 3:
+                BigDecimal divide1 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("10000"));
+                return ((int) divide1.doubleValue()) * 100 + "";
+            case 4:
+                BigDecimal divide2 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("1000"));
+                return ((int) divide2.doubleValue()) * 10 + "";
+            case 5:
+                return (int) Double.parseDouble(number) + "";
+            case 6:
+                return (int) Double.parseDouble(number) + ".0";
+            case 7:
+                return number;
+            case 8:
+                return number;
+            default:
+                return number;
+        }
     }
 
+    public static void main(String[] args) {
+        String number = "4.56";
+        String formatNumber = getFormatNumber(1 + "", number);
+        System.out.println(1 + "--position结果：" + formatNumber);
+        String formatNumber2 = getFormatNumber(2 + "", number);
+        System.out.println(2 + "--position结果：" + formatNumber2);
+        String formatNumber3 = getFormatNumber(3 + "", number);
+        System.out.println(3 + "--position结果：" + formatNumber3);
+        String formatNumber4 = getFormatNumber(4 + "", number);
+        System.out.println(4 + "--position结果：" + formatNumber4);
+        String formatNumber5 = getFormatNumber(5 + "", number);
+        System.out.println(5 + "--position结果：" + formatNumber5);
+        String formatNumber6 = getFormatNumber(6 + "", number);
+        System.out.println(6 + "--position结果：" + formatNumber6);
+        String formatNumber7 = getFormatNumber(7 + "", number);
+        System.out.println(7 + "--position结果：" + formatNumber7);
+        String formatNumber8 = getFormatNumber(8 + "", number);
+        System.out.println(8 + "--position结果：" + formatNumber8);
+    }
 
 }

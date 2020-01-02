@@ -68,7 +68,10 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mExoPlayer != null) {
                     flContent.setVisibility(View.VISIBLE);
-                    mExoPlayer.play(videoListAdapter.getData().get(position).getPlay_url(), null, null, false, mPlayTime, true);
+//                    String url = "rtmp://live.hkstv.hk.lxdns.com/live/hks";
+//                    String url = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
+                    String url = videoListAdapter.getData().get(position).getPlay_url();
+                    mExoPlayer.play(url, null, null, false, mPlayTime, true);
                 }
             }
         });

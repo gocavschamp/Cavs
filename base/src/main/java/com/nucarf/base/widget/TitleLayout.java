@@ -49,6 +49,7 @@ public class TitleLayout extends RelativeLayout {
         title_right_text = a.getString(R.styleable.TitleLayout_title_right_text);
         title_center_size = a.getDimensionPixelOffset(R.styleable.TitleLayout_title_center_size, 16); //获取 间隙
         title_center_color = a.getColorStateList(R.styleable.TitleLayout_title_center_color);
+
         a.recycle();
         initView(context);
     }
