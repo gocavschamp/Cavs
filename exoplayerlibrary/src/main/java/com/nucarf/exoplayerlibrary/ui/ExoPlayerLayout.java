@@ -105,16 +105,6 @@ public class ExoPlayerLayout extends FrameLayout implements View.OnTouchListener
 
     private void initializePlayer(boolean shouldAutoPlay) {
         if (player == null) {
-            boolean preferExtensionDecoders = false;
-            UUID drmSchemeUuid = null;
-            DrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
-
-//            @SimpleExoPlayer.ExtensionRendererMode int extensionRendererMode =
-//                    useExtensionRenderers() ? (preferExtensionDecoders ? SimpleExoPlayer.EXTENSION_RENDERER_MODE_PREFER
-//                            : SimpleExoPlayer.EXTENSION_RENDERER_MODE_ON)
-//                            : SimpleExoPlayer.EXTENSION_RENDERER_MODE_OFF;
-//            TrackSelection.Factory videoTrackSelectionFactory =
-//                    new AdaptiveVideoTrackSelection.Factory(BANDWIDTH_METER);
             BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             TrackSelection.Factory videoTrackSelectionFactory =
                     new AdaptiveTrackSelection.Factory(bandwidthMeter);
@@ -143,14 +133,6 @@ public class ExoPlayerLayout extends FrameLayout implements View.OnTouchListener
         if (playerNeedsSource) {
             Uri[] uris;
             String[] extensions;
-//            uris = new Uri[]{Uri.parse(videoInfoUri)};
-//            extensions = new String[]{null};
-//            MediaSource[] mediaSources = new MediaSource[uris.length];
-//            for (int i = 0; i < uris.length; i++) {
-//                mediaSources[i] = buildMediaSource(uris[i], extensions[i]);
-//            }
-//            MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0]
-//                    : new ConcatenatingMediaSource(mediaSources);
             //测量播放过程中的带宽。 如果不需要，可以为null。
             DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             // 生成加载媒体数据的DataSource实例。
@@ -159,7 +141,6 @@ public class ExoPlayerLayout extends FrameLayout implements View.OnTouchListener
                     Util.getUserAgent(getContext(),"flyvideo"),bandwidthMeter);
             // 生成用于解析媒体数据的Extractor实例。
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-
             // MediaSource代表要播放的媒体。
             MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoInfoUri),dataSourceFactory,extractorsFactory,
                     null,null);

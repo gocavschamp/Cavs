@@ -68,12 +68,15 @@ public class TitleLayout extends RelativeLayout {
         tvCenterTitle =   inflate.findViewById(R.id.tv_center_title);
         tvRight =   inflate.findViewById(R.id.tv_right);
         rlDefaultTitleLayout =   inflate.findViewById(R.id.rl_default_title_layout);
-        tvCenterTitle.setTextColor(getResources().getColor(R.color.color_333333));
         rlDefaultTitleLayout.setBackgroundColor(getResources().getColor(R.color.white));
         ivLeft.setImageResource(title_left_icon);
         tvCenterTitle.setText(title_center_text);
         tvCenterTitle.setTextSize(title_center_size);
-        tvCenterTitle.setTextColor(title_center_color);
+        if(null == title_center_color) {
+            tvCenterTitle.setTextColor(getResources().getColor(R.color.color_333333));
+        }else {
+            tvCenterTitle.setTextColor(title_center_color);
+        }
         tvRight.setText(title_right_text);
 //        ButterKnife.bind(this, inflate);
     }

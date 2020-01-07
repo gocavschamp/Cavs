@@ -26,11 +26,10 @@
 
     <RelativeLayout
         android:id="@+id/fl_content"
-        android:gravity="center"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/black_20"
-        android:layout_height="300dp"
-        android:visibility="visible"
-        android:layout_alignParentBottom="true" />
+        android:gravity="center"
+        android:visibility="gone" />
 
 </RelativeLayout>

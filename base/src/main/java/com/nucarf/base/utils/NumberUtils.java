@@ -120,7 +120,8 @@ public class NumberUtils {
             case 5:
                 return (int) Double.parseDouble(number) + "";
             case 6:
-                return (int) Double.parseDouble(number) + ".0";
+                BigDecimal divide3 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("10"));
+                return ((int) divide3.doubleValue()) / 10f + "";
             case 7:
                 return number;
             case 8:
@@ -131,7 +132,7 @@ public class NumberUtils {
     }
 
     public static void main(String[] args) {
-        String number = "4.56";
+        String number = "1234.2351";
         String formatNumber = getFormatNumber(1 + "", number);
         System.out.println(1 + "--position结果：" + formatNumber);
         String formatNumber2 = getFormatNumber(2 + "", number);

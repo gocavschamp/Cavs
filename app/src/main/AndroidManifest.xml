@@ -37,7 +37,12 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".homepage.homedemo.videolist.VideoListActivity"></activity>
+        <activity
+            android:name=".homepage.homedemo.videolist.VideoListActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".homepage.homedemo.zxing.QrcodeZxingDemoActivity" />
         <activity
             android:name="com.google.zxing.activity.CaptureActivity"
@@ -77,7 +82,8 @@
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboard"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:hardwareAccelerated="false"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
