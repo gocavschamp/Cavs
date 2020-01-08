@@ -28,6 +28,7 @@ public class VideoListPresenter extends BasePAV<VideoListContract.View> implemen
     @Inject
     public VideoListPresenter() {
     }
+
     // 随机生成16位字符串
     public String getRandomNumberStr() {
         String base = "0123456789";
@@ -39,13 +40,14 @@ public class VideoListPresenter extends BasePAV<VideoListContract.View> implemen
         }
         return sb.toString();
     }
+
     @Override
     public void loadData(boolean isRefresh) {
-        if(isRefresh) {
+        if (isRefresh) {
             mView.showLoading();
         }
         String randomNumberStr = getRandomNumberStr();
-        String url = "https://haokan.baidu.com/videoui/api/videorec?tab=gaoxiao&act=pcFeed&pd=pc&num=20&shuaxin_id=" + (System.currentTimeMillis()-1)+""+randomNumberStr;
+        String url = "https://haokan.baidu.com/videoui/api/videorec?tab=gaoxiao&act=pcFeed&pd=pc&num=20&shuaxin_id=" + (System.currentTimeMillis() - 1) + "" + randomNumberStr;
 //        String url = "https://haokan.baidu.com/videoui/api/videorec?tab=yingshi&act=pcFeed&pd=pc&num=5&shuaxin_id=1577413362081";
         RetrofitUtils.INSTANCE.getRxjavaClient(AppService.class)
                 .getVideoList(url)

@@ -15,6 +15,7 @@ import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
+import com.example.myapp.homepage.homedemo.videolist.DouYinListActivity;
 import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
 import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
@@ -74,6 +75,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("高德地图");
         data.add("二维码zxing");
         data.add("列表播放");
+        data.add("抖音列表播放");
         mycenterAdapter.setNewData(data);
 
 
@@ -113,6 +115,10 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 7 :
                         UiGoto.startAty(mActivity, VideoListActivity.class);
+
+                        break;
+                    case 8 :
+                        UiGoto.startAty(mActivity, DouYinListActivity.class);
 
                         break;
                 }
