@@ -1,6 +1,8 @@
 package com.example.myapp.homepage;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
@@ -83,6 +85,13 @@ public class HomeFragment extends BaseLazyFragment {
 
     @Override
     protected void initView() {
+        new Handler().sendMessage(Message.obtain());
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
         recycleview.setLayoutManager(new GridLayoutManager(mActivity,3,RecyclerView.VERTICAL,false));
         mycenterAdapter = new MycenterAdapter(R.layout.mycenter_item);
         recycleview.setAdapter(mycenterAdapter);

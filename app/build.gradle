@@ -37,9 +37,12 @@ android {
         }
     }
 
-    flavorDimensions "mode"
+    flavorDimensions ('mode', 'size')
     productFlavors {
         happy {
+            // applicationId 应用的包名，会覆盖 defaultConfig 中的 applicationId
+            // applicationId 会替换 AndroidManifest.xml 中的 manifest 标签下 package 的 value
+            applicationId "com.yuwenming.happy"
             dimension "mode"
             resValue "string", "app_name", "Happy"
             resValue "string", "app_welcome", "欢迎来到Happy"
@@ -54,10 +57,38 @@ android {
 
         }
         sad {
+            applicationId "com.yuwenming.sad"
             dimension "mode"
             resValue "string", "app_name", "Sad"
             resValue "string", "app_welcome", "欢迎来到Sad"
             resValue "string", "company_name", "Sad"
+            manifestPlaceholders = [
+
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_center_habit",
+                    launcherIcon: "@mipmap/icon_center_habit"
+
+            ]
+        }
+        bigsize {
+            dimension "size"
+            resValue "string", "app_name", "bigsize"
+            resValue "string", "app_welcome", "欢迎来到bigsize"
+            resValue "string", "company_name", "bigsize"
+            // 修改 AndroidManifest.xml 里渠道变量
+            manifestPlaceholders = [
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_comment_glod",
+                    launcherIcon: "@mipmap/icon_comment_glod"
+
+            ]
+
+        }
+        smallsize {
+            dimension "size"
+            resValue "string", "app_name", "smallsize"
+            resValue "string", "app_welcome", "欢迎来到smallsize"
+            resValue "string", "company_name", "smallsize"
             manifestPlaceholders = [
 
                     //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
@@ -116,18 +147,18 @@ android {
             ]
         }
         // 本地类型，和后端联调使用
-        local {
-            // 会拷贝 debug 的配置
-            initWith debug {
-                // 在这里进行我们自己的配置
-                matchingFallbacks = ['debug', 'release']
-                applicationIdSuffix ".local"//applicationId 添加后缀
-
-            }
-            minifyEnabled false//开启混淆
-            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
-        }
+//        local {
+//            // 会拷贝 debug 的配置
+//            initWith debug {
+//                // 在这里进行我们自己的配置
+//                matchingFallbacks = ['debug', 'release']
+//                applicationIdSuffix ".local"//applicationId 添加后缀
+//
+//            }
+//            minifyEnabled false//开启混淆
+//            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
+//        }
     }
 
 
