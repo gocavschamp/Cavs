@@ -1,5 +1,6 @@
 package com.example.myapp.homepage;
 
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapp.R;
@@ -18,6 +19,7 @@ public class HelloGroundFragment extends BaseLazyFragment {
     CustomImageView ciPic;
     @BindView(R.id.cl_layout)
     CustomLinealayout clLayout;
+    private boolean isStar;
 
     public HelloGroundFragment() {
     }
@@ -33,6 +35,17 @@ public class HelloGroundFragment extends BaseLazyFragment {
 
     @Override
     protected void initData() {
+        clLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isStar) {
+                    clLayout.startRippleAnimation();
+                }else {
+                    clLayout.stopRippleAnimation();
+                }
+                isStar = !isStar;
+            }
+        });
 
     }
 
