@@ -8,14 +8,23 @@
        label_text  框上方提示
    -->
     <declare-styleable name="ViewfinderView">
-        <attr name="corner_color" format="color"/>
-        <attr name="laser_color" format="color"/>
+        <attr name="corner_color" format="color" />
+        <attr name="laser_color" format="color" />
         <attr name="frame_color" format="color" />
         <attr name="mask_color" format="color" />
-        <attr name="result_point_color" format="color"/>
+        <attr name="result_point_color" format="color" />
         <attr name="result_color" format="color" />
-        <attr name="label_text_color" format="color"/>
-        <attr name="label_text" format="string"/>
-        <attr name="label_text_size" format="float"/>
+        <attr name="label_text_color" format="color" />
+        <attr name="label_text" format="string" />
+        <attr name="label_text_size" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CustomProgressBar">
+        <attr name="bar_text" format="string" />
+        <attr name="bar_text_color" format="color" />
+        <attr name="bar_text_size" format="dimension" />
+        <attr name="bar_out_color" format="color" />
+        <attr name="bar_inner_color" format="color" />
+        <attr name="bar_out_size" format="dimension" />
+        <attr name="bar_inner_size" format="dimension" />
     </declare-styleable>
 </resources>

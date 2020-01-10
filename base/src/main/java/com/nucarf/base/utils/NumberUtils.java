@@ -22,7 +22,8 @@ public class NumberUtils {
      * @return
      */
     public static String totalMoney(String money) {
-        Double mAmountF = Double.parseDouble(money) / 100;
+//        Double mAmountF = Double.parseDouble(money) / 100;
+        Double mAmountF = Double.parseDouble(money) ;
         BigDecimal bigDec = new BigDecimal(mAmountF);
         double total = bigDec.setScale(2, BigDecimal.ROUND_HALF_UP)
                 .doubleValue();
