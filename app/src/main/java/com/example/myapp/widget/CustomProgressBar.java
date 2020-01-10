@@ -6,15 +6,18 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapp.R;
+import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.NumberUtils;
 
 import me.jessyan.autosize.utils.AutoSizeUtils;
@@ -70,7 +73,6 @@ public class CustomProgressBar extends View {
         initTextPanit();
         initInnerPanit();
         initOuterPanit();
-        init();
     }
 
     private void init() {
@@ -78,6 +80,28 @@ public class CustomProgressBar extends View {
         resetValue(Float.parseFloat(mText));
 
     }
+
+//    @Override
+//    protected void onWindowVisibilityChanged(int visibility) {
+//        super.onWindowVisibilityChanged(visibility);
+//        if (visibility == VISIBLE) {
+//        }
+//
+//    }
+//
+//    @Override
+//    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+//        super.onVisibilityChanged(changedView, visibility);
+//        if (visibility == VISIBLE) {
+//            init();
+//        }
+//    }
+//
+//    @Override
+//    protected void onFinishInflate() {
+//        super.onFinishInflate();
+////        init();
+//    }
 
     public void resetValue(float value) {
         this.animate().cancel();
@@ -91,6 +115,7 @@ public class CustomProgressBar extends View {
                 float aFloat = (float) animation.getAnimatedValue();
                 mText = NumberUtils.totalMoney(aFloat + "");
                 sweepValue = (aFloat / 100f) * 360f;
+                LogUtils.e("angle", sweepValue + "");
                 invalidate();
             }
         });
@@ -142,43 +167,70 @@ public class CustomProgressBar extends View {
         drawText(canvas);
         drawOuter(canvas);
         drawInner(sweepValue);
+        drawTextBox(canvas);
+    }
+
+    private void drawTextBox(Canvas canvas) {
+        Rect rect = new Rect();
+        String text = mText + "%";
+        double x = Math.sin(Math.PI*sweepValue/180) * (defHeight / 2f);
+        double y = Math.cos(Math.PI*sweepValue/180) * (defWidth / 2f);
+
+//        canvas.drawText(text, dx, dy, textPaint);
+        if (0 < sweepValue && sweepValue < 90) {
+            int dx = defWidth / 2 + (int) x;
+            int dy = defHeight / 2 - (int) y;
+            canvas.drawLine(defWidth / 2, defHeight / 2, dx, dy, textPaint);
+            canvas.drawText(text, dx, dy, textPaint);
+//            LogUtils.e("90---");
+        }
+        if (90 < sweepValue && sweepValue < 180) {
+            int dx = defWidth / 2 - (int) x;
+            int dy = defHeight / 2 + (int) y;
+            canvas.drawText(text, dx, dy, textPaint);
+            LogUtils.e("180---");
+
+        }
+        if (180 < sweepValue && sweepValue < 270) {
+            int dx = defWidth / 2 + (int) x;
+            int dy = defHeight / 2 - (int) y;
+            canvas.drawText(text, dx, dy, textPaint);
+            LogUtils.e("270---");
+
+        }
+        if (270 < sweepValue && sweepValue < 360) {
+            int dx = defWidth / 2 - (int) x;
+            int dy = defHeight / 2 + (int) y;
+            canvas.drawText(text, dx, dy, textPaint);
+            LogUtils.e("360---");
+
+        }
+//        textPaint.getTextBounds(text, 0, text.length(), rect);
+//        int dx = defWidth / 2 - rect.right / 2;
+//        int dy = defHeight / 2 + rect.bottom;
+//        canvas.drawText(text, dx, dy, textPaint);
+//        Path path = new Path();
+//        path.moveTo();
+//        canvas.drawPath(path, innerPaint);
 
     }
 
     private void drawInner(float sweepAngle) {
-        if (canvas == null) {
-            return;
-        }
-        if (innerPaint == null) {
-            return;
-        }
         RectF rect = new RectF(mInnerSize / 2, mInnerSize / 2, defWidth - mInnerSize / 2, defHeight - mInnerSize / 2);
         canvas.drawArc(rect, -90f, sweepAngle, false, innerPaint);
     }
 
     private void drawOuter(Canvas canvas) {
-        if (canvas == null) {
-            return;
-        }
-        if (outPaint == null) {
-            return;
-        }
         canvas.drawCircle(defWidth / 2, defHeight / 2, defWidth / 2 - mOutSize / 2, outPaint);
 
     }
 
     private void drawText(Canvas canvas) {
-        if (canvas == null) {
-            return;
-        }
         Rect rect = new Rect();
         String text = mText + "%";
-        if (textPaint == null) {
-            return;
-        }
         textPaint.getTextBounds(text, 0, text.length(), rect);
         int dx = defWidth / 2 - rect.right / 2;
-        int dy = defHeight / 2 - rect.bottom;
+        int dy = defHeight / 2 + rect.bottom;
         canvas.drawText(text, dx, dy, textPaint);
 
     }
