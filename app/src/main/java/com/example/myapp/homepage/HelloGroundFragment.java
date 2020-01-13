@@ -14,6 +14,8 @@ import com.nucarf.base.ui.BaseLazyFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static android.view.View.LAYER_TYPE_SOFTWARE;
+
 public class HelloGroundFragment extends BaseLazyFragment {
 
 
@@ -56,6 +58,7 @@ public class HelloGroundFragment extends BaseLazyFragment {
                 isStar = !isStar;
             }
         });
+        progressBar.setLayerType(LAYER_TYPE_SOFTWARE, null);
 
     }
 

@@ -156,7 +156,7 @@ public class CustomProgressBar extends View {
             defHeight = MeasureSpec.getSize(heightMeasureSpec);
         }
         defHeight = defWidth = Math.min(defHeight, defWidth);
-        setMeasuredDimension(defWidth, defHeight);
+        setMeasuredDimension(defWidth * 2, defHeight * 2);
 
     }
 
@@ -171,39 +171,41 @@ public class CustomProgressBar extends View {
     }
 
     private void drawTextBox(Canvas canvas) {
-        Rect rect = new Rect();
+        Rect rectText = new Rect();
         String text = mText + "%";
-        double x = Math.sin(Math.PI*sweepValue/180) * (defHeight / 2f);
-        double y = Math.cos(Math.PI*sweepValue/180) * (defWidth / 2f);
+        textPaint.getTextBounds(text, 0, text.length(), rectText);
+        double x = Math.sin(Math.PI * sweepValue / 180) * (defHeight / 2f);
+        double y = Math.cos(Math.PI * sweepValue / 180) * (defWidth / 2f);
 
-//        canvas.drawText(text, dx, dy, textPaint);
-        if (0 < sweepValue && sweepValue < 90) {
-            int dx = defWidth / 2 + (int) x;
-            int dy = defHeight / 2 - (int) y;
-            canvas.drawLine(defWidth / 2, defHeight / 2, dx, dy, textPaint);
+        if (0 < sweepValue && sweepValue <= 90) {
+            int dx = defWidth + (int) x;
+            int dy = defHeight - (int) y;
+            canvas.drawRect(dx, dy, dx + rectText.right, dy + rectText.bottom, outPaint);
             canvas.drawText(text, dx, dy, textPaint);
-//            LogUtils.e("90---");
+            canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
         }
-        if (90 < sweepValue && sweepValue < 180) {
-            int dx = defWidth / 2 - (int) x;
-            int dy = defHeight / 2 + (int) y;
-            canvas.drawText(text, dx, dy, textPaint);
-            LogUtils.e("180---");
-
-        }
-        if (180 < sweepValue && sweepValue < 270) {
-            int dx = defWidth / 2 + (int) x;
-            int dy = defHeight / 2 - (int) y;
-            canvas.drawText(text, dx, dy, textPaint);
-            LogUtils.e("270---");
+        if (90 < sweepValue && sweepValue <= 180) {
+            int dx = defWidth + (int) x;
+            int dy = defHeight - (int) y;
+            canvas.drawRect(dx, dy, dx + rectText.right, dy + mTextSize, outPaint);
+            canvas.drawText(text, dx, dy + mTextSize, textPaint);
+            canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
 
         }
-        if (270 < sweepValue && sweepValue < 360) {
-            int dx = defWidth / 2 - (int) x;
-            int dy = defHeight / 2 + (int) y;
-            canvas.drawText(text, dx, dy, textPaint);
-            LogUtils.e("360---");
+        if (180 < sweepValue && sweepValue <= 270) {
+            int dx = defWidth + (int) x;
+            int dy = defHeight - (int) y;
+            canvas.drawRect(dx - rectText.right, dy, dx + rectText.right, dy + rectText.bottom, outPaint);
+            canvas.drawText(text, dx - rectText.right, dy, textPaint);
+            canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
 
+        }
+        if (270 < sweepValue && sweepValue <= 360) {
+            int dx = defWidth + (int) x;
+            int dy = defHeight - (int) y;
+            canvas.drawRect(dx - rectText.right, dy, dx + rectText.right, dy + rectText.bottom, outPaint);
+            canvas.drawText(text, dx - rectText.right, dy, textPaint);
+            canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
         }
 //        textPaint.getTextBounds(text, 0, text.length(), rect);
 //        int dx = defWidth / 2 - rect.right / 2;
@@ -216,12 +218,12 @@ public class CustomProgressBar extends View {
     }
 
     private void drawInner(float sweepAngle) {
-        RectF rect = new RectF(mInnerSize / 2, mInnerSize / 2, defWidth - mInnerSize / 2, defHeight - mInnerSize / 2);
+        RectF rect = new RectF(defWidth / 2 + mInnerSize / 2, defHeight / 2 + mInnerSize / 2, defWidth + defWidth / 2 - mInnerSize / 2, defHeight + defHeight / 2 - mInnerSize / 2);
         canvas.drawArc(rect, -90f, sweepAngle, false, innerPaint);
     }
 
     private void drawOuter(Canvas canvas) {
-        canvas.drawCircle(defWidth / 2, defHeight / 2, defWidth / 2 - mOutSize / 2, outPaint);
+        canvas.drawCircle(defWidth, defHeight, defWidth / 2 - mOutSize / 2, outPaint);
 
     }
 
@@ -229,8 +231,8 @@ public class CustomProgressBar extends View {
         Rect rect = new Rect();
         String text = mText + "%";
         textPaint.getTextBounds(text, 0, text.length(), rect);
-        int dx = defWidth / 2 - rect.right / 2;
-        int dy = defHeight / 2 + rect.bottom;
+        int dx = defWidth - rect.right / 2;
+        int dy = defHeight + rect.bottom;
         canvas.drawText(text, dx, dy, textPaint);
 
     }
