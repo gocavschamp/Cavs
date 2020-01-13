@@ -27,6 +27,7 @@ import me.jessyan.autosize.utils.AutoSizeUtils;
  */
 public class CustomProgressBar extends View {
 
+    private Paint recPaint;
     private int mInnerSize;
     private int mOutSize;
     private int mTextSize;
@@ -68,6 +69,8 @@ public class CustomProgressBar extends View {
         innerPaint = new Paint();
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
+        recPaint = new Paint();
+        recPaint.setAntiAlias(true);
         innerPaint.setAntiAlias(true);
         outPaint.setAntiAlias(true);
         initTextPanit();
@@ -115,7 +118,7 @@ public class CustomProgressBar extends View {
                 float aFloat = (float) animation.getAnimatedValue();
                 mText = NumberUtils.totalMoney(aFloat + "");
                 sweepValue = (aFloat / 100f) * 360f;
-                LogUtils.e("angle", sweepValue + "");
+//                LogUtils.e("angle", sweepValue + "");
                 invalidate();
             }
         });
@@ -180,14 +183,14 @@ public class CustomProgressBar extends View {
         if (0 < sweepValue && sweepValue <= 90) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
-            canvas.drawRect(dx, dy, dx + rectText.right, dy + rectText.bottom, outPaint);
+            canvas.drawRect(dx, dy - textPaint.getFontSpacing()+rectText.bottom, dx + rectText.right, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx, dy, textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
         }
         if (90 < sweepValue && sweepValue <= 180) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
-            canvas.drawRect(dx, dy, dx + rectText.right, dy + mTextSize, outPaint);
+            canvas.drawRect(dx, dy, dx + rectText.right, dy + textPaint.getFontSpacing(), recPaint);
             canvas.drawText(text, dx, dy + mTextSize, textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
 
@@ -195,15 +198,15 @@ public class CustomProgressBar extends View {
         if (180 < sweepValue && sweepValue <= 270) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
-            canvas.drawRect(dx - rectText.right, dy, dx + rectText.right, dy + rectText.bottom, outPaint);
-            canvas.drawText(text, dx - rectText.right, dy, textPaint);
+            canvas.drawRect(dx - rectText.right, dy + textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
+            canvas.drawText(text, dx - rectText.right, dy + textPaint.getFontSpacing(), textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
 
         }
         if (270 < sweepValue && sweepValue <= 360) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
-            canvas.drawRect(dx - rectText.right, dy, dx + rectText.right, dy + rectText.bottom, outPaint);
+            canvas.drawRect(dx - rectText.right, dy - textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy, textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
         }
@@ -242,6 +245,9 @@ public class CustomProgressBar extends View {
         outPaint.setStrokeCap(Paint.Cap.ROUND);//
         outPaint.setStrokeWidth(mOutSize);
         outPaint.setStyle(Paint.Style.STROKE);
+        recPaint.setColor(mOutTextColor);
+        recPaint.setStrokeCap(Paint.Cap.ROUND);//
+        recPaint.setStrokeWidth(mOutSize);
     }
 
     private void initInnerPanit() {
