@@ -156,16 +156,6 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
             String displayMessage = ex.getErrorMsg();
             Log.d("<----TAG---->", "onError: " + e.getMessage());
         }
-//        if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-//            mView.onNetError(1, mErrorMsg);
-//        } else if (e instanceof ApiException) {
-//            mView.onNetError(1, ex.getErrorMsg());
-//        } else if (e instanceof HttpException) {
-//            mView.onNetError(1, ex.getErrorMsg());
-//        } else {
-//            mView.onNetError(1, ex.getErrorMsg());
-//        }
-
         if (isShowErrorState) {
             mView.onNetError(0, ex.getErrorMsg());
         }

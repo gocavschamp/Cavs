@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.R;
+import com.example.myapp.homepage.homedemo.EdittextTextActivity;
 import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
 import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
@@ -78,6 +79,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("二维码zxing");
         data.add("列表播放");
         data.add("抖音列表播放");
+        data.add("EdittextTextActivity");
         mycenterAdapter.setNewData(data);
 
 
@@ -92,7 +94,7 @@ public class HomeFragment extends BaseLazyFragment {
 
             }
         });
-        recycleview.setLayoutManager(new GridLayoutManager(mActivity,3,RecyclerView.VERTICAL,false));
+        recycleview.setLayoutManager(new GridLayoutManager(mActivity, 3, RecyclerView.VERTICAL, false));
         mycenterAdapter = new MycenterAdapter(R.layout.mycenter_item);
         recycleview.setAdapter(mycenterAdapter);
         mycenterAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -100,34 +102,38 @@ public class HomeFragment extends BaseLazyFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String item = mycenterAdapter.getData().get(position);
                 switch (position) {
-                    case 0 :
+                    case 0:
                         UiGoto.startAty(mActivity, BottomSheetBihaverActivity.class);
                         break;
-                    case 1 :
+                    case 1:
                         UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
                         break;
-                    case 2 :
+                    case 2:
                         UiGoto.startAty(mActivity, RxjavaDemoActivity.class);
                         break;
-                    case 3 :
+                    case 3:
                         UiGoto.startAty(mActivity, MultItemActivity.class);
                         break;
-                    case 4 :
+                    case 4:
                         Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
                         mActivity.startActivity(intent);
                         break;
-                    case 5 :
+                    case 5:
                         UiGoto.startAty(mActivity, SearchWayResultActivity.class);
                         break;
-                    case 6 :
+                    case 6:
                         UiGoto.startAty(mActivity, QrcodeZxingDemoActivity.class);
                         break;
-                    case 7 :
+                    case 7:
                         UiGoto.startAty(mActivity, VideoListActivity.class);
 
                         break;
-                    case 8 :
+                    case 8:
                         UiGoto.startAty(mActivity, DouYinListActivity.class);
+
+                        break;
+                    case 9:
+                        UiGoto.startAty(mActivity, EdittextTextActivity.class);
 
                         break;
                 }
@@ -171,7 +177,7 @@ public class HomeFragment extends BaseLazyFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            helper.setText(R.id.tv_info,item);
+            helper.setText(R.id.tv_info, item);
 
         }
     }

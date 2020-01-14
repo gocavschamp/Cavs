@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ImmersionBar.with(this).statusBarDarkFont(false, 0.2f).init();
+//        ImmersionBar.with(this).statusBarDarkFont(false, 0.2f).init();
         registerMessageReceiver();  // used for receive msg
         //修改 测试分支
         if (!SharePreUtils.getIsSetAlias()) {

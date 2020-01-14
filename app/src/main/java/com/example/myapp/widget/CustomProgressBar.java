@@ -22,6 +22,8 @@ import com.nucarf.base.utils.NumberUtils;
 
 import me.jessyan.autosize.utils.AutoSizeUtils;
 
+import static com.nucarf.base.utils.ScreenUtil.disableHardwareAccelerated;
+
 /**
  * Created by yuwenming on 2020/1/10.
  */
@@ -42,6 +44,7 @@ public class CustomProgressBar extends View {
     private int defHeight;
     private Canvas canvas;
     private float sweepValue = 0f;
+    private float starValue = -90f;
 
     public CustomProgressBar(Context context) {
         this(context, null, 0);
@@ -65,6 +68,7 @@ public class CustomProgressBar extends View {
         mOutSize = typedArray.getDimensionPixelSize(R.styleable.CustomProgressBar_bar_out_size, 25);
         mInnerSize = typedArray.getDimensionPixelSize(R.styleable.CustomProgressBar_bar_inner_size, 25);
         typedArray.recycle();
+        disableHardwareAccelerated(this);
         outPaint = new Paint();
         innerPaint = new Paint();
         textPaint = new Paint();
@@ -76,6 +80,9 @@ public class CustomProgressBar extends View {
         initTextPanit();
         initInnerPanit();
         initOuterPanit();
+        mText = NumberUtils.totalMoney(mText + "");
+        sweepValue = (Float.parseFloat(mText) / 100f) * 360f;
+        resetValue(sweepValue);
     }
 
     private void init() {
@@ -108,7 +115,10 @@ public class CustomProgressBar extends View {
 
     public void resetValue(float value) {
         this.animate().cancel();
-
+//        float aFloat = value;
+//        mText = NumberUtils.totalMoney(aFloat + "");
+//        sweepValue = (aFloat / 100f) * 360f;
+//        invalidate();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0F, value);
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.setDuration(1800);
@@ -164,6 +174,19 @@ public class CustomProgressBar extends View {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        setMeasuredDimension(defWidth * 2, defHeight * 2);
+
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+//        setMeasuredDimension(defWidth * 2, defHeight * 2);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
@@ -183,6 +206,7 @@ public class CustomProgressBar extends View {
         if (0 < sweepValue && sweepValue <= 90) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
+            recPaint.setColor(getContext().getResources().getColor(R.color.color_ff4081));
             canvas.drawRect(dx, dy - textPaint.getFontSpacing()+rectText.bottom, dx + rectText.right, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx, dy, textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
@@ -190,6 +214,7 @@ public class CustomProgressBar extends View {
         if (90 < sweepValue && sweepValue <= 180) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
+            recPaint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
             canvas.drawRect(dx, dy, dx + rectText.right, dy + textPaint.getFontSpacing(), recPaint);
             canvas.drawText(text, dx, dy + mTextSize, textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
@@ -198,6 +223,7 @@ public class CustomProgressBar extends View {
         if (180 < sweepValue && sweepValue <= 270) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
+            recPaint.setColor(getContext().getResources().getColor(R.color.result_point_color));
             canvas.drawRect(dx - rectText.right, dy + textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy + textPaint.getFontSpacing(), textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
@@ -206,6 +232,7 @@ public class CustomProgressBar extends View {
         if (270 < sweepValue && sweepValue <= 360) {
             int dx = defWidth + (int) x;
             int dy = defHeight - (int) y;
+            recPaint.setColor(getContext().getResources().getColor(R.color.color_f5a623));
             canvas.drawRect(dx - rectText.right, dy - textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy, textPaint);
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
@@ -222,7 +249,33 @@ public class CustomProgressBar extends View {
 
     private void drawInner(float sweepAngle) {
         RectF rect = new RectF(defWidth / 2 + mInnerSize / 2, defHeight / 2 + mInnerSize / 2, defWidth + defWidth / 2 - mInnerSize / 2, defHeight + defHeight / 2 - mInnerSize / 2);
-        canvas.drawArc(rect, -90f, sweepAngle, false, innerPaint);
+        float start = 0;
+        if (0 < sweepValue  ) {
+            innerPaint.setColor(getContext().getResources().getColor(R.color.color_ff4081));
+            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+
+        }
+        if (90 < sweepValue  ) {
+            innerPaint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
+            start = 90;
+            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+
+        }
+        if (180 < sweepValue ) {
+            innerPaint.setColor(getContext().getResources().getColor(R.color.result_point_color));
+            start = 180;
+            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+
+
+        }
+        if (270 < sweepValue ) {
+            innerPaint.setColor(getContext().getResources().getColor(R.color.color_f5a623));
+            start = 270;
+            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+
+        }
+//        canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+//        starValue+=sweepValue;
     }
 
     private void drawOuter(Canvas canvas) {
@@ -252,7 +305,7 @@ public class CustomProgressBar extends View {
 
     private void initInnerPanit() {
         innerPaint.setColor(mInnerTextColor);
-        innerPaint.setStrokeCap(Paint.Cap.ROUND);//
+        innerPaint.setStrokeCap(Paint.Cap.BUTT);//
         innerPaint.setStrokeWidth(mInnerSize);
         innerPaint.setStyle(Paint.Style.STROKE);
     }

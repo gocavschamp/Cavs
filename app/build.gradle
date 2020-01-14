@@ -37,7 +37,7 @@ android {
         }
     }
 
-    flavorDimensions ('mode', 'size')
+    flavorDimensions('mode', 'size')
     productFlavors {
         happy {
             // applicationId 应用的包名，会覆盖 defaultConfig 中的 applicationId

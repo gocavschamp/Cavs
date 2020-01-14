@@ -58,7 +58,7 @@ public class HelloGroundFragment extends BaseLazyFragment {
                 isStar = !isStar;
             }
         });
-        progressBar.setLayerType(LAYER_TYPE_SOFTWARE, null);
+//        progressBar.setLayerType(LAYER_TYPE_SOFTWARE, null);
 
     }
 

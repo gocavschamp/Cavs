@@ -5,7 +5,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 /**
- * 限制输入两位小数
+ * 限制数字输入小数位数，整数位数
  */
 public class MoneyTextWatcher implements TextWatcher {
     private EditText editText;

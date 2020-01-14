@@ -47,8 +47,8 @@
         <com.example.myapp.widget.CustomProgressBar
             android:id="@+id/progress_bar"
             android:background="@color/color_b3b3b3"
-            android:layout_width="@dimen/dp_200"
-            android:layout_height="@dimen/dp_200"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
             android:layout_below="@id/et_angle"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_50"
