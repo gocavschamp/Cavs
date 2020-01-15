@@ -25,7 +25,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/lakers_test" />
+            android:background="@color/color_b3b3b3"
+            android:scaleType="centerCrop"
+            android:src="@drawable/lakers_test"
+            app:bottom_left="true"
+            app:bottom_right="true"
+            app:radius="@dimen/dp_5"
+            app:top_left="false"
+            app:top_right="true" />
 
         <com.example.myapp.widget.CustomLinealayout
             android:id="@+id/cl_layout"
@@ -46,12 +53,11 @@
 
         <com.example.myapp.widget.CustomProgressBar
             android:id="@+id/progress_bar"
-            android:background="@color/color_b3b3b3"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_100"
             android:layout_below="@id/et_angle"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_30"
             app:bar_inner_color="@color/color_ff409eff"
             app:bar_inner_size="12dp"
             app:bar_out_color="@color/main_color"

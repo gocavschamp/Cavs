@@ -27,4 +27,11 @@
         <attr name="bar_out_size" format="dimension" />
         <attr name="bar_inner_size" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="CustomImageView">
+        <attr name="top_left" format="boolean" />
+        <attr name="top_right" format="boolean" />
+        <attr name="bottom_left" format="boolean" />
+        <attr name="bottom_right" format="boolean" />
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
 </resources>
