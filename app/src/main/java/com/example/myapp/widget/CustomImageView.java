@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AnticipateInterpolator;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -64,7 +65,7 @@ public class CustomImageView extends ImageView {
 
 
     private void init(Context context, AttributeSet attrs) {
-//        this.animate().rotationX(720).setInterpolator(new AnticipateInterpolator()).scaleX(1.1f).setDuration(5000).start();
+        this.animate().rotationX(720).setInterpolator(new AnticipateInterpolator()).scaleX(1.1f).setDuration(5000).start();
         if (null != attrs) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomImageView);
             topleft = typedArray.getBoolean(R.styleable.CustomImageView_top_left, false);
