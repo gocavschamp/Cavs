@@ -107,27 +107,25 @@ public class NumberUtils {
      * @return
      */
     public static String getFormatNumber(String position, String number) {
+        Double multiply = BigDecimalUtils.multiply(Double.parseDouble(number), 100);
         switch (Integer.parseInt(position)) {
             case 1:
-                BigDecimal divide5 = new BigDecimal(number).multiply(new BigDecimal("100"));
-                return ((int) divide5.doubleValue()) / 100f + "";
+            case 7:
+                return ((int) multiply.doubleValue()) / 100f + "";
             case 2:
-                BigDecimal divide = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("100000"));
-                return ((int) divide.doubleValue()) * 1000 + "";
+                Double divide4 = BigDecimalUtils.divide(multiply, 100000);
+                return ((int) divide4.doubleValue()) * 1000 + "";
             case 3:
-                BigDecimal divide1 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("10000"));
-                return ((int) divide1.doubleValue()) * 100 + "";
+                Double divide = BigDecimalUtils.divide(multiply, 10000);
+                return ((int) divide.doubleValue()) * 100 + "";
             case 4:
-                BigDecimal divide2 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("1000"));
-                return ((int) divide2.doubleValue()) * 10 + "";
+                Double divide1 = BigDecimalUtils.divide(multiply, 1000);
+                return ((int) divide1.doubleValue()) * 10 + "";
             case 5:
                 return (int) Double.parseDouble(number) + "";
             case 6:
-                BigDecimal divide3 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("10"));
-                return ((int) divide3.doubleValue()) / 10f + "";
-            case 7:
-                BigDecimal divide4 = new BigDecimal(number).multiply(new BigDecimal("100"));
-                return ((int) divide4.doubleValue()) / 100f + "";
+                Double divide2 = BigDecimalUtils.divide(multiply, 10);
+                return ((int) divide2.doubleValue()) / 10f + "";
             case 8:
                 return numberHalfUp(number);
             default:
@@ -154,8 +152,8 @@ public class NumberUtils {
     }
 
     public static void main(String[] args) {
-//        String number = "1234.55555";
-        String number = "0.99";
+        String number = "1234.55555";
+//        String number = "0.99";
         String formatNumber = getFormatNumber(1 + "", number);
         System.out.println(1 + "--position结果：" + formatNumber);
         String formatNumber2 = getFormatNumber(2 + "", number);
