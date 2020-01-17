@@ -23,7 +23,7 @@ public class NumberUtils {
      */
     public static String totalMoney(String money) {
 //        Double mAmountF = Double.parseDouble(money) / 100;
-        Double mAmountF = Double.parseDouble(money) ;
+        Double mAmountF = Double.parseDouble(money);
         BigDecimal bigDec = new BigDecimal(mAmountF);
         double total = bigDec.setScale(2, BigDecimal.ROUND_HALF_UP)
                 .doubleValue();
@@ -98,6 +98,7 @@ public class NumberUtils {
             return s1.compareTo(s2);  //从小到大排序
         }
     }
+
     /**
      * 数字抹零
      * 抹零字段 结算开关（1关 2抹百位 3抹拾位 4抹个位 5抹小数位 6小数点后一位 7小数点后2位（不进位） 8小数点后2位（进位））
@@ -108,7 +109,8 @@ public class NumberUtils {
     public static String getFormatNumber(String position, String number) {
         switch (Integer.parseInt(position)) {
             case 1:
-                return number;
+                BigDecimal divide5 = new BigDecimal(number).multiply(new BigDecimal("100"));
+                return ((int) divide5.doubleValue()) / 100f + "";
             case 2:
                 BigDecimal divide = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("100000"));
                 return ((int) divide.doubleValue()) * 1000 + "";
@@ -124,16 +126,36 @@ public class NumberUtils {
                 BigDecimal divide3 = new BigDecimal(number).multiply(new BigDecimal("100")).divide(new BigDecimal("10"));
                 return ((int) divide3.doubleValue()) / 10f + "";
             case 7:
-                return number;
+                BigDecimal divide4 = new BigDecimal(number).multiply(new BigDecimal("100"));
+                return ((int) divide4.doubleValue()) / 100f + "";
             case 8:
-                return number;
+                return numberHalfUp(number);
             default:
                 return number;
         }
     }
 
+    public static String numberHalfUp(String money) {
+        Double mAmountF = Double.parseDouble(money);
+        BigDecimal bigDec = new BigDecimal(mAmountF);
+        double total = bigDec.setScale(2, BigDecimal.ROUND_CEILING)
+                .doubleValue();
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(total);
+    }
+
+    public static String numberHalfDown(String money) {
+        Double mAmountF = Double.parseDouble(money);
+        BigDecimal bigDec = new BigDecimal(mAmountF);
+        double total = bigDec.setScale(2, BigDecimal.ROUND_FLOOR)
+                .doubleValue();
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(total);
+    }
+
     public static void main(String[] args) {
-        String number = "1234.2351";
+//        String number = "1234.55555";
+        String number = "0.99";
         String formatNumber = getFormatNumber(1 + "", number);
         System.out.println(1 + "--position结果：" + formatNumber);
         String formatNumber2 = getFormatNumber(2 + "", number);
