@@ -97,7 +97,7 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
             Log.e("TAG", "无数据 ");
             FileVersionBean fileVersionBean1 = new FileVersionBean();
             fileVersionBean1.setId(1);
-            fileVersionBean1.setV("0");
+            fileVersionBean1.setV("1");
             String[] split = BuildConfig.VERSION_NAME.split("_");
             fileVersionBean1.setCv(split[0]);
             fileVersionBean1.setIs_native(1);
