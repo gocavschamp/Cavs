@@ -15,5 +15,6 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
 //        dev rename代码
+//        dev_1 的代码
     }
 }
