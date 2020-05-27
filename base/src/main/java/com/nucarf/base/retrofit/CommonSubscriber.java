@@ -9,6 +9,7 @@ import com.google.gson.JsonParseException;
 import com.nucarf.base.mvp.BaseView;
 import com.nucarf.base.retrofit.logiclayer.BaseResult;
 import com.nucarf.base.utils.LogUtils;
+import com.nucarf.base.utils.ToastUtils;
 
 import org.json.JSONException;
 
@@ -16,6 +17,7 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
 
@@ -99,15 +101,35 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
     }
 
     @Override
+    public void onSubscribe(Disposable d) {
+
+    }
+
+    @Override
+    public void onNext(T t) {
+        onSuccess(t);
+    }
+
+    /**
+     * 请求成功
+     *
+     * @param response 服务器返回的数据
+     */
+    abstract public void onSuccess(T response);
+
+    /**
+     * 服务器返回数据，但响应码不为200
+     */
+    abstract public void onFail(String code, String message);
+
+    @Override
     public void onError(Throwable e) {
         Log.d("tag", "apply: " + e);
-        if (mView == null) {
-            return;
-        }
         BaseResult ex = new BaseResult();
         //HTTP错误   网络请求异常 比如常见404 500之类的等
         if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
+            ex.setCode(httpException.code() + "");
             switch (httpException.code()) {
                 case CODE_TOKEN_INVALID:
                     ex.setErrorMsg("重新登陆");
@@ -165,9 +187,6 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
 //        } else {
 //            mView.onNetError(1, ex.getErrorMsg());
 //        }
-
-        if (isShowErrorState) {
-            mView.onNetError(0, ex.getErrorMsg());
-        }
+        onFail(ex.getCode(), ex.getMessage().toString());
     }
 }

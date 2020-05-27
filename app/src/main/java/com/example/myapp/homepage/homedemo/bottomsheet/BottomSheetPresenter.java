@@ -55,41 +55,21 @@ public class BottomSheetPresenter extends BasePAV<BottomSheetCotract.View> imple
                 .compose(RxSchedulers.io_main())
                 .compose(RxSchedulers.handleResult())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) mView)))
-                .subscribeWith(new CommonSubscriber<ArticleBean>(mView,true) {
-
+                .subscribeWith(new CommonSubscriber<ArticleBean>(mView) {
                     @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        mView.closeLoading();
-                    }
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ArticleBean articleBean) {
+                    public void onSuccess(ArticleBean response) {
                         mPage++;
-                        int total = articleBean.getTotal();
+                        int total = response.getTotal();
                         isEnd = mView.getDataSize() >= total;
-                        mView.setData(isRefresh, articleBean.getDatas(), isEnd);
+                        mView.setData(isRefresh, response.getDatas(), isEnd);
                         mView.closeLoading();
                     }
-                })
-//                .subscribe(new Consumer<ArticleBean>() {
-//                    @Override
-//                    public void accept(ArticleBean articleBean) throws Exception {
-//
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        Log.d(RxSchedulers.TAG, "apply: " +throwable);
-//                        mView.closeLoading();
-//                    }
-//                })
-        ;
+
+                    @Override
+                    public void onFail(String code, String message) {
+                        mView.closeLoading();
+                    }
+                });
 
     }
 
