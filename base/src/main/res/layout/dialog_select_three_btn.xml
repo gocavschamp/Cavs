@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:minHeight="115dp"
+        android:minHeight="150dp"
         android:orientation="vertical">
 
         <ImageView
@@ -27,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:textColor="@color/black"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:textColor="@color/black"
@@ -48,14 +48,16 @@
             tools:text="显示内容" />
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_1"
         android:background="@color/color_f5f5f5" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
         android:orientation="horizontal">
 
         <LinearLayout

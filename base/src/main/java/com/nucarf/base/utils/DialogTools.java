@@ -396,7 +396,7 @@ public class DialogTools {
         }
         if (!TextUtils.isEmpty(pcenterBtnStr)) {
             mCenterBtn.setVisibility(View.VISIBLE);
-            mCenterBtn.setText(pLeftBtnStr);
+            mCenterBtn.setText(pcenterBtnStr);
             view_line2.setVisibility(View.VISIBLE);
         } else {
             mCenterBtn.setVisibility(View.GONE);

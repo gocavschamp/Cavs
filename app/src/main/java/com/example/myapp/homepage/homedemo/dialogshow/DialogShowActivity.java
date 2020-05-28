@@ -96,7 +96,7 @@ public class DialogShowActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_3: // 3btn
-                DialogTools.showThreeBtnDialog(mContext, "一个按钮","展示一个按钮的button" ,"确定" ,"中间按钮" ,"取消" , new DialogTools.DialogClickListener() {
+                DialogTools.showThreeBtnDialog(mContext, "3个按钮","展示3个按钮的button" ,"确定" ,"中间按钮" ,"取消" , new DialogTools.DialogClickListener() {
                     @Override
                     public void confirm() {
                         ToastUtils.show_middle(mContext,"点击确认",0);
