@@ -50,7 +50,7 @@ public class DialogTools {
      * @param view
      * @return
      */
-    public static Dialog showCustomDialog(Context context, View view, boolean isoutside) {
+    public static Dialog showCustomBottomDialog(Context context, View view, boolean isoutside) {
         Dialog dialog = new Dialog(context, R.style.customMainDialog);
         dialog.setContentView(view);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();

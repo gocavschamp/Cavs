@@ -136,7 +136,7 @@ public class DialogShowActivity extends BaseActivity {
                 break;
             case R.id.tv_5: //自定义view
                 View inflate = View.inflate(mContext, R.layout.dialog_custom, null);
-                DialogUtils.showCustomDialog(mContext,inflate,true);
+                DialogTools.showCustomCenterDialog(mContext,inflate,true).show();
                 break;
             case R.id.tv_6:
                 break;
