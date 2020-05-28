@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.myapp.R;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.utils.DialogTools;
 import com.nucarf.base.utils.DialogUtils;
 import com.nucarf.base.utils.ToastUtils;
 
@@ -53,10 +54,67 @@ public class DialogShowActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_1:// 1btn
+                DialogTools.showOneBtnDialog(mContext, "一个按钮","展示一个按钮的button" ,"确定" , new DialogTools.DialogClickListener() {
+                    @Override
+                    public void confirm() {
+                        ToastUtils.show_middle(mContext,"点击确认",0);
+
+                    }
+
+                    @Override
+                    public void cancel() {
+                        ToastUtils.show_middle(mContext,"点击取消",0);
+
+                    }
+
+                    @Override
+                    public void centerBtn() {
+                        ToastUtils.show_middle(mContext,"点击中间",0);
+
+                    }
+                });
                 break;
             case R.id.tv_2:// 2btn
+                DialogTools.showTwoBtnDialog(mContext, "两个按钮","展示两个按钮的button" ,"确定" ,"取消", new DialogTools.DialogClickListener() {
+                    @Override
+                    public void confirm() {
+                        ToastUtils.show_middle(mContext,"点击确认",0);
+
+                    }
+
+                    @Override
+                    public void cancel() {
+                        ToastUtils.show_middle(mContext,"点击取消",0);
+
+                    }
+
+                    @Override
+                    public void centerBtn() {
+                        ToastUtils.show_middle(mContext,"点击中间",0);
+
+                    }
+                });
                 break;
             case R.id.tv_3: // 3btn
+                DialogTools.showThreeBtnDialog(mContext, "一个按钮","展示一个按钮的button" ,"确定" ,"中间按钮" ,"取消" , new DialogTools.DialogClickListener() {
+                    @Override
+                    public void confirm() {
+                        ToastUtils.show_middle(mContext,"点击确认",0);
+
+                    }
+
+                    @Override
+                    public void cancel() {
+                        ToastUtils.show_middle(mContext,"点击取消",0);
+
+                    }
+
+                    @Override
+                    public void centerBtn() {
+                        ToastUtils.show_middle(mContext,"点击中间",0);
+
+                    }
+                });
                 break;
             case R.id.tv_4: //单选列表
                 ArrayList<String> objects = new ArrayList<>();
@@ -68,7 +126,7 @@ public class DialogShowActivity extends BaseActivity {
                 objects.add("澳门自治区");
                 objects.add("武汉");
                 objects.add("成都");
-                DialogUtils.showListDialog(mContext, "请选择城市", objects, new DialogUtils.DialogItemClickListener() {
+                DialogTools.showListDialog(mContext, "请选择城市", objects, new DialogTools.DialogItemClickListener() {
                     @Override
                     public void confirm(String result) {
                         ToastUtils.show_middle(mContext,result,0);

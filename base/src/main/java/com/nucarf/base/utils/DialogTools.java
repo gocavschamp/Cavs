@@ -144,9 +144,32 @@ public class DialogTools {
      * @param dialogClickListener
      * @return
      */
-    //内容多选对话框(样式不同)
     public static Dialog showOneBtnDialog(Context context, String title, String content, String btnString, final DialogClickListener dialogClickListener) {
-        return showDialog3Btn(context, true,title,content,btnString,"","",dialogClickListener,false);
+        return showDialog3Btn(context, true, title, content, btnString, "", "", dialogClickListener, false);
+    }
+    /**
+     * 两个按钮弹框
+     *
+     * @param context
+     * @param title
+     * @param content
+     * @param dialogClickListener
+     * @return
+     */
+    public static Dialog showTwoBtnDialog(Context context, String title, String content, String leftBtnString, String rightBtnString, final DialogClickListener dialogClickListener) {
+        return showDialog3Btn(context, true, title, content, leftBtnString, "", rightBtnString, dialogClickListener, false);
+    }
+    /**
+     * 两个按钮弹框
+     *
+     * @param context
+     * @param title
+     * @param content
+     * @param dialogClickListener
+     * @return
+     */
+    public static Dialog showThreeBtnDialog(Context context, String title, String content, String leftBtnString,String centerBtnString, String rightBtnString, final DialogClickListener dialogClickListener) {
+        return showDialog3Btn(context, true, title, content, leftBtnString, centerBtnString, rightBtnString, dialogClickListener, false);
     }
 
     //内容多选对话框(样式不同)
@@ -346,22 +369,41 @@ public class DialogTools {
         TextView mLeftBtn = (TextView) view.findViewById(R.id.left_tv);
         TextView mCenterBtn = (TextView) view.findViewById(R.id.center_btn_tv);
         TextView mRightBtn = (TextView) view.findViewById(R.id.right_tv);
+        View view_line1 = view.findViewById(R.id.view_line1);
+        View view_line2 = view.findViewById(R.id.view_line2);
         if (!TextUtils.isEmpty(title)) {
             mTitle.setVisibility(View.VISIBLE);
             mTitle.setText(title);
+        } else {
+            mTitle.setVisibility(View.GONE);
         }
-        //内容
+        if (!TextUtils.isEmpty(pLeftBtnStr)) {
+            mLeftBtn.setVisibility(View.VISIBLE);
+            mLeftBtn.setText(pLeftBtnStr);
+            if (TextUtils.isEmpty(pcenterBtnStr)) {
+                view_line1.setVisibility(View.GONE);
+            }
+        } else {
+            mLeftBtn.setVisibility(View.GONE);
+            mLeftBtn.setText("");
+        }
+        if (!TextUtils.isEmpty(pRightBtnStr)) {
+            mRightBtn.setVisibility(View.VISIBLE);
+            mRightBtn.setText(pRightBtnStr);
+        } else {
+            mRightBtn.setVisibility(View.GONE);
+            mRightBtn.setText("");
+        }
+        if (!TextUtils.isEmpty(pcenterBtnStr)) {
+            mCenterBtn.setVisibility(View.VISIBLE);
+            mCenterBtn.setText(pLeftBtnStr);
+            view_line2.setVisibility(View.VISIBLE);
+        } else {
+            mCenterBtn.setVisibility(View.GONE);
+            view_line2.setVisibility(View.GONE);
+            mCenterBtn.setText("");
+        }
         mContent.setText(content);
-        mLeftBtn.setText(pLeftBtnStr);
-        mLeftBtn.setText(pLeftBtnStr);
-        // 右侧按钮
-        mRightBtn.setText(pRightBtnStr);
-        // 确定
-        TextView mConfim = (TextView) view.findViewById(R.id.confirm);
-        mConfim.setText(pLeftBtnStr);
-
-        mConfim.setVisibility(View.GONE);
-
         mLeftBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -386,14 +428,14 @@ public class DialogTools {
                 }, 200);
             }
         });
-        mConfim.setOnClickListener(new OnClickListener() {
+        mCenterBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 dialog.dismiss();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        dialogClickListener.confirm();
+                        dialogClickListener.centerBtn();
                     }
                 }, 200);
             }

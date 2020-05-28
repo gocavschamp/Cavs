@@ -9,6 +9,7 @@ import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
 import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
+import com.example.myapp.homepage.homedemo.dialogshow.DialogShowActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
@@ -80,7 +81,7 @@ public class MyCenterFragment extends BaseLazyFragment {
                 UiGoto.startAty(mActivity, MultItemActivity.class);
                 break;
             case R.id.tv_dialog:
-                UiGoto.startAty(mActivity, MultItemActivity.class);
+                UiGoto.startAty(mActivity, DialogShowActivity.class);
                 break;
             case R.id.tv_apiclound:
                 Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
