@@ -5,18 +5,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapp.MainActivity;
 import com.example.myapp.R;
+import com.example.myapp.login.view.LoginActivity;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.DialogTools;
 import com.nucarf.base.utils.DialogUtils;
+import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.utils.ToastUtils;
+import com.nucarf.base.utils.UiGoto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class DialogShowActivity extends BaseActivity {
 
@@ -33,6 +44,7 @@ public class DialogShowActivity extends BaseActivity {
     @BindView(R.id.tv_6)
     TextView tv6;
     private static Thread sRunnable;
+    private Disposable mDisposable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +60,27 @@ public class DialogShowActivity extends BaseActivity {
                 public void run() {
                 }
             };
+        mDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()) // 由于interval默认在新线程，所以我们应该切回主线程
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(@NonNull Long aLong) throws Exception {
+                        if (aLong == 2) {
+                            if (mDisposable != null && !mDisposable.isDisposed()) {
+                                mDisposable.dispose();
+                                if (!SharePreUtils.getjwt_token(mContext).equals("")) {
+                                    UiGoto.startAty(mContext, MainActivity.class);
+                                    //UiGoto.startAty(mContext, DBActivity.class);
+                                    finish();
+                                } else {
+                                    UiGoto.startAty(mContext, LoginActivity.class);
+                                    finish();
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3, R.id.tv_4, R.id.tv_5, R.id.tv_6})
