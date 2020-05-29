@@ -15,18 +15,36 @@ import com.nucarf.base.utils.ToastUtils;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Creator: mrni-mac on 16-menu_code_no_pressed-4.
- * Email  : nishengwen_android@163.com
+ * Creator: kakaluote.
+ * Email  : kakaluote.com
  */
 public class BaseResult<T> {
 
     private String errorCode;
     private String errorMsg;
+    private String error;
     private String code;
+    private String errno;//好看视频error code  0成功
     private T result;
     private T data;
     private Object post;
     private Object message;
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getErrno() {
+        return errno;
+    }
+
+    public void setErrno(String errno) {
+        this.errno = errno;
+    }
 
     public String getErrorCode() {
         return errorCode;
@@ -86,7 +104,7 @@ public class BaseResult<T> {
 
     public boolean isSuccessed() {
         try {
-            if (errorCode.equals(RetrofitConfig.STATUS_NCARF_SUCCESS)) {
+            if (RetrofitConfig.STATUS_NCARF_SUCCESS.equals(errorCode) || "0".equals(errno)) {
                 if (getMessage() instanceof MessageBean) {
                     //第一次成功登陆时返回数据
                     MessageBean messageBean = (MessageBean) getMessage();
@@ -99,11 +117,11 @@ public class BaseResult<T> {
                 return false;
             } else if (errorCode.equals(RetrofitConfig.STATUS_NO_EXITS)) {
                 return false;
-            }else if (errorCode.equals(RetrofitConfig.STATUS_COMPANY_OR_ID_ERROR)) {
+            } else if (errorCode.equals(RetrofitConfig.STATUS_COMPANY_OR_ID_ERROR)) {
                 return false;
             } else {
                 ToastUtils.show_middle_pic(R.mipmap.ic_launcher, getMessage() instanceof String ? getMessage() + "" : "", 0);
-                Log.d(RxSchedulers.TAG, "apply: " );
+                Log.d(RxSchedulers.TAG, errorMsg + "");
                 if (errorCode.equals("1")) {
                     if (getMessage() instanceof String) {
                         String message = (String) getMessage();
@@ -118,6 +136,7 @@ public class BaseResult<T> {
             }
         } catch (Exception e) {
             ToastUtils.show_middle_pic(R.mipmap.ic_launcher, "网络错误", 0);
+            Log.d(RxSchedulers.TAG, "  " + e);
 
             return false;
         }

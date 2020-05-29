@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:focusable="true"
+    android:keepScreenOn="true">
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:use_controller="false" />
+
+    <ImageView
+        android:id="@+id/player_loading_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/exo_player_black_images" />
+
+    <com.tools.ad.ADLayout
+        android:id="@+id/adView"
+        android:layout_width="65dp"
+        android:layout_height="55dp"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:layout_marginRight="5dp" />
+
+    <com.nucarf.exoplayerlibrary.ui.TvGoodsLayout
+        android:id="@+id/goods_View"
+        android:layout_width="wrap_content"
+        android:layout_height="119dp"
+        android:layout_gravity="bottom|end"
+        android:background="#00000000"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/player_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/player_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="加载失败 点击重试"
+        android:textColor="#ffffff"
+        android:visibility="invisible"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/player_4g_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="invisible">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您正在使用非wifi网络, 播放将产生流量费用"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/player_4g_loading_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="继续播放"
+            android:textColor="#ff1d3e"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</FrameLayout>

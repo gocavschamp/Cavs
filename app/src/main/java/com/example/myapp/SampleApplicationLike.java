@@ -121,6 +121,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         initTinker();
         instance = (com.example.myapp.MyApplication) this.getApplication();
         BaseAppCache.setContext(this.getApplication().getBaseContext());
+        BaseAppCache.setApplication((MyApplication)this.getApplication());
         if (LeakCanary.isInAnalyzerProcess(this.getApplication())) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.

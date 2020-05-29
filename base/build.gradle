@@ -52,11 +52,11 @@ dependencies {
     //微信
     //    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //图片加载
-    api 'com.github.bumptech.glide:glide:4.2.0'
+    api 'com.github.bumptech.glide:glide:4.9.0'
     //    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     // Retrofit库
-    api 'com.squareup.retrofit2:retrofit:2.5.0'
-    api 'com.squareup.retrofit2:converter-gson:2.5.0'
+    api 'com.squareup.retrofit2:retrofit:2.6.0'
+    api 'com.squareup.retrofit2:converter-gson:2.6.0'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     // Okhttp库
     api 'com.squareup.okhttp3:okhttp:3.12.1'
@@ -86,12 +86,13 @@ dependencies {
     //widget--recyclerview
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45'
     // widget--   列表recyclerview
-    api 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
     //沉浸式状态栏
     api 'com.gyf.barlibrary:barlibrary:2.3.0'
-    api 'com.jakewharton:butterknife:10.0.0'
+    api 'com.jakewharton:butterknife:10.2.1'
     //tablayout
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    api 'com.google.zxing:core:3.3.0'
     //    implementation files('libs/AMap3DMap_6.7.0_AMapSearch_6.5.0_AMapLocation_4.4.0_20190213.jar')
     api project(':PickerView')
     api project(':umeng')

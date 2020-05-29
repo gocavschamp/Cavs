@@ -6,10 +6,14 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Build;
+
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
@@ -399,7 +403,7 @@ public class ScreenUtil {
         view.setLayoutParams(lp);
     }
 
-    public static void setMargins (View v, int l, int t, int r, int b) {
+    public static void setMargins(View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             p.setMargins(l, t, r, b);
@@ -407,4 +411,40 @@ public class ScreenUtil {
         }
     }
 
+    /*
+     * 禁止硬件加速
+     * */
+    public static void disableHardwareAccelerated(View view) {
+        if (view == null) {
+            return;
+        }
+        //是否开启了硬件加速,如开启将其禁掉
+        if (!view.isHardwareAccelerated()) {
+            view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+    }
+
+
+    /**
+     * 得到单个字的高度
+     *
+     * @param paint 画笔
+     * @return 高度
+     */
+    public static float getPaintFontHeight(Paint paint) {
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        return (float) Math.ceil(fm.descent - fm.ascent);
+    }
+
+    /**
+     * 得到一段文本的宽度
+     *
+     * @param paint 画笔
+     * @param str   文本
+     * @return 文本宽度
+     */
+    public static float getTextWidth(Paint paint, String str) {
+        if (str.length() == 0) return 0.0f;
+        return paint.measureText(str, 0, str.length());
+    }
 }

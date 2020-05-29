@@ -13,6 +13,7 @@ import com.example.myapp.dragger.component.ActivityComponent;
 import com.example.myapp.dragger.component.DaggerActivityComponent;
 import com.example.myapp.dragger.module.ActivityModule;
 import com.gyf.barlibrary.ImmersionBar;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.nucarf.base.R;
 import com.nucarf.base.mvp.BasePresenter;
 import com.nucarf.base.mvp.BaseView;
@@ -39,7 +40,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     @Inject
     @Nullable
     public T mPresenter;
-    private AlertDialog alertDialog;
+    private KProgressHUD mKProgressHUD;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,6 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
                 .flymeOSStatusBarFontColor(R.color.black)  //修改 flyme OS 状态栏字体颜色
                 .keyboardEnable(true).init();
         registerEventBus();
-//        PushAgent.getInstance(this).onAppStart();
     }
 
     @Override
@@ -79,19 +79,19 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
 
     @Override
     public void showLoading() {
-        if (alertDialog == null) {
-            alertDialog = DialogUtils.dialogPro(mContext, "请稍后...", true);
-        } else {
-            if (!alertDialog.isShowing()) {
-                alertDialog.show();
-            }
-        }
+        mKProgressHUD = KProgressHUD.create(mContext);
+        mKProgressHUD.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
     }
 
     @Override
     public void closeLoading() {
-        if (alertDialog != null) {
-            alertDialog.dismiss();
+
+        if (mKProgressHUD != null) {
+            mKProgressHUD.dismiss();
         }
     }
 
@@ -108,8 +108,8 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     protected abstract void initInject();
 
     protected boolean isLoadingShow() {
-        if (alertDialog != null) {
-            return alertDialog.isShowing();
+        if (mKProgressHUD != null) {
+            return mKProgressHUD.isShowing();
         } else {
             return false;
         }
@@ -148,16 +148,6 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
         return getClass().getSimpleName();
     }
 
-    //    @Override
-//    protected void onPause() {
-//        super.onPause();
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-////        EventBus.getDefault().post("andServer-start");
-//    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -173,6 +163,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     @Override
     protected void onDestroy() {
         unRegisterEventBus();
+        KProgressHUD.create(mContext).dismiss();
         if (null != unbinder) {
             unbinder.unbind();
         }

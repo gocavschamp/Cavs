@@ -10,8 +10,11 @@ android {
         versionCode 191213
         versionName "1.0.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled true //支持分包
+        resConfigs "zh", "en"// 这样我们编译出的apk中，只有 “默认” 、 “中文zh” 和 “英文en” 两种资源
+        vectorDrawables.useSupportLibrary true//支持矢量图
         multiDexKeepProguard file("tinkerMultidexKeep.pro")
+        resValue('string', 'age', '12year')// 添加至 res/value，通过 R.string.age 获取
         //keep specific classes using proguard syntax
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
@@ -33,22 +36,81 @@ android {
             storeFile file('../keystore/fly.jks')
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
+
+    flavorDimensions('mode', 'size')
+    productFlavors {
+        happy {
+            // applicationId 应用的包名，会覆盖 defaultConfig 中的 applicationId
+            // applicationId 会替换 AndroidManifest.xml 中的 manifest 标签下 package 的 value
+            applicationId "com.yuwenming.happy"
+            dimension "mode"
+            resValue "string", "app_name", "Happy"
+            resValue "string", "app_welcome", "欢迎来到Happy"
+            resValue "string", "company_name", "Happy"
+            // 修改 AndroidManifest.xml 里渠道变量
+            manifestPlaceholders = [
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_comment_glod",
+                    launcherIcon: "@mipmap/icon_comment_glod"
+
+            ]
+
+        }
+        sad {
+            applicationId "com.yuwenming.sad"
+            dimension "mode"
+            resValue "string", "app_name", "Sad"
+            resValue "string", "app_welcome", "欢迎来到Sad"
+            resValue "string", "company_name", "Sad"
+            manifestPlaceholders = [
+
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_center_habit",
+                    launcherIcon: "@mipmap/icon_center_habit"
+
+            ]
+        }
+        bigsize {
+            dimension "size"
+            resValue "string", "app_name", "bigsize"
+            resValue "string", "app_welcome", "欢迎来到bigsize"
+            resValue "string", "company_name", "bigsize"
+            // 修改 AndroidManifest.xml 里渠道变量
+            manifestPlaceholders = [
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_comment_glod",
+                    launcherIcon: "@mipmap/icon_comment_glod"
+
+            ]
+
+        }
+        smallsize {
+            dimension "size"
+            resValue "string", "app_name", "smallsize"
+            resValue "string", "app_welcome", "欢迎来到smallsize"
+            resValue "string", "company_name", "smallsize"
+            manifestPlaceholders = [
+
+                    //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
+                    icon        : "@mipmap/icon_center_habit",
+                    launcherIcon: "@mipmap/icon_center_habit"
+
+            ]
         }
     }
-
     buildTypes {
+        // 发布类型
         release {
-            // 不显示Log
+            // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
+            applicationIdSuffix ""
             signingConfig signingConfigs.release
             minifyEnabled false
-            buildConfigField "boolean", "LOG_DEBUG", "false"
-//            zipAlignEnabled false// 移除无用的resource文件
+            buildConfigField "boolean", "LOG_DEBUG", "false"// 不显示Log
+            zipAlignEnabled false//会对应用程序进行字节对齐，对齐后会减少了运行应用程序时消耗的内存。
 //            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
             manifestPlaceholders = [
+                    APP_LOGO_ICON        : "@mipmap/icon_comment_glod",
                     APP_IS_TEST_VALUE    : false,
                     HOST_URL_VALUE       : "http://tapi.nucarf.cn/V1/",
                     WECHAT_HOST_URL_VALUE: "https://wechat.nucarf.com",
@@ -57,21 +119,25 @@ android {
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
             ]
         }
+        // 测试类型，给测试人员
         debug {
+            // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
+            applicationIdSuffix ".debug"//applicationId 添加后缀
             signingConfig signingConfigs.debug
             debuggable true
-            //开启混淆
-            minifyEnabled false
-            // 显示Log
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            //这里是给versionName添加后缀
-//            versionNameSuffix "_debug"
-            //是否进行代码格式化
-//            zipAlignEnabled false
-            // 移除无用的resource文件
-//            shrinkResources false
+            minifyEnabled false//开启混淆
+            versionNameSuffix "_debug"//这里是给versionName添加后缀
+            zipAlignEnabled true  //会对应用程序进行字节对齐，对齐后会减少了运行应用程序时消耗的内存。
+//            shrinkResources false // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
+            //在 BuildConfig 类中添加值 可以通过 BuildConfig 进行获取
+            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+            buildConfigField('String', 'name', '"ywm"')
+            buildConfigField('int', 'age', '26')
+            // 添加至 res/value，通过 R.string.age 获取
+            resValue('string', 'age', '12 years old')
             manifestPlaceholders = [
+                    APP_LOGO_ICON        : "@mipmap/icon_center_habit",
                     APP_IS_TEST_VALUE    : true,
                     HOST_URL_VALUE       : "http://2019_0418_invoice_new.api.yidian.nucarf.cn/V1/",
                     WECHAT_HOST_URL_VALUE: "http://twechat.nucarf.cn",
@@ -80,6 +146,19 @@ android {
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
             ]
         }
+        // 本地类型，和后端联调使用
+//        local {
+//            // 会拷贝 debug 的配置
+//            initWith debug {
+//                // 在这里进行我们自己的配置
+//                matchingFallbacks = ['debug', 'release']
+//                applicationIdSuffix ".local"//applicationId 添加后缀
+//
+//            }
+//            minifyEnabled false//开启混淆
+//            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
+//        }
     }
 
 
@@ -106,6 +185,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 }
 repositories {
@@ -168,5 +252,6 @@ dependencies {
         changing = true
     }
     implementation project(path: ':apicloudlib')
+    implementation project(path: ':exoplayerlibrary')
 }
 apply from: 'tinkerpatch.gradle'

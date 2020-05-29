@@ -1,5 +1,6 @@
 package com.nucarf.base.utils;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 public class BaseAppCache {
 
     private static Context context;
+    private static Application application;
     private static String channel_name;
     private static int version_code;
 
@@ -48,4 +50,11 @@ public class BaseAppCache {
         BaseAppCache.context = context;
     }
 
+    public static void setApplication(Application application) {
+        BaseAppCache.application = application;
+    }
+
+    public static Application getApplication() {
+        return application;
+    }
 }

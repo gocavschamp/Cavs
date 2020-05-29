@@ -5,10 +5,13 @@ import android.util.Log;
 
 import com.nucarf.base.retrofit.logiclayer.BaseResult;
 
+import java.nio.Buffer;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -45,23 +48,23 @@ public class RxSchedulers {
      * @param <T>
      * @return
      */
-//    public static <T> FlowableTransformer<GankHttpResponse<T>, T> handleResult() {   //compose判断结果
-//        return new FlowableTransformer<GankHttpResponse<T>, T>() {
-//            @Override
-//            public Flowable<T> apply(Flowable<GankHttpResponse<T>> httpResponseFlowable) {
-//                return httpResponseFlowable.flatMap(new Function<GankHttpResponse<T>, Flowable<T>>() {
-//                    @Override
-//                    public Flowable<T> apply(GankHttpResponse<T> tGankHttpResponse) {
-//                        if (!tGankHttpResponse.getError()) {
-//                            return createData(tGankHttpResponse.getResults());
-//                        } else {
-//                            return Flowable.error(new ApiException("服务器返回error"));
-//                        }
-//                    }
-//                });
-//            }
-//        };
-//    }
+    public static <T> FlowableTransformer<BaseResult<T>, T> handleFlowableResult() {   //compose判断结果
+        return new FlowableTransformer<BaseResult<T>, T>() {
+            @Override
+            public Flowable<T> apply(Flowable<BaseResult<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<BaseResult<T>, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(BaseResult<T> tGankHttpResponse) {
+                        if (!tGankHttpResponse.isSuccessed()) {
+                            return createFlowableData(tGankHttpResponse.getData());
+                        } else {
+                            return Flowable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
 
     /**
      * 统一返回结果处理
@@ -106,5 +109,26 @@ public class RxSchedulers {
                 }
             }
         });
+    }
+
+    /**
+     * Observable
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> Flowable<T> createFlowableData(final T t) {
+        return Flowable.create(new FlowableOnSubscribe<T>() {
+            @Override
+            public void subscribe(FlowableEmitter<T> emitter) throws Exception {
+                try {
+                    emitter.onNext(t);
+                    emitter.onComplete();
+                } catch (Exception e) {
+                    emitter.onError(e);
+                    Log.d(RxSchedulers.TAG, ": " + e);
+                }
+            }
+        }, BackpressureStrategy.BUFFER);
     }
 }

@@ -6,8 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.myapp.homepage.HelloGroundFragment;
+import com.example.myapp.homepage.HomeFragment;
 import com.example.myapp.homepage.MessgaeFragment;
-import com.example.myapp.homepage.MyCenterFragment;
+import com.example.myapp.homepage.MineFragment;
 
 
 /**
@@ -17,7 +18,7 @@ import com.example.myapp.homepage.MyCenterFragment;
  */
 
 public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
-    public final int COUNT = 3;
+    public final int COUNT = 4;
 
     public ViewPagerAdapterMain(FragmentManager fm) {
         super(fm);
@@ -27,11 +28,13 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0://首页
-                return MyCenterFragment.newInstance();
+                return HomeFragment.newInstance();
             case 1://社区
                 return HelloGroundFragment.newInstance();
             case 2://消息
                 return MessgaeFragment.newInstance();
+            case 3://我的
+                return MineFragment.newInstance();
         }
         return null;
     }

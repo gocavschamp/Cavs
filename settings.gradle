@@ -1,1 +1,1 @@
-include ':app', ':umeng', ':PickerView', ':base', ':apicloudlib'
+include ':app', ':umeng', ':PickerView', ':base', ':apicloudlib', ':exoplayerlibrary', ':AdLibrary'

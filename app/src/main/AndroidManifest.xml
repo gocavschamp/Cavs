@@ -29,14 +29,37 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="${APP_LOGO_ICON}"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="${APP_LOGO_ICON}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".homepage.homedemo.dialogshow.DialogShowActivity"></activity>
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity
+            android:name=".homepage.homedemo.EdittextTextActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".homepage.homedemo.videolist.VideoListActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".homepage.homedemo.videolist.DouYinListActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".homepage.homedemo.zxing.QrcodeZxingDemoActivity" />
+        <activity
+            android:name="com.google.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".homepage.homedemo.apiclound.ApiCloundTestActivity"
             android:configChanges="orientation|locale|keyboardHidden|screenLayout|screenSize|smallestScreenSize|keyboard"
@@ -71,10 +94,11 @@
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboard"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

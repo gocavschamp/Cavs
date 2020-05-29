@@ -14,6 +14,7 @@ import com.example.myapp.bean.ArticleBean;
 import com.example.myapp.bean.StringBean;
 import com.example.myapp.bean.Student;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.ui.BaseActivityWithTitle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MultItemActivity extends BaseActivity {
+public class MultItemActivity extends BaseActivityWithTitle {
 
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
@@ -43,26 +44,21 @@ public class MultItemActivity extends BaseActivity {
         recycleview.setLayoutManager(linearLayoutManager);
         List data = new ArrayList<MultipleItem>();
         for (int i = 0; i < 4; i++) {
-//            MultipleItem multipleItem = new MultipleItem();
             StringBean stringBean = new StringBean();
             stringBean.setItemType(MultipleItem.ONE);
-            stringBean.setName("创建的stringbean");
-//            multipleItem.setStringBean(stringBean);
+            stringBean.setName("创建的stringbean"+i);
             data.add(stringBean);
         }
         for (int i = 0; i < 2; i++) {
             ArticleBean articleBean = new ArticleBean();
-//            MultipleItem multipleItem = new MultipleItem();
             articleBean.setItemType(MultipleItem.TWO);
-            articleBean.setName("创建的---articleBean");
-//            multipleItem.setArticleBean(articleBean);
+            articleBean.setName("创建的---articleBean"+i);
             data.add(articleBean);
         }
         for (int i = 0; i < 3; i++) {
             Student student = new Student();
             student.setItemType(MultipleItem.THREE);
-            student.setName("创建的---Student");
-//            multipleItem.setStudent(articleBean);
+            student.setName("创建的---Student"+i);
             data.add(student);
         }
 
@@ -83,13 +79,13 @@ public class MultItemActivity extends BaseActivity {
                     MultipleItem multipleItem = multipleItemQuickAdapter.getData().get(firstCompletelyVisibleItemPosition);
                     if(firstCompletelyVisibleItemPosition<4) {
                         StringBean multipleItem1 = (StringBean) multipleItem;
-                        tvTitle.setText(multipleItem1.getName());
+                        titlelayout.setTitleText(multipleItem1.getName());
                     }else if(firstCompletelyVisibleItemPosition<6) {
                         ArticleBean multipleItem1 = (ArticleBean) multipleItem;
-                        tvTitle.setText(multipleItem1.getName());
+                        titlelayout.setTitleText(multipleItem1.getName());
                     }else {
                         Student multipleItem1 = (Student) multipleItem;
-                        tvTitle.setText(multipleItem1.getName());
+                        titlelayout.setTitleText(multipleItem1.getName());
                     }
 
                 }

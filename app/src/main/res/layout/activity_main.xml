@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.nucarf.base.widget.ViewPagerSlide
-        android:id="@+id/vp_main"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         ></com.nucarf.base.widget.ViewPagerSlide>
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.nucarf.base.widget.ViewPagerSlide
+            android:id="@+id/vp_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
     <!--tl_indicator_color：指示器的颜色-->
     <!--tl_indicator_height：指示器的高度-->
     <!--tl_indicator_width：指示器的宽度-->
@@ -30,7 +39,7 @@
         app:tl_tab_space_equal="true"
         app:tl_textSelectColor="@color/main_color"
         app:tl_textUnselectColor="@color/color_333333"
-        app:tl_textsize="18sp"></com.flyco.tablayout.SlidingTabLayout>
+        app:tl_textsize="18sp" />
 
 
-</RelativeLayout>
+</LinearLayout>
