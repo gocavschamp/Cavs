@@ -55,32 +55,32 @@ public class DialogShowActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-            sRunnable = new Thread() {
-                @Override
-                public void run() {
-                }
-            };
-        mDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()) // 由于interval默认在新线程，所以我们应该切回主线程
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(@NonNull Long aLong) throws Exception {
-                        if (aLong == 2) {
-                            if (mDisposable != null && !mDisposable.isDisposed()) {
-                                mDisposable.dispose();
-                                if (!SharePreUtils.getjwt_token(mContext).equals("")) {
-                                    UiGoto.startAty(mContext, MainActivity.class);
-                                    //UiGoto.startAty(mContext, DBActivity.class);
-                                    finish();
-                                } else {
-                                    UiGoto.startAty(mContext, LoginActivity.class);
-                                    finish();
-                                }
-                            }
-                        }
-                    }
-                });
+//            sRunnable = new Thread() {
+//                @Override
+//                public void run() {
+//                }
+//            };
+//        mDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()) // 由于interval默认在新线程，所以我们应该切回主线程
+//                .subscribe(new Consumer<Long>() {
+//                    @Override
+//                    public void accept(@NonNull Long aLong) throws Exception {
+//                        if (aLong == 2) {
+//                            if (mDisposable != null && !mDisposable.isDisposed()) {
+//                                mDisposable.dispose();
+//                                if (!SharePreUtils.getjwt_token(mContext).equals("")) {
+//                                    UiGoto.startAty(mContext, MainActivity.class);
+//                                    //UiGoto.startAty(mContext, DBActivity.class);
+//                                    finish();
+//                                } else {
+//                                    UiGoto.startAty(mContext, LoginActivity.class);
+//                                    finish();
+//                                }
+//                            }
+//                        }
+//                    }
+//                });
     }
 
     @OnClick({R.id.tv_1, R.id.tv_2, R.id.tv_3, R.id.tv_4, R.id.tv_5, R.id.tv_6})

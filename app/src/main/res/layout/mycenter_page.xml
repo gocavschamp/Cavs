@@ -13,10 +13,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="30dp"
-            android:text="首页"
+            android:text="我的"
             android:textSize="18dp" />
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -119,7 +119,6 @@
             android:layout_marginTop="15dp"
             android:background="@color/main_color"
             android:gravity="center"
-            android:visibility="gone"
             android:text="弹框组件展示"
             android:textColor="@color/color_333333"
             android:textSize="15sp" />

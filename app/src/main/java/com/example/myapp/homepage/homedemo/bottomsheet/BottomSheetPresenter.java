@@ -29,7 +29,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class BottomSheetPresenter extends BasePAV<BottomSheetCotract.View> implements BottomSheetCotract.Presenter {
+public class BottomSheetPresenter extends BasePAV<BottomSheetContract.View> implements BottomSheetContract.Presenter {
     private ArrayList<ArticleListBean> data;
     private boolean isEnd;
     private int mPage = 0;

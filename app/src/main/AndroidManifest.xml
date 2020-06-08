@@ -76,14 +76,17 @@
         <activity android:name=".homepage.homedemo.RxjavaDemoActivity" />
         <activity
             android:name=".homepage.homedemo.xunfei.XunFeiYuYinActivity"
-            android:configChanges="keyboard"
-            android:launchMode="singleTask"
+            android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".homepage.homedemo.bottomsheet.BottomSheetBihaverActivity"
-            android:configChanges="keyboard"
-            android:launchMode="singleTask"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".homepage.homedemo.bannertest.BannerActivity"
+            android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".login.view.LoginActivity" />

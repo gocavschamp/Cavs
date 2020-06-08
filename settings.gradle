@@ -1,1 +1,2 @@
+include ':banner'
 include ':app', ':umeng', ':PickerView', ':base', ':apicloudlib', ':exoplayerlibrary', ':AdLibrary'

@@ -43,6 +43,7 @@ configurations.all {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.0.0'
+    api project(path: ':banner')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'

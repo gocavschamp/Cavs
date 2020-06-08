@@ -9,6 +9,7 @@ import com.example.myapp.homepage.HelloGroundFragment;
 import com.example.myapp.homepage.HomeFragment;
 import com.example.myapp.homepage.MessgaeFragment;
 import com.example.myapp.homepage.MineFragment;
+import com.example.myapp.homepage.MyCenterFragment;
 
 
 /**
