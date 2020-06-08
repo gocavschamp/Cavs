@@ -79,7 +79,7 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner_test);
         ButterKnife.bind(this);
-        setTitle("banner  test");
+        titlelayout.setTitleText("banner  test");
 
     }
 
@@ -87,8 +87,6 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
     protected void initData() {
 
         ImageAdapter adapter = new ImageAdapter(DataBean.getTestData());
-
-
         banner.setAdapter(adapter)//设置适配器
 //              .setCurrentItem(3,false)
                 .addBannerLifecycleObserver(this)//添加生命周期观察者
