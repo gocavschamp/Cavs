@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager2.widget.MarginPageTransformer;
 
 import com.example.myapp.R;
 import com.example.myapp.homepage.homedemo.bannertest.adapter.ImageAdapter;
@@ -70,6 +71,8 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
     RelativeLayout topLine;
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.banner3)
+    Banner banner3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +92,7 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
         banner.setAdapter(adapter)//设置适配器
 //              .setCurrentItem(3,false)
                 .addBannerLifecycleObserver(this)//添加生命周期观察者
-                .setBannerRound(BannerUtils.dp2px(5))//圆角
+//                .setBannerRound(BannerUtils.dp2px(5))//圆角
 //              .addPageTransformer(new RotateYTransformer())//添加切换效果
                 .setIndicator(new CircleIndicator(this))//设置指示器
                 .addOnPageChangeListener(this)//添加切换监听
@@ -97,12 +100,27 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                     Snackbar.make(banner, ((DataBean) data).title, Snackbar.LENGTH_SHORT).show();
                     LogUtils.d("position：" + position);
                 });//设置点击事件,传this也行
-
-
-        //添加间距(如果使用了画廊效果就不要添加间距了，因为内部已经添加过了)
-//        banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(10)));
+        banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(20)));
         //魅族效果
 //        banner.setBannerGalleryMZ(20);
+        banner3.setAdapter(new ImageNetAdapter(DataBean.getTestData3()))//设置适配器
+//              .setCurrentItem(3,false)
+                .addBannerLifecycleObserver(this)//添加生命周期观察者
+//                .setBannerRound(BannerUtils.dp2px(5))//圆角
+//              .addPageTransformer(new RotateYTransformer())//添加切换效果
+                .setIndicator(new CircleIndicator(this))//设置指示器
+                .addOnPageChangeListener(this)//添加切换监听
+                .setOnBannerListener((data, position) -> {
+                    Snackbar.make(banner3, ((DataBean) data).title, Snackbar.LENGTH_SHORT).show();
+                    LogUtils.d("position：" + position);
+                });//设置点击事件,传this也行
+
+        //添加画廊效果(可以和其他PageTransformer组合使用，比如AlphaPageTransformer，注意但和其他带有缩放的PageTransformer会显示冲突)
+        banner3.setBannerGalleryEffect(18, 10);
+        //添加透明效果(画廊配合透明效果更棒)
+        banner3.addPageTransformer(new AlphaPageTransformer());
+        //添加间距(如果使用了画廊效果就不要添加间距了，因为内部已经添加过了)
+
 
         //实现1号店和淘宝头条类似的效果
         banner2.setAdapter(new TopLineAdapter(DataBean.getTestData2()))
@@ -138,6 +156,8 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                 banner.setAdapter(new ImageAdapter(DataBean.getTestData()));
                 banner.setIndicator(new CircleIndicator(this));
                 banner.setIndicatorGravity(IndicatorConfig.Direction.CENTER);
+                banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(0)));
+
                 break;
             case R.id.style_image_title:
                 refresh.setEnabled(true);
@@ -146,11 +166,14 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                 banner.setIndicatorGravity(IndicatorConfig.Direction.RIGHT);
                 banner.setIndicatorMargins(new IndicatorConfig.Margins(0, 0,
                         BannerConfig.INDICATOR_MARGIN, (int) BannerUtils.dp2px(12)));
+                banner.setUserInputEnabled(true);
                 break;
             case R.id.style_image_title_num:
                 refresh.setEnabled(true);
                 banner.setAdapter(new ImageTitleNumAdapter(DataBean.getTestData()));
                 banner.removeIndicator();
+                banner.setUserInputEnabled(true);
+
                 break;
             case R.id.style_multiple:
                 refresh.setEnabled(true);
@@ -159,27 +182,34 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                 banner.setIndicatorNormalWidth((int) BannerUtils.dp2px(12));
                 banner.setIndicatorSpace((int) BannerUtils.dp2px(4));
                 banner.setIndicatorRadius(0);
+                banner.setUserInputEnabled(true);
+
                 break;
             case R.id.style_net_image:
                 refresh.setEnabled(false);
                 banner.setAdapter(new ImageNetAdapter(DataBean.getTestData3()));
                 banner.setIndicator(new RoundLinesIndicator(this));
                 banner.setIndicatorSelectedWidth((int) BannerUtils.dp2px(15));
+                banner.setUserInputEnabled(true);
+
                 break;
             case R.id.change_indicator:
                 indicator.setVisibility(View.VISIBLE);
                 //在布局文件中使用指示器，这样更灵活
                 banner.setIndicator(indicator, false);
                 banner.setIndicatorSelectedWidth((int) BannerUtils.dp2px(15));
+                banner.setUserInputEnabled(true);
                 break;
             case R.id.gallery:
-                refresh.setEnabled(false);
-                banner.setAdapter(new ImageNetAdapter(DataBean.getTestData3()));
+                banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(20)));
 
-                //添加画廊效果(可以和其他PageTransformer组合使用，比如AlphaPageTransformer，注意但和其他带有缩放的PageTransformer会显示冲突)
-                banner.setBannerGalleryEffect(18, 10);
-                //添加透明效果(画廊配合透明效果更棒)
-                banner.addPageTransformer(new AlphaPageTransformer());
+//                refresh.setEnabled(false);
+//                banner.setAdapter(new ImageNetAdapter(DataBean.getTestData3()));
+//
+//                //添加画廊效果(可以和其他PageTransformer组合使用，比如AlphaPageTransformer，注意但和其他带有缩放的PageTransformer会显示冲突)
+//                banner.setBannerGalleryEffect(18, 10);
+//                //添加透明效果(画廊配合透明效果更棒)
+//                banner.addPageTransformer(new AlphaPageTransformer());
                 break;
         }
     }

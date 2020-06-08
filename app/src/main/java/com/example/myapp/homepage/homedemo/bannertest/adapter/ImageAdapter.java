@@ -3,10 +3,16 @@ package com.example.myapp.homepage.homedemo.bannertest.adapter;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapp.homepage.homedemo.bannertest.bean.DataBean;
+import com.nucarf.base.utils.BaseAppCache;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
+
+import me.jessyan.autosize.utils.AutoSizeUtils;
 
 /**
  * 自定义布局，图片
@@ -36,13 +42,19 @@ public class ImageAdapter extends BannerAdapter<DataBean, ImageHolder> {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(params);
+//        imageView.setPadding(AutoSizeUtils.dp2px(BaseAppCache.getContext(),20),0,AutoSizeUtils.dp2px(BaseAppCache.getContext(),40),0);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return new ImageHolder(imageView);
     }
 
     @Override
     public void onBindView(ImageHolder holder, DataBean data, int position, int size) {
-        holder.imageView.setImageResource(data.imageRes);
+//        holder.imageView.setImageResource(data.imageRes);
+        //通过图片加载器实现圆角，你也可以自己使用圆角的imageview，实现圆角的方法很多，自己尝试哈
+        Glide.with(holder.itemView)
+                .load(data.imageRes)
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                .into(holder.imageView);
     }
 
 }
