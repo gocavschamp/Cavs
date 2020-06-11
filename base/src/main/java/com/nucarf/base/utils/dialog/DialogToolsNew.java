@@ -64,9 +64,18 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
         super(builder.context, R.style.DialogStyle2);
         handler = new Handler();
         this.builder = builder;
-        final LayoutInflater inflater = LayoutInflater.from(builder.context);
-        view = (ViewGroup) inflater.inflate(R.layout.dialog_select_three_btn, null);
+        getDialogLayout(builder);
         init(this);
+    }
+
+    private void getDialogLayout(Builder builder) {
+        if (builder.customView != null) {
+            view = (ViewGroup) builder.customView;
+        } else if (builder.items != null) {
+            view = (ViewGroup) LayoutInflater.from(builder.context).inflate(R.layout.dialog_list, null);
+        } else {
+            view = (ViewGroup) LayoutInflater.from(builder.context).inflate(R.layout.dialog_select_three_btn, null);
+        }
     }
 
     private void init(DialogToolsNew dialog) {
@@ -123,6 +132,7 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
         dialog.title = dialog.view.findViewById(R.id.dialog_title_tv);
         dialog.icon = dialog.view.findViewById(R.id.dialog_icon_iv);
         dialog.content = dialog.view.findViewById(R.id.content_tv);
+        dialog.content = dialog.view.findViewById(R.id.content_tv);
 //        dialog.recyclerView = dialog.view.findViewById(R.id.md_contentRecyclerView);
 
         // Button views initially used by checkIfStackingNeeded()
@@ -131,10 +141,6 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
         dialog.negativeButton = dialog.view.findViewById(R.id.right_tv);
         View view_line1 = dialog.view.findViewById(R.id.view_line1);
         View view_line2 = dialog.view.findViewById(R.id.view_line2);
-        // Set up the initial visibility of action buttons based on whether or not text was set
-        dialog.positiveButton.setVisibility(builder.positiveText != null ? View.VISIBLE : View.GONE);
-        dialog.neutralButton.setVisibility(builder.neutralText != null ? View.VISIBLE : View.GONE);
-        dialog.negativeButton.setVisibility(builder.negativeText != null ? View.VISIBLE : View.GONE);
 // Setup title and title frame
         if (dialog.title != null) {
             dialog.title.setTextColor(builder.titleColor);
@@ -169,35 +175,40 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             }
         }
 
-        TextView positiveTextView = dialog.positiveButton;
-        if (builder.positiveText != null) {
-            positiveTextView.setText(builder.positiveText);
-            positiveTextView.setTextColor(builder.positiveColor);
-            if (builder.neutralText == null) {
-                view_line1.setVisibility(View.GONE);
+        if (dialog.positiveButton != null) {
+            TextView positiveTextView = dialog.positiveButton;
+            if (builder.positiveText != null) {
+                positiveTextView.setText(builder.positiveText);
+                positiveTextView.setTextColor(builder.positiveColor);
+                if (builder.neutralText == null) {
+                    view_line1.setVisibility(View.GONE);
+                }
             }
+            dialog.positiveButton.setTag(DialogAction.POSITIVE);
+            dialog.positiveButton.setOnClickListener(dialog);
         }
-        dialog.positiveButton.setTag(DialogAction.POSITIVE);
-        dialog.positiveButton.setOnClickListener(dialog);
+        if (dialog.negativeButton != null) {
+            TextView negativeTextView = dialog.negativeButton;
+            if (builder.negativeText != null) {
+                negativeTextView.setText(builder.negativeText);
+                negativeTextView.setTextColor(builder.negativeColor);
+            }
+            dialog.negativeButton.setTag(DialogAction.NEGATIVE);
+            dialog.negativeButton.setOnClickListener(dialog);
+        }
 
-        TextView negativeTextView = dialog.negativeButton;
-        if (builder.negativeText != null) {
-            negativeTextView.setText(builder.negativeText);
-            negativeTextView.setTextColor(builder.negativeColor);
+        if (dialog.neutralButton != null) {
+            TextView neutralTextView = dialog.neutralButton;
+            if (builder.neutralColor != null) {
+                neutralTextView.setText(builder.neutralText);
+                neutralTextView.setTextColor(builder.neutralColor);
+                view_line2.setVisibility(View.VISIBLE);
+            } else {
+                view_line2.setVisibility(View.GONE);
+            }
+            dialog.neutralButton.setTag(DialogAction.NEUTRAL);
+            dialog.neutralButton.setOnClickListener(dialog);
         }
-        dialog.negativeButton.setTag(DialogAction.NEGATIVE);
-        dialog.negativeButton.setOnClickListener(dialog);
-
-        TextView neutralTextView = dialog.neutralButton;
-        if (builder.neutralColor != null) {
-            neutralTextView.setText(builder.neutralText);
-            neutralTextView.setTextColor(builder.neutralColor);
-            view_line2.setVisibility(View.VISIBLE);
-        } else {
-            view_line2.setVisibility(View.GONE);
-        }
-        dialog.neutralButton.setTag(DialogAction.NEUTRAL);
-        dialog.neutralButton.setOnClickListener(dialog);
 
         // Setup user listeners
         if (builder.showListener != null) {

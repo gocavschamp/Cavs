@@ -561,7 +561,7 @@ public class DialogTools {
         dialog.setCancelable(true);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_list, null);
         dialog.setContentView(view);
-        TextView mtittle = (TextView) view.findViewById(R.id.title);
+        TextView mtittle = (TextView) view.findViewById(R.id.dialog_title_tv);
         if ("".equalsIgnoreCase(title)) {
             mtittle.setVisibility(View.GONE);
         } else {
