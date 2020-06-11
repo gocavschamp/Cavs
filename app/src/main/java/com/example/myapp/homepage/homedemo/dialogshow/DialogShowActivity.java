@@ -1,9 +1,12 @@
 package com.example.myapp.homepage.homedemo.dialogshow;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.example.myapp.MainActivity;
 import com.example.myapp.R;
@@ -14,6 +17,9 @@ import com.nucarf.base.utils.DialogUtils;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.utils.ToastUtils;
 import com.nucarf.base.utils.UiGoto;
+import com.nucarf.base.utils.dialog.DialogAction;
+import com.nucarf.base.utils.dialog.DialogToolsNew;
+import com.nucarf.base.utils.dialog.GravityEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +30,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -87,25 +92,46 @@ public class DialogShowActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_1:// 1btn
-                DialogTools.showOneBtnDialog(mContext, "一个按钮","展示一个按钮的button" ,"确定" , new DialogTools.DialogClickListener() {
-                    @Override
-                    public void confirm() {
-                        ToastUtils.show_middle(mContext,"点击确认",0);
-
-                    }
-
-                    @Override
-                    public void cancel() {
-                        ToastUtils.show_middle(mContext,"点击取消",0);
-
-                    }
-
-                    @Override
-                    public void centerBtn() {
-                        ToastUtils.show_middle(mContext,"点击中间",0);
-
-                    }
-                });
+                new DialogToolsNew.Builder(this)
+                        .title("builder title")
+                        .titleGravity(GravityEnum.CENTER)
+                        .titleColor(getResources().getColor(R.color.black_80))
+                        .content("这里是内容")
+                        .contentGravity(GravityEnum.CENTER)
+                        .positiveText("确认")
+                        .positiveColor(getResources().getColor(R.color.color_333333))
+//                        .neutralText("中间")
+//                        .negativeColor(Color.GREEN)
+                        .negativeText("取消")
+//                        .negativeColor(Color.BLUE)
+//                        .contentColor(Color.RED)
+                        .onAny(new DialogToolsNew.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull DialogToolsNew dialog, @NonNull DialogAction which) {
+                                ToastUtils.showShort(which.name());
+                            }
+                        })
+                        .build()
+                        .show();
+//                DialogTools.showOneBtnDialog(mContext, "一个按钮","展示一个按钮的button" ,"确定" , new DialogTools.DialogClickListener() {
+//                    @Override
+//                    public void confirm() {
+//                        ToastUtils.show_middle(mContext,"点击确认",0);
+//
+//                    }
+//
+//                    @Override
+//                    public void cancel() {
+//                        ToastUtils.show_middle(mContext,"点击取消",0);
+//
+//                    }
+//
+//                    @Override
+//                    public void centerBtn() {
+//                        ToastUtils.show_middle(mContext,"点击中间",0);
+//
+//                    }
+//                });
                 break;
             case R.id.tv_2:// 2btn
                 DialogTools.showTwoBtnDialog(mContext, "两个按钮","展示两个按钮的button" ,"确定" ,"取消", new DialogTools.DialogClickListener() {

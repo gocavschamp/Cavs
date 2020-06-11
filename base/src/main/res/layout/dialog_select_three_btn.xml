@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:textColor="@color/color_333333"
                 android:textSize="13sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:text="@string/centerstr" />
 
             <View

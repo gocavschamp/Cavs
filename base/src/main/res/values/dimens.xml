@@ -463,4 +463,9 @@
     <dimen name="px_11">11dp</dimen>
     <dimen name="dp_452">452dp</dimen>
     <dimen name="dp_470">470dp</dimen>
+    <dimen name="md_bg_corner_radius">4dp</dimen>
+    <dimen name="md_dialog_max_width">356dp</dimen>
+    <dimen name="md_dialog_vertical_margin">52dp</dimen>
+    <dimen name="md_dialog_horizontal_margin">28dp</dimen>
+
 </resources>

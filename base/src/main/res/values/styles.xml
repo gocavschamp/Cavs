@@ -7,6 +7,12 @@
         <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="md_divider">@color/color_f5f5f5</item>
+        <item name="md_title_color">@color/black</item>
+        <item name="md_content_color">@color/black</item>
+        <item name="md_positive_color">@color/color_333333</item>
+        <item name="md_neutral_color">@color/color_333333</item>
+        <item name="md_negative_color">@color/color_333333</item>
     </style>
 
     <style name="DialogStyle3" parent="@android:style/Theme.Dialog">

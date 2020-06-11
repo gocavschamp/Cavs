@@ -18,6 +18,7 @@ import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bannertest.BannerActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
+import com.example.myapp.homepage.homedemo.dialogshow.DialogShowActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.example.myapp.homepage.homedemo.videolist.DouYinListActivity;
 import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
@@ -82,6 +83,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("抖音列表播放");
         data.add("EdittextTextActivity");
         data.add("banner 轮播");
+        data.add("dialogshow");
         mycenterAdapter.setNewData(data);
 
 
@@ -140,6 +142,10 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 10:
                         UiGoto.startAty(mActivity, BannerActivity.class);
+
+                        break;
+                    case 11:
+                        UiGoto.startAty(mActivity, DialogShowActivity.class);
 
                         break;
                 }
