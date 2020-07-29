@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 
 /**
  * 说明：ViewPager 可滑动控制 <br>
- * 作者：陈晓凯<br>
  * 时间：2017/7/11 23:11<br>
  * 修改记录： <br>
  */

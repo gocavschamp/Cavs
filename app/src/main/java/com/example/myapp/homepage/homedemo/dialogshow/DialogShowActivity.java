@@ -102,7 +102,7 @@ public class DialogShowActivity extends BaseActivity {
                         .positiveColor(getResources().getColor(R.color.color_333333))
 //                        .neutralText("中间")
 //                        .negativeColor(Color.GREEN)
-                        .negativeText("取消")
+                        .negativeText("")
 //                        .negativeColor(Color.BLUE)
 //                        .contentColor(Color.RED)
                         .onAny(new DialogToolsNew.SingleButtonCallback() {

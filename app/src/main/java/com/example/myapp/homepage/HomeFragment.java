@@ -19,6 +19,7 @@ import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
 import com.example.myapp.homepage.homedemo.bannertest.BannerActivity;
 import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
 import com.example.myapp.homepage.homedemo.dialogshow.DialogShowActivity;
+import com.example.myapp.homepage.homedemo.dragscallview.DragAndScallActivity;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.example.myapp.homepage.homedemo.videolist.DouYinListActivity;
 import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
@@ -84,6 +85,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("EdittextTextActivity");
         data.add("banner 轮播");
         data.add("dialogshow");
+        data.add("下拉回弹  拖拽布局");
         mycenterAdapter.setNewData(data);
 
 
@@ -146,6 +148,10 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 11:
                         UiGoto.startAty(mActivity, DialogShowActivity.class);
+
+                        break;
+                    case 12:
+                        UiGoto.startAty(mActivity, DragAndScallActivity.class);
 
                         break;
                 }

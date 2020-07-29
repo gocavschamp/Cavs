@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name=".MyApplication"
@@ -36,6 +37,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
+        <activity android:name=".homepage.homedemo.dragscallview.DragAndScallActivity"></activity>
         <activity
             android:name=".homepage.homedemo.EdittextTextActivity"
             android:screenOrientation="portrait"
@@ -245,7 +247,5 @@
             android:name="com.example.tinker.service.SampleResultService"
             android:exported="false" />
     </application>
-
-    <uses-permission android:name="android.permission.GET_TASKS" />
 
 </manifest>
