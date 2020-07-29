@@ -1,6 +1,8 @@
 package com.example.myapp.homepage.homedemo.dragscallview;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.example.myapp.R;
+import com.example.myapp.homepage.homedemo.bannertest.bean.DataBean;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.AppBarLayoutSpringBehavior;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.TabScrimHelper;
 import com.google.android.material.tabs.TabLayout;
@@ -130,6 +134,30 @@ public class DragAndScallActivity extends BaseActivity {
         slidingTabs.setupWithViewPager(viewPager, true);
         TabScrimHelper tabScrimHelper = new TabScrimHelper(slidingTabs, collapsingToolbar);
         appbar.addOnOffsetChangedListener(tabScrimHelper);
+        appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+                if(offset ==0) {
+                    //修改状态标记为展开
+//                    toolbar.setBackgroundColor(Color.TRANSPARENT);
+//                    collapsingToolbar.setBackgroundColor(Color.TRANSPARENT);
+                }else {
+//                    toolbar.setBackgroundColor(Color.WHITE);
+//                    collapsingToolbar.setBackgroundColor(Color.WHITE);
+                }
+            }
+        });
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        AppBarLayoutSpringBehavior springBehavior = (AppBarLayoutSpringBehavior) ((CoordinatorLayout.LayoutParams) appbar.getLayoutParams()).getBehavior();
+        springBehavior.setSpringOffsetCallback(new AppBarLayoutSpringBehavior.SpringOffsetCallback() {
+            @Override
+            public void springCallback(int offset) {
+                int radius = 20 * (240 - offset > 0 ? 240 - offset : 0) / 240;
+
+            }
+        });
+
     }
 
 
@@ -180,14 +208,24 @@ public class DragAndScallActivity extends BaseActivity {
             OnItemDragListener onItemDragListener = new OnItemDragListener() {
                 @Override
                 public void onItemDragStart(RecyclerView.ViewHolder viewHolder, int pos) {
+                    viewHolder.itemView.setBackgroundColor(getResources().getColor(R.color.black_20));
+
                 }
 
                 @Override
                 public void onItemDragMoving(RecyclerView.ViewHolder source, int from, RecyclerView.ViewHolder target, int to) {
+//                    mAdapter.getData().get(to).setType(1);
+//                    mAdapter.notifyItemChanged(to);
+                    source.itemView.setBackgroundColor(getResources().getColor(R.color.black_20));
                 }
 
                 @Override
                 public void onItemDragEnd(RecyclerView.ViewHolder viewHolder, int pos) {
+//                    mAdapter.getData().get(pos).setType(0);
+//                    mAdapter.notifyItemChanged(pos);
+//                    mAdapter.notifyDataSetChanged();
+                    viewHolder.itemView.setBackgroundColor(getResources().getColor(R.color.white));
+
                 }
             };
             mAdapter = new DragAdapter(R.layout.dragelayout_item, initData());
@@ -203,18 +241,22 @@ public class DragAndScallActivity extends BaseActivity {
             mRecyclerView.setAdapter(mAdapter);
         }
 
-        private List<String> initData() {
-            List<String> strings = new ArrayList<>();
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
-            strings.add("");
+        private List<DragBean> initData() {
+            List<DragBean> strings = new ArrayList<>();
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
+            strings.add(new DragBean());
             return strings;
         }
     }

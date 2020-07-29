@@ -262,7 +262,7 @@
                     style="@style/ToolBarStyleCenter"
                     android:titleTextColor="@color/black"
                     app:layout_collapseMode="pin">
-                    <!--android:background="@drawable/center_toolbar_fill_color"-->
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -279,6 +279,7 @@
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:visibility="visible" />
+
                         <RelativeLayout
                             android:id="@+id/rl_toolbar"
                             android:layout_width="match_parent"
@@ -348,7 +349,7 @@
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:tabPaddingEnd="2dp"
                     app:tabPaddingStart="2dp" />
-<!--                <include layout="@layout/divider_line_b3b3b3" />-->
+                <!--                <include layout="@layout/divider_line_b3b3b3" />-->
 
 
                 <com.nucarf.base.widget.ViewPagerSlide
@@ -360,7 +361,7 @@
                 </com.nucarf.base.widget.ViewPagerSlide>
             </LinearLayout>
 
-<!--            <include layout="@layout/exception_no_dynamic_top" />-->
+            <!--            <include layout="@layout/exception_no_dynamic_top" />-->
 
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
