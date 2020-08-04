@@ -26,11 +26,7 @@ public class MyApplication1 extends Application {
     public void onCreate() {
         super.onCreate();
         BaseAppCache.setContext(this);
-        //屏幕适配
-//        AutoLayoutConifg.getInstance().useDeviceSize();
-
         initGreenDao();
-
         //友盟分享统计
         ApplicationInfo appInfo = null;
         try {
