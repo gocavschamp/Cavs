@@ -133,7 +133,7 @@ android {
             //在 BuildConfig 类中添加值 可以通过 BuildConfig 进行获取
             buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
             buildConfigField('String', 'name', '"ywm"')
-            buildConfigField('int', 'age', '26')
+            buildConfigField('int', 'age', '27')
             // 添加至 res/value，通过 R.string.age 获取
             resValue('string', 'age', '12 years old')
             manifestPlaceholders = [
