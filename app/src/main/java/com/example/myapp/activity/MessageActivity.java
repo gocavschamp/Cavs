@@ -14,6 +14,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+
 //        dev rename代码
 //        dev_1 的代码
     }
