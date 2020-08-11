@@ -1,6 +1,11 @@
 package com.example.myapp.login.view;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,12 +21,15 @@ import com.example.myapp.MainActivity;
 import com.example.myapp.R;
 import com.google.android.material.tabs.TabLayout;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.utils.KeyboardUtil;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.utils.UiGoto;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 public class LoginActivity extends BaseActivity {
 
@@ -58,10 +67,32 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         // v1.1.2
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        KeyboardUtil.hideSoftInput(etPwdPhone.getWindowToken(), this);
 
+    }
+    @SuppressLint("CheckResult")
     @Override
     protected void initData() {
-
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            //用户同意使用权限
+                        } else {
+                            //用户不同意使用权限
+                            // 如果用户没有授权，那么应该说明意图，引导用户去设置里面授权。
+                            Toast.makeText(LoginActivity.this, "应用缺少必要的权限！请点击\"权限\"，打开所需要的权限。", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + getPackageName()));
+                            startActivity(intent);
+                        }
+                    }
+                });
     }
 
     @OnClick({R.id.tv_login, R.id.tv_go_rigist})
