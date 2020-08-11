@@ -37,7 +37,20 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".homepage.homedemo.dragscallview.DragAndScallActivity"></activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".homepage.homedemo.dragscallview.DragAndScallActivity" />
         <activity
             android:name=".homepage.homedemo.EdittextTextActivity"
             android:screenOrientation="portrait"
@@ -92,7 +105,16 @@
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".login.view.LoginActivity" />
+        <activity
+            android:name=".login.view.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateUnspecified">
+            <intent-filter>
+                <action android:name="member_login" />
+                <!-- /> -->
+            </intent-filter>
+        </activity>
         <activity
             android:name=".homepage.homedemo.amap.SearchWayResultActivity"
             android:hardwareAccelerated="false"

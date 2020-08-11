@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 //    @BindView(R.id.vp_main)
 //    ViewPagerSlide vpMain;
     private ViewPagerAdapterMain viewPagerAdapterMain;
+    private long exitTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -207,6 +208,21 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void onTabReselect(int position) {
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+            return;
+        } else {
+            finish();
+        }
+
+        super.onBackPressed();
+    }
+
 
     public class MessageReceiver extends BroadcastReceiver {
 
