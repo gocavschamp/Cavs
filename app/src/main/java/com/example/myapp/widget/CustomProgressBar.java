@@ -127,7 +127,7 @@ public class CustomProgressBar extends View {
 //        mText = NumberUtils.totalMoney(aFloat + "");
 //        sweepValue = (aFloat / 100f) * 360f;
 //        invalidate();
-        long duration = (long) ((value/20)*400);
+        long duration = (long) ((value / 20) * 400);
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0F, value);
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.setDuration(duration);
@@ -211,21 +211,22 @@ public class CustomProgressBar extends View {
         textPaint.getTextBounds(text, 0, text.length(), rectText);
         double x = Math.sin(Math.PI * sweepValue / 180) * (defHeight / 2f);
         double y = Math.cos(Math.PI * sweepValue / 180) * (defWidth / 2f);
-        double x1 = Math.sin(Math.PI * sweepValue / 180) * (20f);
-        double y1 = Math.cos(Math.PI * sweepValue / 180) * (20f);
+        double x1 = Math.sin(Math.PI * (sweepValue+9) / 180) * (defHeight / 2f - 25f);
+        double y1 = Math.cos(Math.PI * (sweepValue+9) / 180) * (defWidth / 2f -25f);
         textPaint.setColor(mIndicatorTextColor);
         int dx = defWidth + (int) x;
         int dy = defHeight - (int) y;
         int dx1 = dx - (int) x1;
         int dy1 = dy + (int) y1;
 
-        int dx2 = dx - (int)( x1*1.1);
-        int dy2 = dy + (int) (y1*(2.5));
+        int dx2 = defWidth + (int) x1;
+        int dy2 = defHeight - (int) y1;
+
         float angle = sweepValue % 360;
         if (0 < angle && angle <= 90) {
 
             recPaint.setColor(getContext().getResources().getColor(R.color.color_ff4081));
-            canvas.drawRect(dx, dy - textPaint.getFontSpacing()+rectText.bottom, dx + rectText.right, dy+rectText.bottom, recPaint);
+            canvas.drawRect(dx, dy - textPaint.getFontSpacing() + rectText.bottom, dx + rectText.right, dy + rectText.bottom, recPaint);
             canvas.drawText(text, dx, dy, textPaint);
             textPaint.setColor(recPaint.getColor());
             textPaint.setStrokeWidth(2);
@@ -245,7 +246,7 @@ public class CustomProgressBar extends View {
         }
         if (180 < angle && angle <= 270) {
             recPaint.setColor(getContext().getResources().getColor(R.color.result_point_color));
-            canvas.drawRect(dx - rectText.right, dy + textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
+            canvas.drawRect(dx - rectText.right, dy + textPaint.getFontSpacing() + rectText.bottom, dx, dy + rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy + textPaint.getFontSpacing(), textPaint);
             textPaint.setColor(recPaint.getColor());
             textPaint.setStrokeWidth(2);
@@ -255,7 +256,7 @@ public class CustomProgressBar extends View {
         }
         if (270 < angle && angle <= 360) {
             recPaint.setColor(getContext().getResources().getColor(R.color.color_f5a623));
-            canvas.drawRect(dx - rectText.right, dy - textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
+            canvas.drawRect(dx - rectText.right, dy - textPaint.getFontSpacing() + rectText.bottom, dx, dy + rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy, textPaint);
             textPaint.setColor(recPaint.getColor());
             textPaint.setStrokeWidth(2);
@@ -263,13 +264,14 @@ public class CustomProgressBar extends View {
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
         }
         textPaint.setColor(getResources().getColor(R.color.black));
-        canvas.drawCircle(dx1,dy1,10,textPaint);
+//        canvas.drawCircle(dx1, dy1, 10, textPaint);
         //矩阵
         Matrix matrix = new Matrix();
-        matrix.setTranslate(dx2,dy2);
-        matrix.preRotate(90+angle);
+        matrix.setTranslate(dx2, dy2);
+        matrix.preRotate(90 + angle);
+        matrix.preScale(0.7f,0.7f);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_arrow_black_back);
-        canvas.drawBitmap(bitmap,matrix,null);
+        canvas.drawBitmap(bitmap, matrix, null);
 //        textPaint.getTextBounds(text, 0, text.length(), rect);
 //        int dx = defWidth / 2 - rect.right / 2;
 //        int dy = defHeight / 2 + rect.bottom;
@@ -283,28 +285,28 @@ public class CustomProgressBar extends View {
     private void drawInner(float sweepAngle) {
         RectF rect = new RectF(defWidth / 2 + mInnerSize / 2, defHeight / 2 + mInnerSize / 2, defWidth + defWidth / 2 - mInnerSize / 2, defHeight + defHeight / 2 - mInnerSize / 2);
         float start = 0;
-        if (0 < sweepValue  ) {
+        if (0 < sweepValue) {
             innerPaint.setColor(getContext().getResources().getColor(R.color.color_ff4081));
-            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+            canvas.drawArc(rect, start - 90, sweepAngle - start, false, innerPaint);
 
         }
-        if (90 < sweepValue  ) {
+        if (90 < sweepValue) {
             innerPaint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
             start = 90;
-            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+            canvas.drawArc(rect, start - 90, sweepAngle - start, false, innerPaint);
 
         }
-        if (180 < sweepValue ) {
+        if (180 < sweepValue) {
             innerPaint.setColor(getContext().getResources().getColor(R.color.result_point_color));
             start = 180;
-            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+            canvas.drawArc(rect, start - 90, sweepAngle - start, false, innerPaint);
 
 
         }
-        if (270 < sweepValue ) {
+        if (270 < sweepValue) {
             innerPaint.setColor(getContext().getResources().getColor(R.color.color_f5a623));
             start = 270;
-            canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
+            canvas.drawArc(rect, start - 90, sweepAngle - start, false, innerPaint);
 
         }
 //        canvas.drawArc(rect, start - 90, sweepAngle-start, false, innerPaint);
