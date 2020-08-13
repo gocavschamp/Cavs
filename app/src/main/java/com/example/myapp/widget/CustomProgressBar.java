@@ -4,11 +4,15 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -29,6 +33,7 @@ import static com.nucarf.base.utils.ScreenUtil.disableHardwareAccelerated;
  */
 public class CustomProgressBar extends View {
 
+    private int mIndicatorTextColor;
     private Paint recPaint;
     private int mInnerSize;
     private int mOutSize;
@@ -62,12 +67,15 @@ public class CustomProgressBar extends View {
         int out_text_color = context.getResources().getColor(R.color.color_e6e6e6);
         int inner_text_color = context.getResources().getColor(R.color.color_0099ff);
         mTextColor = typedArray.getColor(R.styleable.CustomProgressBar_bar_text_color, def_text_color);
+        mIndicatorTextColor = typedArray.getColor(R.styleable.CustomProgressBar_indicator_text_color, out_text_color);
         mOutTextColor = typedArray.getColor(R.styleable.CustomProgressBar_bar_out_color, out_text_color);
         mInnerTextColor = typedArray.getColor(R.styleable.CustomProgressBar_bar_inner_color, inner_text_color);
         mTextSize = typedArray.getDimensionPixelSize(R.styleable.CustomProgressBar_bar_text_size, 15);
         mOutSize = typedArray.getDimensionPixelSize(R.styleable.CustomProgressBar_bar_out_size, 25);
         mInnerSize = typedArray.getDimensionPixelSize(R.styleable.CustomProgressBar_bar_inner_size, 25);
         typedArray.recycle();
+        //，因为硬加速不是被所有的２Ｄ绘制所支持，所以启用它时可能对你的自定义绘制产生影响．出现的问题经常是不可见的，
+        // 也可能是异常，或错误地显示了像素．为了避免这些问题，Android提供了在以下各级别上启用或禁止硬加速的能力：
         disableHardwareAccelerated(this);
         outPaint = new Paint();
         innerPaint = new Paint();
@@ -119,9 +127,10 @@ public class CustomProgressBar extends View {
 //        mText = NumberUtils.totalMoney(aFloat + "");
 //        sweepValue = (aFloat / 100f) * 360f;
 //        invalidate();
+        long duration = (long) ((value/20)*400);
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0F, value);
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setDuration(1800);
+        valueAnimator.setDuration(duration);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -202,41 +211,65 @@ public class CustomProgressBar extends View {
         textPaint.getTextBounds(text, 0, text.length(), rectText);
         double x = Math.sin(Math.PI * sweepValue / 180) * (defHeight / 2f);
         double y = Math.cos(Math.PI * sweepValue / 180) * (defWidth / 2f);
+        double x1 = Math.sin(Math.PI * sweepValue / 180) * (20f);
+        double y1 = Math.cos(Math.PI * sweepValue / 180) * (20f);
+        textPaint.setColor(mIndicatorTextColor);
+        int dx = defWidth + (int) x;
+        int dy = defHeight - (int) y;
+        int dx1 = dx - (int) x1;
+        int dy1 = dy + (int) y1;
 
-        if (0 < sweepValue && sweepValue <= 90) {
-            int dx = defWidth + (int) x;
-            int dy = defHeight - (int) y;
+        int dx2 = dx - (int)( x1*1.1);
+        int dy2 = dy + (int) (y1*(2.5));
+        float angle = sweepValue % 360;
+        if (0 < angle && angle <= 90) {
+
             recPaint.setColor(getContext().getResources().getColor(R.color.color_ff4081));
             canvas.drawRect(dx, dy - textPaint.getFontSpacing()+rectText.bottom, dx + rectText.right, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx, dy, textPaint);
+            textPaint.setColor(recPaint.getColor());
+            textPaint.setStrokeWidth(2);
+
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
+
         }
-        if (90 < sweepValue && sweepValue <= 180) {
-            int dx = defWidth + (int) x;
-            int dy = defHeight - (int) y;
+        if (90 < angle && angle <= 180) {
             recPaint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
             canvas.drawRect(dx, dy, dx + rectText.right, dy + textPaint.getFontSpacing(), recPaint);
             canvas.drawText(text, dx, dy + mTextSize, textPaint);
+            textPaint.setColor(recPaint.getColor());
+            textPaint.setStrokeWidth(2);
+
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
 
         }
-        if (180 < sweepValue && sweepValue <= 270) {
-            int dx = defWidth + (int) x;
-            int dy = defHeight - (int) y;
+        if (180 < angle && angle <= 270) {
             recPaint.setColor(getContext().getResources().getColor(R.color.result_point_color));
             canvas.drawRect(dx - rectText.right, dy + textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy + textPaint.getFontSpacing(), textPaint);
+            textPaint.setColor(recPaint.getColor());
+            textPaint.setStrokeWidth(2);
+
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
 
         }
-        if (270 < sweepValue && sweepValue <= 360) {
-            int dx = defWidth + (int) x;
-            int dy = defHeight - (int) y;
+        if (270 < angle && angle <= 360) {
             recPaint.setColor(getContext().getResources().getColor(R.color.color_f5a623));
             canvas.drawRect(dx - rectText.right, dy - textPaint.getFontSpacing()+rectText.bottom, dx, dy+rectText.bottom, recPaint);
             canvas.drawText(text, dx - rectText.right, dy, textPaint);
+            textPaint.setColor(recPaint.getColor());
+            textPaint.setStrokeWidth(2);
+
             canvas.drawLine(defWidth, defHeight, dx, dy, textPaint);
         }
+        textPaint.setColor(getResources().getColor(R.color.black));
+        canvas.drawCircle(dx1,dy1,10,textPaint);
+        //矩阵
+        Matrix matrix = new Matrix();
+        matrix.setTranslate(dx2,dy2);
+        matrix.preRotate(90+angle);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_arrow_black_back);
+        canvas.drawBitmap(bitmap,matrix,null);
 //        textPaint.getTextBounds(text, 0, text.length(), rect);
 //        int dx = defWidth / 2 - rect.right / 2;
 //        int dy = defHeight / 2 + rect.bottom;
@@ -289,6 +322,7 @@ public class CustomProgressBar extends View {
         textPaint.getTextBounds(text, 0, text.length(), rect);
         int dx = defWidth - rect.right / 2;
         int dy = defHeight + rect.bottom;
+        textPaint.setColor(mTextColor);
         canvas.drawText(text, dx, dy, textPaint);
 
     }

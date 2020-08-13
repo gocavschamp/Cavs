@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 退出应用
      */
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void onMessageEvent(String exitApp) {
+    public void onEvent(String exitApp) {
 //        if (exitApp.isExit()) {
 //            finish();
 //        }

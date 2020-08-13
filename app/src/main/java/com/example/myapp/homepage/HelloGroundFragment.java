@@ -71,7 +71,7 @@ public class HelloGroundFragment extends BaseLazyFragment {
     public void onViewClicked() {
         if(!TextUtils.isEmpty(etAngle.getText())) {
             float min = Math.min(100f, Float.parseFloat(etAngle.getText().toString()));
-            progressBar.resetValue(min);
+            progressBar.resetValue(Float.parseFloat(etAngle.getText().toString()));
         }
     }
 }

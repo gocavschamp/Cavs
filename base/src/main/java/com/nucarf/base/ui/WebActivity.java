@@ -87,8 +87,8 @@ public class WebActivity extends BaseActivityWithTitle {
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setSupportMultipleWindows(false);
         // 修改ua使得web端正确判断
-        String ua = webView.getSettings().getUserAgentString();
-        webView.getSettings().setUserAgentString(ua + ";isApp");
+//        String ua = webView.getSettings().getUserAgentString();
+//        webView.getSettings().setUserAgentString(ua + ";isApp");
         // 设置允许JS弹窗
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

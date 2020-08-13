@@ -8,13 +8,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_above="@+id/rl_bottom_layout"
-        android:layout_height="match_parent">
-<ImageView
-    android:id="@+id/iv_bg"
-    android:src="@mipmap/go_girl"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom_layout">
+
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/go_girl" />
     </FrameLayout>
 
     <TextView
@@ -33,14 +34,28 @@
     <RelativeLayout
         android:id="@+id/rl_bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_70"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_50"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/icon_center_habit" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/app_welcome"
+            android:textColor="@color/main_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
     </RelativeLayout>
 </RelativeLayout>

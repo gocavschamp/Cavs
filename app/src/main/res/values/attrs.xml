@@ -21,6 +21,7 @@
     <declare-styleable name="CustomProgressBar">
         <attr name="bar_text" format="string" />
         <attr name="bar_text_color" format="color" />
+        <attr name="indicator_text_color" format="color" />
         <attr name="bar_text_size" format="dimension" />
         <attr name="bar_out_color" format="color" />
         <attr name="bar_inner_color" format="color" />

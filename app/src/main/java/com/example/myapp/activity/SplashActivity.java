@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.myapp.MainActivity;
+import com.example.myapp.MsgEvent;
 import com.example.myapp.R;
 import com.example.myapp.login.view.LoginActivity;
 import com.gyf.barlibrary.ImmersionBar;
@@ -18,6 +19,8 @@ import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.ui.WebActivity;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.utils.UiGoto;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
@@ -89,10 +92,14 @@ public class SplashActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_bg:
-                WebActivity.lauch(mContext, "百度一下", "www.baidu.com");
+                EventBus.getDefault().postSticky(new MsgEvent("百度一下","https://www.baidu.com/",MsgEvent.TYPE_WEB));
+                UiGoto.startAty(mContext, MainActivity.class);
+                finish();
+//                WebActivity.lauch(mContext, "百度一下", "www.baidu.com");
                 break;
             case R.id.tv_skip:
                 UiGoto.startAty(mContext, MainActivity.class);
+                finish();
                 break;
         }
     }

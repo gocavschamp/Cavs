@@ -57,7 +57,7 @@ public class HomeFragment extends BaseLazyFragment {
     TextView tvZxing;
     private MycenterAdapter mycenterAdapter;
 
-    private HomeFragment() {
+    public HomeFragment() {
     }
 
     public static HomeFragment newInstance() {

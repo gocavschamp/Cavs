@@ -23,9 +23,14 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.ui.BaseActivity;
+import com.nucarf.base.ui.WebActivity;
+import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.widget.ViewPagerSlide;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Set;
 
@@ -54,6 +59,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        initViewPager();
 //        ImmersionBar.with(this).statusBarDarkFont(false, 0.2f).init();
         registerMessageReceiver();  // used for receive msg
         //修改 测试分支
@@ -64,16 +70,28 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     protected void initData() {
-        initViewPager();
 
         getPemision();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(Object event) {
+        if (event instanceof MsgEvent) {
+            MsgEvent msgEvent = (MsgEvent) event;
+            if (msgEvent.getType().equals(MsgEvent.TYPE_WEB)) {
+                LogUtils.e("---" + msgEvent.toString());
+                WebActivity.lauch(mContext, msgEvent.getKey(), msgEvent.getValue());
+            }
+
+        }
     }
 
     @SuppressLint("CheckResult")
     private void getPemision() {
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.RECORD_AUDIO,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Consumer<Boolean>() {
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
 
@@ -88,7 +106,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         vpMain.setSlidAble(false);
         vpMain.setOffscreenPageLimit(viewPagerAdapterMain.COUNT);
         vpMain.addOnPageChangeListener(this);
-        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息","我的"});
+        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息", "我的"});
 //        stlMain.setViewPager(vpMain, new String[]{"首页", "首页", "wodededeeee"});
         stlMain.setOnTabSelectListener(this);
     }
