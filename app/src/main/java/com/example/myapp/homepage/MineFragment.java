@@ -84,7 +84,7 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
 
         // 下载文件
         mDownloadHelper.downloadFile(url, mActivity.getCacheDir().getAbsolutePath(), "nucarf" + count + ".jpg");
-        mySqliteHelper = new MySqliteHelper(mActivity, MySqliteHelper.TABLE_NAME, null, 1);
+        mySqliteHelper = MySqliteHelper.getHelperInstance(mActivity);
         FileVersionBean fileVersionBean = mySqliteHelper.queryAllVersionData();
         if (fileVersionBean != null) {
             Log.e("TAG", "id = " + fileVersionBean.getId()

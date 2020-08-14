@@ -37,6 +37,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
+        <activity android:name=".homepage.homedemo.DBTestActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -49,7 +50,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".homepage.homedemo.dragscallview.DragAndScallActivity" />
         <activity
             android:name=".homepage.homedemo.EdittextTextActivity"

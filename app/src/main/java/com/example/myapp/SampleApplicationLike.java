@@ -129,7 +129,6 @@ public class SampleApplicationLike extends DefaultApplicationLike {
 //        }
 //        LeakCanary.install(this.getApplication());
         //屏幕适配
-//        AutoLayoutConifg.getInstance().useDeviceSize();
         AutoSizeConfig.getInstance().setExcludeFontScale(true);
         initGreenDao(this.getApplication());
         APICloud.initialize(this.getApplication());//初始化APICloud，SDK中所有的API均需要初始化后方可调用执行
