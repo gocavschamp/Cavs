@@ -82,5 +82,11 @@
         android:background="@drawable/rec_white_stoke_eee_4"
         android:text="please insert right sql" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/et_sql"
+        android:background="@color/white" />
 
 </RelativeLayout>

@@ -28,9 +28,9 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     //数据库版本
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "happy.db";
-    private static final String TABLE_NAME_STUDENT = "t_student";
-    private static final String TABLE_NAME_LIBRARY = "t_library";
-    private static final String TABLE_NAME_NBA = "t_nba";
+    public static final String TABLE_NAME_STUDENT = "t_student";
+    public static final String TABLE_NAME_LIBRARY = "t_library";
+    public static final String TABLE_NAME_NBA = "t_nba";
 
     /**
      * 数据库中创建一张student表
@@ -39,7 +39,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     public static final String CREAT_STUDENT = "create table " + TABLE_NAME_STUDENT +
             " (id integer primary key autoincrement," + "name text,"
             + "age integer," + "height integer," + "grade integer," + "note text," + "like_star text,"
-            + "weight integer," + "book integer," + "sex integer)";
+            + "weight integer," + "book text," + "sex integer)";
 
     /**
      * 数据库中创建一张library表
@@ -56,7 +56,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
      */
     public static final String CREAT_NBA = "create table " + TABLE_NAME_NBA +
             " (id integer primary key autoincrement," + "name text," + "age integer," + "weight integer,"
-            + "height integer," + "score integer," + "rebound integer," + "assists integer," + "note text,"
+            + "height integer," + "score real," + "rebound real," + "assists real," + "note text,"
             + "team text)";
 
     /*私有的静态对象，为整个应用程序提供一个sqlite操作的静态实例，
@@ -165,6 +165,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
             model.setIs_native(is_native);
             return model;
         }
+        cursor.close();
         return null;
     }
 
