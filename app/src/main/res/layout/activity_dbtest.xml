@@ -6,87 +6,114 @@
     android:layout_height="match_parent"
     tools:context="com.example.myapp.homepage.homedemo.DBTestActivity">
 
-    <Button
-        android:id="@+id/btn_add_student"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_margin="@dimen/dp_10"
-        android:text="add one student +" />
-
-    <Button
-        android:id="@+id/btn_delete_student"
-        android:layout_width="wrap_content"
-
-        android:layout_height="@dimen/dp_50"
-        android:layout_margin="@dimen/dp_10"
-        android:layout_toRightOf="@id/btn_add_student"
-        android:text="delete one student -" />
-
-    <Button
-        android:id="@+id/btn_add_book"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/btn_add_student"
-        android:layout_margin="@dimen/dp_10"
-        android:text="add one book +" />
-
-    <Button
-        android:id="@+id/btn_delete_book"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/btn_add_student"
-        android:layout_margin="@dimen/dp_10"
-        android:layout_toRightOf="@id/btn_add_book"
-        android:text="delete one book -" />
-
-    <Button
-        android:id="@+id/btn_add_player"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/btn_add_book"
-        android:layout_margin="@dimen/dp_10"
-        android:text="add one player +" />
-
-    <Button
-        android:id="@+id/btn_delete_player"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/btn_add_book"
-        android:layout_margin="@dimen/dp_10"
-        android:layout_toRightOf="@id/btn_add_player"
-        android:text="delete one player -" />
-
-    <Button
-        android:id="@+id/btn_execute_sql"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/btn_add_player"
-        android:layout_margin="@dimen/dp_10"
-        android:text="execute sql +" />
-
-    <Button
-        android:id="@+id/btn_sqlite_upgrate"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_below="@id/btn_add_player"
-        android:layout_margin="@dimen/dp_10"
-        android:layout_toRightOf="@id/btn_execute_sql"
-        android:text="sqlite_upgrate +" />
-
-    <EditText
-        android:id="@+id/et_sql"
+    <RelativeLayout
+        android:id="@+id/rl_content"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_80"
-        android:layout_below="@id/btn_execute_sql"
-        android:layout_margin="@dimen/dp_10"
-        android:background="@drawable/rec_white_stoke_eee_4"
-        android:text="please insert right sql" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_add_student"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:text="+ student" />
+
+        <Button
+            android:id="@+id/btn_delete_student"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_toRightOf="@id/btn_add_student"
+            android:text="- student" />
+        <Button
+            android:id="@+id/btn_query_student"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_toRightOf="@id/btn_delete_student"
+            android:text="query" />
+
+        <Button
+            android:id="@+id/btn_add_book"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_student"
+            android:text="book +" />
+
+        <Button
+            android:id="@+id/btn_delete_book"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_student"
+            android:layout_toRightOf="@id/btn_add_book"
+            android:text="book -" />
+        <Button
+            android:id="@+id/btn_query_book"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_student"
+            android:layout_toRightOf="@id/btn_delete_book"
+            android:text="query" />
+
+        <Button
+            android:id="@+id/btn_add_player"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_book"
+            android:text="player +" />
+
+        <Button
+            android:id="@+id/btn_delete_player"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_book"
+            android:layout_toRightOf="@id/btn_add_player"
+            android:text="player -" />
+        <Button
+            android:id="@+id/btn_query_player"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_book"
+            android:layout_toRightOf="@id/btn_delete_player"
+            android:text="query" />
+
+        <Button
+            android:id="@+id/btn_execute_sql"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_player"
+            android:text="execute sql +" />
+
+        <Button
+            android:id="@+id/btn_sqlite_upgrate"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_player"
+            android:layout_toRightOf="@id/btn_execute_sql"
+            android:text="sqlite_upgrate +" />
+
+
+        <EditText
+            android:id="@+id/et_sql"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_execute_sql"
+            android:background="@drawable/rec_white_stoke_eee_4"
+            android:hint="please insert right sql" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_hide_show"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/transparent"
+        android:layout_below="@id/rl_content"
+        android:textColor="@color/main_color"
+        android:layout_alignParentRight="true"
+        android:text="hide or show +" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/et_sql"
+        android:layout_below="@id/rl_content"
         android:background="@color/white" />
 
 </RelativeLayout>
