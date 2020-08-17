@@ -65,7 +65,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     private static MySqliteHelper instance; //这里主要解决死锁问题,是static就能解决死锁问题
 
     //----------数据库操作---------->
-    public static MySqliteHelper getHelperInstance(Context context) {
+    public synchronized static MySqliteHelper getHelperInstance(Context context) {
         if (instance == null) {
             instance = new MySqliteHelper(context);
         }
@@ -97,6 +97,21 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //更新数据库
         LogUtils.e("DatabaseHelper_onUpgrade");
+        //构建删除表的SQL
+//        String sql = "DROP TABLE IF EXISTS " + TABLE_NAME_ART;
+        switch (oldVersion) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default:
+        }
+
     }
 
     @Override

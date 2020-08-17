@@ -147,13 +147,17 @@ public class DBTestActivity extends BaseActivityWithTitle {
                 if (!TextUtils.isEmpty(etSql.getText().toString())) {
                     String sql = etSql.getText().toString();
                     SQLiteDatabase database = mySqliteHelper.getWritableDatabase();
+                    database.beginTransaction();
 //                    database.execSQL("insert into t_student (name,age,height,weight,sex,grade,book,like_star,note) values ('bob',17,172,61,0,70,'herry pote','jasting biber','')");
                     try {
                         database.execSQL(sql);
-                        ToastUtils.show_middle(mContext,"execute sql succeed",1);
+                        database.setTransactionSuccessful();
+                        ToastUtils.show_middle(mContext, "execute sql succeed", 1);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        ToastUtils.show_middle(mContext,"grammar  mistakes  please check again",1);
+                        ToastUtils.show_middle(mContext, "grammar  mistakes  please check again", 1);
+                    } finally {
+                        database.endTransaction();
                     }
                 } else {
                     ToastUtils.show_middle(mContext, "please input right sql--", 1);
