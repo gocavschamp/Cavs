@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -26,7 +27,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
 
     //<--------数据库操作---------
     //数据库版本
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     private static final String DB_NAME = "happy.db";
     public static final String TABLE_NAME_STUDENT = "t_student";
     public static final String TABLE_NAME_LIBRARY = "t_library";
@@ -96,16 +97,44 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //更新数据库
-        LogUtils.e("DatabaseHelper_onUpgrade");
+        LogUtils.e("DatabaseHelper_onUpgrade version" + newVersion);
         //构建删除表的SQL
 //        String sql = "DROP TABLE IF EXISTS " + TABLE_NAME_ART;
         switch (oldVersion) {
             case 1:
+                try {
+                    String alert_nba_name_temp = "alter TABLE t_nba rename to t_nba_temp";
+                    String create_new_nba_table = "create table t_nba (id integer primary key autoincrement," +
+                            " name text, score real,rebound real,assists real,block real,steal real,team text,note text) ";
+                    String copy_data = "insert into t_nba select id ,name ,score ,rebound ,assists,'','',team,note from t_nba_temp";
+                    String drop_old_table = "drop table t_nba_temp";
+                    db.beginTransaction();
+                    db.execSQL(alert_nba_name_temp);
+                    db.execSQL(create_new_nba_table);
+                    db.execSQL(copy_data);
+                    db.execSQL(drop_old_table);
+                    db.setTransactionSuccessful();
+                    LogUtils.e("DatabaseHelper_onUpgrade ---seccessful");
 
-                break;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    db.endTransaction();
+                }
             case 2:
-
-                break;
+                    try {
+                        String alert_student = "alter table t_student add nickname text";
+                        String add_nick_name = "update  t_student set nickname = '--Choice 1--' where age = 12";
+                        db.beginTransaction();
+                        db.execSQL(alert_student);
+                        db.execSQL(add_nick_name);
+                        db.setTransactionSuccessful();
+                        LogUtils.e("DatabaseHelper_onUpgrade ---seccessful");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } finally {
+                        db.endTransaction();
+                    }
             case 3:
 
                 break;
