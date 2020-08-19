@@ -14,11 +14,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapp.R;
-import com.example.myapp.homepage.homedemo.xunfei.XunFeiCotract;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
 import com.nucarf.base.ui.BaseActivityWithTitle;
-import com.nucarf.base.ui.WebActivity;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ScreenUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -40,6 +38,8 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
     Button btScanner;
     @BindView(R.id.bt_go_lauch)
     Button btGoLauch;
+    @BindView(R.id.iv_show)
+    ImageView ivShow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,12 +55,17 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
     }
 
     @Subscribe
-    public void onEvent(String event) {
-        if (event.startsWith("QRCODE:")) {
-            String replaceFirst = event.replaceFirst("QRCODE:", "");
-            etName.setText(replaceFirst);
+    public void onEvent(Object event) {
+        if (event instanceof QRCodeEvent) {
+            QRCodeEvent qrevent = (QRCodeEvent) event;
+            if (qrevent.getText().startsWith("QRCODE:")) {
+                String replaceFirst = qrevent.getText().replaceFirst("QRCODE:", "");
+                etName.setText(replaceFirst);
+                ivShow.setImageBitmap(qrevent.getBitmap());
 
+            }
         }
+
     }
 
     private void creatQrCode(String code_str) {//only_petrol

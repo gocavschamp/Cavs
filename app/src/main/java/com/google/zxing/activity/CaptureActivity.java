@@ -30,6 +30,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.myapp.R;
+import com.example.myapp.homepage.homedemo.zxing.QRCodeEvent;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
@@ -110,11 +111,8 @@ public class CaptureActivity extends Activity implements Callback {
         tv_album = (TextView) findViewById(R.id.tv_album);
         back = (ImageView) findViewById(R.id.scanner_toolbar_back);
         rl_content = (RelativeLayout) findViewById(R.id.rl_content);
-//        ScreenUtil.setMargins(rl_content, 0, 0, 0, (int) (ScreenUtil.getScreenHeight(this) * 0.3f));
         fm = (FrameLayout) findViewById(R.id.fm);
-//        ScreenUtil.setMargins(fm, 0, (int) (-ScreenUtil.getScreenHeight(this) * 0.3f), 0, 0);
         rl_bottom_layout = (RelativeLayout) findViewById(R.id.rl_bottom_layout);
-//        ScreenUtil.setRelativeLayoutParams(rl_bottom_layout, ScreenUtil.getScreenWidth(this), (int) (ScreenUtil.getScreenHeight(this) * 0.3));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,7 +283,8 @@ public class CaptureActivity extends Activity implements Callback {
         if (TextUtils.isEmpty(resultString)) {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
-            EventBus.getDefault().post("QRCODE:" + resultString);
+            EventBus.getDefault().post(new QRCodeEvent("QRCODE:" + resultString,barcode));
+
         }
         CaptureActivity.this.finish();
     }

@@ -32,7 +32,7 @@
             android:layout_below="@id/iv_code"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp"
             android:hint="扫码结果显示"
@@ -45,7 +45,7 @@
             android:layout_height="@dimen/dp_50"
             android:layout_below="@id/iv_code"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_130"
+            android:layout_marginTop="@dimen/dp_30"
             android:text="点击访问链接"
             android:textSize="15sp" />
 
@@ -54,9 +54,16 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_80"
             android:layout_below="@id/iv_code"
-            android:layout_marginTop="@dimen/dp_180"
+            android:layout_marginTop="@dimen/dp_80"
             android:text="点击扫码"
             android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/iv_show"
+            android:layout_width="@dimen/dp_280"
+            android:layout_height="@dimen/dp_280"
+            android:layout_below="@id/bt_scanner"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </LinearLayout>
