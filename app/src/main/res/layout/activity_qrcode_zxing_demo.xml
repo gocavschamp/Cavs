@@ -62,6 +62,7 @@
             android:id="@+id/iv_show"
             android:layout_width="@dimen/dp_280"
             android:layout_height="@dimen/dp_280"
+            android:scaleType="centerInside"
             android:layout_below="@id/bt_scanner"
             android:layout_centerHorizontal="true" />
 

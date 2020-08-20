@@ -16,8 +16,8 @@
     <string name="list_footer_end" translatable="false">已全部加载完</string>
     <string name="cancel" translatable="false">取消</string>
     <string name="str_qing_shao_hou_" translatable="false">请稍后...</string>
-    <string name="str_yi_bao_cun_zhi_lu_jing" translatable="false">以保存至路径</string>
+    <string name="str_yi_bao_cun_zhi_lu_jing" translatable="false">已保存至路径</string>
     <string name="str_quan_bu_tu_pian" translatable="false">全部图片</string>
-    <string name="centerstr">中间</string>
+    <string name="centerstr" translatable="false">中间</string>
 
 </resources>

@@ -17,6 +17,7 @@ import com.example.myapp.R;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
 import com.nucarf.base.ui.BaseActivityWithTitle;
+import com.nucarf.base.utils.ImageUtil;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ScreenUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -62,6 +63,8 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
                 String replaceFirst = qrevent.getText().replaceFirst("QRCODE:", "");
                 etName.setText(replaceFirst);
                 ivShow.setImageBitmap(qrevent.getBitmap());
+                ImageUtil.saveBitmapToAlbum(mContext,qrevent.getBitmap(),true);
+
 
             }
         }
