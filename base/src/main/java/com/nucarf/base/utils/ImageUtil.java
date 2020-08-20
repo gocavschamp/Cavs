@@ -10,11 +10,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.YuvImage;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
@@ -51,6 +54,7 @@ public class ImageUtil {
 
         return instance;
     }
+
     /**
      * 图片最终裁剪宽度
      */
@@ -332,7 +336,7 @@ public class ImageUtil {
             } else {
                 cachePath = context.getCacheDir().getPath();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -479,7 +483,7 @@ public class ImageUtil {
      */
 
     @SuppressLint("NewApi")
-    public static String saveBitmapToAlbum(Context context, Bitmap saveBitmap, boolean showToast) {
+    public static String saveBitmapToAlbum(Context context, Bitmap saveBitmap, int quality,boolean showToast) {
         String root = "";
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             root = context.getFilesDir().getAbsolutePath();
@@ -499,7 +503,7 @@ public class ImageUtil {
             File file = new File(fileName);
 
             FileOutputStream fos = new FileOutputStream(file);
-            saveBitmap.compress(CompressFormat.JPEG, 100, fos);
+            saveBitmap.compress(CompressFormat.JPEG, quality, fos);
 
             fos.flush();
             fos.close();
@@ -606,21 +610,21 @@ public class ImageUtil {
         }
         return bitmap;
     }
+
     /**
-     *
-     * @param data		yuv byte数组
-     * @param w 		宽度
-     * @param h			高度
-     * @param uOff		nv21填:1; nv12填:0;
-     * @param vOff		nv21填:0; nv12填:1;
+     * @param data yuv byte数组
+     * @param w    宽度
+     * @param h    高度
+     * @param uOff nv21填:1; nv12填:0;
+     * @param vOff nv21填:0; nv12填:1;
      * @return
      */
     private static Bitmap spToBitmap(byte[] data, int w, int h, int uOff, int vOff) {
         int plane = w * h;
         int[] colors = new int[plane];
         int yPos = 0, uvPos = plane;
-        for(int j = 0; j < h; j++) {
-            for(int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            for (int i = 0; i < w; i++) {
                 // YUV byte to RGB int
                 final int y1 = data[yPos] & 0xff;
                 final int u = (data[uvPos + uOff] & 0xff) - 128;
@@ -637,21 +641,22 @@ public class ImageUtil {
                         ((g >> 2) & 0xff00) |
                         ((b >> 10) & 0xff);
 
-                if((yPos++ & 1) == 1) uvPos += 2;
+                if ((yPos++ & 1) == 1) uvPos += 2;
             }
-            if((j & 1) == 0) uvPos -= w;
+            if ((j & 1) == 0) uvPos -= w;
         }
         return Bitmap.createBitmap(colors, w, h, Bitmap.Config.RGB_565);
     }
 
     /**
      * YUV转bitmap
-     * @param data  yuv byte数组
+     *
+     * @param data   yuv byte数组
      * @param width
      * @param height
      * @return
      */
-    public Bitmap rawByteArray2RGBABitmap2(byte[] data, int width, int height) {
+    public static Bitmap rawByteArray2RGBABitmap2(byte[] data, int width, int height) {
         int frameSize = width * height;
         int[] rgba = new int[frameSize];
 
@@ -673,10 +678,61 @@ public class ImageUtil {
                 rgba[i * width + j] = 0xff000000 + (b << 16) + (g << 8) + r;
             }
 
-        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        bmp.setPixels(rgba, 0 , width, 0, 0, width, height);
+        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        bmp.setPixels(rgba, 0, width, 0, 0, width, height);
         return bmp;
     }
+
+    /**
+     * 返回灰色图片
+     * @param data   图片数据
+     * @param width
+     * @param height
+     * @return
+     */
+
+    public static Bitmap turnGrayPic(byte[] data, int width, int height) {
+        try {
+            //格式成YUV格式
+            YuvImage yuvimage = new YuvImage(data, ImageFormat.NV21, width,
+                    height, null);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            yuvimage.compressToJpeg(new Rect(0, 0, width,
+                    height), 100, baos);
+            Bitmap bitmap1 = BitmapFactory.decodeByteArray(baos.toByteArray(), 0, baos.toByteArray().length);
+//                bundle.putParcelable(DecodeThread.BARCODE_BITMAP, bitmap1);
+            int width1 = bitmap1.getWidth(); // 获取位图的宽
+            int height1 = bitmap1.getHeight(); // 获取位图的高
+            int[] pixels = new int[width1 * height1]; // 通过位图的大小创建像素点数组
+
+            bitmap1.getPixels(pixels, 0, width1, 0, 0, width1, height1);
+            int alpha = 0xFF << 24;
+            for (int i = 0; i < height1; i++) {
+                for (int j = 0; j < width1; j++) {
+                    int grey = pixels[width1 * i + j];
+
+                    //分离三原色
+                    int red = ((grey & 0x00FF0000) >> 16);
+                    int green = ((grey & 0x0000FF00) >> 8);
+                    int blue = (grey & 0x000000FF);
+
+                    //转化成灰度像素
+                    grey = (int) (red * 0.3 + green * 0.59 + blue * 0.11);
+                    grey = alpha | (grey << 16) | (grey << 8) | grey;
+                    pixels[width1 * i + j] = grey;
+                }
+            }
+            //新建图片
+            Bitmap newBmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            //设置图片数据
+            newBmp.setPixels(pixels, 0, width, 0, 0, width, height);
+            return newBmp;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Bitmap fastblur(Bitmap sentBitmap, int radius) {
 
         // Stack Blur v1.0 from

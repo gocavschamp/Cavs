@@ -63,7 +63,7 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
                 String replaceFirst = qrevent.getText().replaceFirst("QRCODE:", "");
                 etName.setText(replaceFirst);
                 ivShow.setImageBitmap(qrevent.getBitmap());
-                ImageUtil.saveBitmapToAlbum(mContext,qrevent.getBitmap(),true);
+                ImageUtil.saveBitmapToAlbum(mContext, qrevent.getBitmap(), 60, true);
 
 
             }
