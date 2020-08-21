@@ -55,26 +55,21 @@ public class BottomSheetPresenter extends BasePAV<BottomSheetContract.View> impl
                 .compose(RxSchedulers.io_main())
                 .compose(RxSchedulers.handleResult())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) mView)))
-                .subscribeWith(new CommonSubscriber<ArticleBean>(mView,true) {
+                .subscribeWith(new CommonSubscriber<ArticleBean>(mView, true) {
 
                     @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        mView.closeLoading();
-                    }
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ArticleBean articleBean) {
+                    public void onSuccess(ArticleBean articleBean) {
                         mPage++;
                         int total = articleBean.getTotal();
                         isEnd = mView.getDataSize() >= total;
                         mView.setData(isRefresh, articleBean.getDatas(), isEnd);
                         mView.closeLoading();
+                    }
+
+                    @Override
+                    public void onFail(String code, String message) {
+                        mView.closeLoading();
+
                     }
                 })
         ;

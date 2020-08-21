@@ -1,21 +1,26 @@
 package com.nucarf.base.retrofit;
 
 import android.net.ParseException;
-import android.text.TextUtils;
 import android.util.Log;
 
-
 import com.google.gson.JsonParseException;
+import com.nucarf.base.R;
 import com.nucarf.base.mvp.BaseView;
 import com.nucarf.base.retrofit.logiclayer.BaseResult;
-import com.nucarf.base.utils.LogUtils;
+import com.nucarf.base.utils.BaseAppCache;
+import com.nucarf.base.utils.SharePreUtils;
+import com.nucarf.base.utils.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 
 import java.net.ConnectException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
 
@@ -67,6 +72,10 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
      * 统一提示
      */
     public static final int CODE_SHOW_TOAST = 400000;
+    /**
+     * //token 失效
+     */
+    private static final int TOKEN_INVALID = 400;
 
 
     private BaseView mView;
@@ -99,65 +108,64 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
     }
 
     @Override
+    public void onSubscribe(Disposable d) {
+
+    }
+
+    @Override
+    public void onNext(T t) {
+        onSuccess(t);
+    }
+
+    /**
+     * 请求成功
+     *
+     * @param response 服务器返回的数据
+     */
+    abstract public void onSuccess(T response);
+
+    /**
+     * 服务器返回数据，但响应码不为200
+     */
+    abstract public void onFail(String code, String message);
+
+    @Override
     public void onError(Throwable e) {
-        Log.d("tag", "apply: " + e);
-        if (mView == null) {
-            return;
-        }
+        Log.d("TAG", "error:: " + e);
         BaseResult ex = new BaseResult();
-        //HTTP错误   网络请求异常 比如常见404 500之类的等
         if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
-            switch (httpException.code()) {
-                case CODE_TOKEN_INVALID:
-                    ex.setErrorMsg("重新登陆");
-                    break;
-                case CODE_NO_OTHER:
-                    ex.setErrorMsg("其他情况");
-                    break;
-                case CODE_SHOW_TOAST:
-                    ex.setErrorMsg("吐司");
-                    break;
-                case CODE_NO_MISSING_PARAMETER:
-                    ex.setErrorMsg("缺少参数");
-                    break;
-                case BAD_REQUEST:
-                case NOT_FOUND:
-                case METHOD_NOT_ALLOWED:
-                case REQUEST_TIMEOUT:
-                case CONFLICT:
-                case PRECONDITION_FAILED:
-                case GATEWAY_TIMEOUT:
-                case INTERNAL_SERVER_ERROR:
-                case BAD_GATEWAY:
-                case SERVICE_UNAVAILABLE:
-                    //均视为网络错误
-                default:
-                    ex.setErrorMsg("网络错误" + httpException.code());
-                    break;
+            ex.setCode(httpException.code() + "");
+            if (httpException.code() == UNAUTHORIZED || httpException.code() == FORBIDDEN || httpException.code() == TOKEN_INVALID) {
+                ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "您的账号已在其他设备登录", 0);
+                SharePreUtils.setjwt_token(BaseAppCache.getContext(), "");
+//                SharePreUtils.removeKey(BaseAppCache.getContext());
+                EventBus.getDefault().post(new LoginEvent());
+            } else if (((HttpException) e).code() == NOT_FOUND) {
+                ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "找不到指定的链接!", 0);
+            } else {
+                ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "网络错误!", 0);
             }
-        } else if (e instanceof JsonParseException
-                || e instanceof JSONException
-                || e instanceof ParseException) {
-            //均视为解析错误
-            ex.setErrorMsg("解析错误");
-        } else if (e instanceof ConnectException) {
-            //均视为网络错误
-            ex.setErrorMsg("连接失败");
-        } else if (e instanceof java.net.UnknownHostException) {
-            //网络未连接
-            ex.setErrorMsg("网络未连接");
+        } else if (e instanceof JsonParseException || e instanceof JSONException || e instanceof ParseException) {
+            ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "解析错误!", 0);
+
         } else if (e instanceof SocketTimeoutException) {
-            //网络未连接
-            ex.setErrorMsg("服务器响应超时");
+            ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "请求超时!", 0);
+
+        } else if (e instanceof ConnectException) {
+            ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "连接服务器失败,请检查网络!", 0);
+
+        } else if (e instanceof SocketException) {
+            ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "网络中断，请检查网络!", 0);
+
+        } else if (e instanceof UnknownHostException) {
+            ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, "连接服务器失败,请稍候重试", 0);
+
         } else {
-            //未知错误
-            ex.setErrorMsg("未知错误");
-            String displayMessage = ex.getErrorMsg();
-            Log.d("<----TAG---->", "onError: " + e.getMessage());
+            if (!e.getMessage().contains("301")) {
+                ToastUtils.show_middle_pic(R.mipmap.icon_toast_error, e.getMessage() + "", 0);
+            }
         }
-        if (isShowErrorState) {
-            mView.onNetError(0, ex.getErrorMsg());
-        }
+        onFail(ex.getCode(), e.getMessage());
     }
 }

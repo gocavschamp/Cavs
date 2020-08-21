@@ -55,15 +55,16 @@ public class VideoListPresenter extends BasePAV<VideoListContract.View> implemen
                 .compose(RxSchedulers.handleResult())
                 .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) mView)))
                 .subscribe(new CommonSubscriber<VideoListData>(mView, true) {
+
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSuccess(VideoListData articleBean) {
+                        mView.closeLoading();
+                        mView.setData(isRefresh, articleBean.getResponse().getVideos(), false);
 
                     }
 
                     @Override
-                    public void onNext(VideoListData articleBean) {
-                        mView.closeLoading();
-                        mView.setData(isRefresh, articleBean.getResponse().getVideos(), false);
+                    public void onFail(String code, String message) {
 
                     }
                 });
