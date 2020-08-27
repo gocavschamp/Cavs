@@ -4,12 +4,12 @@
     android:layout_height="@dimen/dp_80"
     android:layout_gravity="right"
     android:gravity="right"
-    android:id="@+id/rl_content"
+    android:id="@+id/rl_content2"
     android:background="@drawable/rec_gray_stoke_eee_4"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_gift3"
+        android:id="@+id/tv2_gift3"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_60"
         android:background="@drawable/rec_round_solid_blue_50"
@@ -22,7 +22,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tv_gift2"
+        android:id="@+id/tv2_gift2"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_60"
         android:layout_centerVertical="true"
@@ -35,7 +35,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tv_gift1"
+        android:id="@+id/tv2_gift1"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_60"
         android:background="@drawable/rec_round_solid_blue_50"
@@ -48,7 +48,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tv_flag"
+        android:id="@+id/tv2_flag"
         android:layout_width="@dimen/dp_80"
         android:layout_height="@dimen/dp_80"
         android:background="@drawable/rec_round_solid_blue_50"

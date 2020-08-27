@@ -25,10 +25,13 @@
     <com.example.myapp.widget.HupuGiftView
         android:id="@+id/hupu"
         app:team1_flag="湖人加油"
-        android:layout_gravity="right"
+        app:team2_flag="快船必胜"
         android:gravity="right"
+        android:layout_gravity="right"
+        app:team1_bg_color="@color/blue"
+        app:team2_bg_color="@color/green"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_80" />
+        android:layout_height="wrap_content" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
