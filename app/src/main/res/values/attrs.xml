@@ -28,6 +28,19 @@
         <attr name="bar_out_size" format="dimension" />
         <attr name="bar_inner_size" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="HupuGift">
+        <attr name="team1_flag" format="string" />
+        <attr name="team2_flag" format="string" />
+        <attr name="text_color" format="color" />
+        <attr name="team1_bg_color" format="color" />
+        <attr name="team2_bg_color" format="color" />
+        <attr name="name_text_size" format="dimension" />
+        <attr name="gift_text_size" format="dimension" />
+        <attr name="team_size" format="dimension" />
+        <attr name="gift_size" format="dimension" />
+        <attr name="gift_margin" format="dimension" />
+        <attr name="gift_bg" format="color" />
+    </declare-styleable>
     <declare-styleable name="CustomImageView">
         <attr name="top_left" format="boolean" />
         <attr name="top_right" format="boolean" />
