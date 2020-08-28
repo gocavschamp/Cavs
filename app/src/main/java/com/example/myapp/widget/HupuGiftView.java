@@ -145,8 +145,8 @@ public class HupuGiftView extends RelativeLayout {
         addView(inflate);
         LayoutParams layoutParams2 = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams2.addRule(BELOW, R.id.rl_content);
-        layoutParams2.addRule(ALIGN_PARENT_RIGHT);
-//        addView(inflate1, layoutParams2);
+//        layoutParams2.addRule(ALIGN_PARENT_RIGHT);
+        addView(inflate1, layoutParams2);
 
         tvFlag.setText(team1_flag);
         GradientDrawable gradientDrawable = new GradientDrawable();

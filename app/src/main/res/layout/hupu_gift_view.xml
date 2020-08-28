@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/dp_80"
-    android:layout_gravity="right"
     android:gravity="right"
     android:id="@+id/rl_content"
     android:background="@drawable/rec_gray_stoke_eee_4"
-    android:orientation="vertical">
+   >
 
     <TextView
         android:id="@+id/tv_gift3"
