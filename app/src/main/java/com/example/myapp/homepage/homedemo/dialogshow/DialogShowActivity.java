@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.callbacks.DialogCallbackExtKt;
+import com.afollestad.materialdialogs.checkbox.DialogCheckboxExtKt;
 import com.example.myapp.MainActivity;
 import com.example.myapp.R;
 import com.example.myapp.login.view.LoginActivity;
@@ -32,6 +36,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class DialogShowActivity extends BaseActivity {
@@ -92,7 +97,7 @@ public class DialogShowActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_1:// 1btn
-                new DialogToolsNew.Builder(this)
+                new DialogToolsNew.Builder(mContext)
                         .title("builder title")
                         .titleGravity(GravityEnum.CENTER)
                         .titleColor(getResources().getColor(R.color.black_80))
@@ -198,6 +203,11 @@ public class DialogShowActivity extends BaseActivity {
                 DialogTools.showCustomCenterDialog(mContext,inflate,true).show();
                 break;
             case R.id.tv_6:
+                MaterialDialog dialog = new MaterialDialog(this, MaterialDialog.getDEFAULT_BEHAVIOR());
+//                dialog.title(null, null);
+//                dialog.message(null, null, null);
+////                dialog.set
+//                dialog.show();
                 break;
         }
     }

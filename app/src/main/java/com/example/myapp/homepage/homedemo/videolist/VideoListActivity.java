@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,7 +73,7 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
         titlelayout.setLeftClickListener(view -> {
             finish();
         });
-        layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
+        layoutManager = new GridLayoutManager(mContext,2, RecyclerView.VERTICAL, false);
         videoRecycleview.setLayoutManager(layoutManager);
         videoListAdapter = new VideoListAdapter(R.layout.item_video_list);
         videoRecycleview.setAdapter(videoListAdapter);

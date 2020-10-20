@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.R;
+import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.homepage.homedemo.DBTestActivity;
 import com.example.myapp.homepage.homedemo.EdittextTextActivity;
 import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
@@ -88,6 +89,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("dialogshow");
         data.add("下拉回弹  拖拽布局");
         data.add("数据库增删改查，升级操作");
+        data.add("webview");
         mycenterAdapter.setNewData(data);
 
 
@@ -158,6 +160,10 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 13:
                         UiGoto.startAty(mActivity, DBTestActivity.class);
+
+                        break;
+                    case 14:
+                        UiGoto.startAty(mActivity, WebViewX5KtActivity.class);
 
                         break;
                 }

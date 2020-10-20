@@ -18,7 +18,8 @@ android {
         //keep specific classes using proguard syntax
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
+            abiFilters  'armeabi-v7a'
+//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
     }
@@ -222,15 +223,16 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     //弹框显示
-    implementation 'com.afollestad.material-dialogs:input:2.0.0-rc4'
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
+    implementation 'com.afollestad.material-dialogs:input:3.1.1'
     //极光
     implementation 'cn.jiguang.sdk:jpush:3.2.0'
     // 此处以JPush 3.2.0 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.7'
     // 此处以JCore 1.2.7 版本为例。
     implementation project(':base')
-    api 'com.google.android.material:material:1.0.0'
 
+    api 'com.google.android.material:material:1.0.0'
     //dagger2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
     implementation 'com.google.dagger:dagger-android:2.21'
@@ -239,10 +241,10 @@ dependencies {
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     //热修改
     //tinker的核心库
-//    implementation("com.tencent.tinker:tinker-android-lib:1.9.1") { changing = true }
+    //    implementation("com.tencent.tinker:tinker-android-lib:1.9.1") { changing = true }
     //可选，用于生成application类
-//    annotationProcessor("com.tencent.tinker:tinker-android-anno:1.9.1") { changing = true }
-//    compileOnly("com.tencent.tinker:tinker-android-anno:1.9.1") { changing = true }
+    //    annotationProcessor("com.tencent.tinker:tinker-android-anno:1.9.1") { changing = true }
+    //    compileOnly("com.tencent.tinker:tinker-android-anno:1.9.1") { changing = true }
     //若使用annotation需要单独引用,对于tinker的其他库都无需再引用
     annotationProcessor("com.tinkerpatch.tinker:tinker-android-anno:${TINKER_VERSION}") {
         changing = true
@@ -253,7 +255,5 @@ dependencies {
     }
     implementation project(path: ':apicloudlib')
     implementation project(path: ':exoplayerlibrary')
-//    implementation 'com.github.todou:appbarspring:1.0.9'
-
 }
 apply from: 'tinkerpatch.gradle'

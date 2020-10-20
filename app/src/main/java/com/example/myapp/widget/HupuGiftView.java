@@ -297,7 +297,7 @@ public class HupuGiftView extends RelativeLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        Log.e("hupu--count-",getChildCount()+"");
+        Log.e("hupu--count-", getChildCount() + "");
 //        for (int i = 0; i < getChildCount(); i++) {
 //            View childAt = getChildAt(i);
 //            if (i == 0) {
@@ -311,7 +311,7 @@ public class HupuGiftView extends RelativeLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        canvas.drawCircle(defWidth - 10 - team_size / 2, 10 + team_size / 2, team_size / 2, team1BgPaint);
-
+        canvas.drawCircle(defWidth - 10 - team_size / 2, 10 + team_size / 2, team_size / 2, team1BgPaint);
+        invalidate();
     }
 }

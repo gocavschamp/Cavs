@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,9 +44,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.UiThread;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.nucarf.base.R;
+import com.nucarf.base.utils.DialogTools;
 import com.nucarf.base.utils.ScreenUtil;
 
 import java.text.NumberFormat;
@@ -56,6 +57,8 @@ import java.util.ArrayList;
  * 就是自定义的Dialog,不可back或点击外部销毁
  */
 public class DialogToolsNew extends DialogBase implements View.OnClickListener {
+
+
 
     private final Handler handler;
 
@@ -132,16 +135,11 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
         dialog.title = dialog.view.findViewById(R.id.dialog_title_tv);
         dialog.icon = dialog.view.findViewById(R.id.dialog_icon_iv);
         dialog.content = dialog.view.findViewById(R.id.content_tv);
-        dialog.content = dialog.view.findViewById(R.id.content_tv);
-//        dialog.recyclerView = dialog.view.findViewById(R.id.md_contentRecyclerView);
-
-        // Button views initially used by checkIfStackingNeeded()
-        dialog.positiveButton = dialog.view.findViewById(R.id.left_tv);
+        dialog.negativeButton = dialog.view.findViewById(R.id.left_tv);
         dialog.neutralButton = dialog.view.findViewById(R.id.center_btn_tv);
-        dialog.negativeButton = dialog.view.findViewById(R.id.right_tv);
+        dialog.positiveButton = dialog.view.findViewById(R.id.right_tv);
         View view_line1 = dialog.view.findViewById(R.id.view_line1);
         View view_line2 = dialog.view.findViewById(R.id.view_line2);
-// Setup title and title frame
         if (dialog.title != null) {
             dialog.title.setTextColor(builder.titleColor);
             dialog.title.setGravity(builder.titleGravity.getGravityInt());
@@ -150,11 +148,12 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
                 dialog.title.setTextAlignment(builder.titleGravity.getTextAlignment());
             }
 
-            if (builder.title == null) {
+            if (TextUtils.isEmpty(builder.title)) {
                 dialog.title.setVisibility(View.GONE);
             } else {
                 dialog.title.setText(builder.title);
                 dialog.title.setVisibility(View.VISIBLE);
+                dialog.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.titleSize); //22SP
             }
         }
         // Setup content
@@ -162,12 +161,13 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             dialog.content.setMovementMethod(new LinkMovementMethod());
             dialog.content.setLineSpacing(0f, builder.contentLineSpacingMultiplier);
             dialog.content.setTextColor(builder.contentColor);
+            dialog.content.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.contentSize); //22SP
             dialog.content.setGravity(builder.contentGravity.getGravityInt());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 //noinspection ResourceType
                 dialog.content.setTextAlignment(builder.contentGravity.getTextAlignment());
             }
-            if (builder.content != null) {
+            if (!TextUtils.isEmpty(builder.content)) {
                 dialog.content.setText(builder.content);
                 dialog.content.setVisibility(View.VISIBLE);
             } else {
@@ -177,36 +177,44 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
 
         if (dialog.positiveButton != null) {
             TextView positiveTextView = dialog.positiveButton;
-            if (builder.positiveText != null) {
+            if (!TextUtils.isEmpty(builder.positiveText) ) {
                 positiveTextView.setText(builder.positiveText);
                 positiveTextView.setTextColor(builder.positiveColor);
-                if (builder.neutralText == null) {
-                    view_line1.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(builder.neutralText)) {
+                    view_line2.setVisibility(View.GONE);
                 }
             }
+            dialog.positiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
             dialog.positiveButton.setTag(DialogAction.POSITIVE);
             dialog.positiveButton.setOnClickListener(dialog);
         }
         if (dialog.negativeButton != null) {
             TextView negativeTextView = dialog.negativeButton;
-            if (builder.negativeText != null) {
+            if (!TextUtils.isEmpty(builder.negativeText )) {
                 negativeTextView.setText(builder.negativeText);
                 negativeTextView.setTextColor(builder.negativeColor);
+                negativeTextView.setVisibility(View.VISIBLE);
+            }else {
+                negativeTextView.setVisibility(View.GONE);
             }
             dialog.negativeButton.setTag(DialogAction.NEGATIVE);
+            dialog.negativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
             dialog.negativeButton.setOnClickListener(dialog);
         }
 
         if (dialog.neutralButton != null) {
             TextView neutralTextView = dialog.neutralButton;
-            if (builder.neutralColor != null) {
+            if (!TextUtils.isEmpty(builder.neutralText)) {
                 neutralTextView.setText(builder.neutralText);
                 neutralTextView.setTextColor(builder.neutralColor);
                 view_line2.setVisibility(View.VISIBLE);
+                neutralTextView.setVisibility(View.VISIBLE);
             } else {
                 view_line2.setVisibility(View.GONE);
+                neutralTextView.setVisibility(View.GONE);
             }
             dialog.neutralButton.setTag(DialogAction.NEUTRAL);
+            dialog.neutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
             dialog.neutralButton.setOnClickListener(dialog);
         }
 
@@ -270,12 +278,6 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
                 if (builder.onPositiveCallback != null) {
                     builder.onPositiveCallback.onClick(this, tag);
                 }
-//                if (!builder.alwaysCallSingleChoiceCallback) {
-//                    sendSingleChoiceCallback(v);
-//                }
-//                if (!builder.alwaysCallMultiChoiceCallback) {
-//                    sendMultiChoiceCallback();
-//                }
                 if (builder.autoDismiss) {
                     dismiss();
                 }
@@ -341,7 +343,6 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
     protected ImageView icon;
     protected TextView title;
     protected TextView content;
-    RecyclerView recyclerView;
     FrameLayout customViewFrame;
     TextView positiveButton;
     TextView neutralButton;
@@ -360,6 +361,9 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
         protected CharSequence positiveText;
         protected CharSequence neutralText;
         protected CharSequence negativeText;
+        protected int titleSize = 20;
+        protected int contentSize = 16;
+        protected int btnSize = 18;
         protected View customView;
         protected ColorStateList positiveColor;
         protected ColorStateList negativeColor;
@@ -377,8 +381,6 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
         protected int selectedIndex = -1;
         protected boolean autoDismiss = true;
         protected Drawable icon;
-        protected RecyclerView.Adapter<?> adapter;
-        protected RecyclerView.LayoutManager layoutManager;
         protected DialogInterface.OnDismissListener dismissListener;
         protected DialogInterface.OnCancelListener cancelListener;
         protected DialogInterface.OnKeyListener keyListener;
@@ -409,6 +411,11 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             return this;
         }
 
+        public Builder titleSize(int titleSize) {
+            this.titleSize = titleSize;
+            return this;
+        }
+
         public Builder titleGravity(@NonNull GravityEnum gravity) {
             this.titleGravity = gravity;
             return this;
@@ -426,6 +433,11 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
 
         public Builder content(@StringRes int contentRes) {
             return content(contentRes, false);
+        }
+
+        public Builder contentSize(int contentSize) {
+            this.contentSize = contentSize;
+            return this;
         }
 
         public Builder content(@StringRes int contentRes, boolean html) {
@@ -488,6 +500,11 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
 
         public Builder positiveText(@NonNull CharSequence message) {
             this.positiveText = message;
+            return this;
+        }
+
+        public Builder btnSize(int btnSize) {
+            this.btnSize = btnSize;
             return this;
         }
 
@@ -653,22 +670,22 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             return this;
         }
 
-        public Builder showListener(@NonNull OnShowListener listener) {
+        public Builder showListener(@NonNull DialogInterface.OnShowListener listener) {
             this.showListener = listener;
             return this;
         }
 
-        public Builder dismissListener(@NonNull OnDismissListener listener) {
+        public Builder dismissListener(@NonNull DialogInterface.OnDismissListener listener) {
             this.dismissListener = listener;
             return this;
         }
 
-        public Builder cancelListener(@NonNull OnCancelListener listener) {
+        public Builder cancelListener(@NonNull DialogInterface.OnCancelListener listener) {
             this.cancelListener = listener;
             return this;
         }
 
-        public Builder keyListener(@NonNull OnKeyListener listener) {
+        public Builder keyListener(@NonNull DialogInterface.OnKeyListener listener) {
             this.keyListener = listener;
             return this;
         }
@@ -689,191 +706,6 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             dialog.show();
             return dialog;
         }
-    }
-
-    /**
-     * 自定义Dialog内容
-     *
-     * @param context
-     * @param view
-     * @return
-     */
-    public static Dialog showCustomBottomDialog(Context context, View view, boolean isoutside) {
-        Dialog dialog = new Dialog(context, R.style.customMainDialog);
-        dialog.setContentView(view);
-        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        //   设置dialog距屏幕的边距都为0
-        dialog.getWindow().getDecorView().setPadding(0, 0, 0, 0);
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.gravity = Gravity.BOTTOM;
-        dialog.getWindow().setAttributes(params);
-        dialog.setCancelable(isoutside);
-        dialog.setCanceledOnTouchOutside(isoutside);
-        return dialog;
-    }
-
-    /**
-     * 单个按钮弹框
-     *
-     * @param context
-     * @param title
-     * @param content
-     * @param dialogClickListener
-     * @return
-     */
-    public static Dialog showOneBtnDialog(Context context, String title, String content, String btnString, final DialogClickListener dialogClickListener) {
-        return showDialog3Btn(context, true, title, content, btnString, "", "", dialogClickListener, false);
-    }
-
-    /**
-     * 两个按钮弹框
-     *
-     * @param context
-     * @param title
-     * @param content
-     * @param dialogClickListener
-     * @return
-     */
-    public static Dialog showTwoBtnDialog(Context context, String title, String content, String leftBtnString, String rightBtnString, final DialogClickListener dialogClickListener) {
-        return showDialog3Btn(context, true, title, content, leftBtnString, "", rightBtnString, dialogClickListener, false);
-    }
-
-    /**
-     * 两个按钮弹框
-     *
-     * @param context
-     * @param title
-     * @param content
-     * @param dialogClickListener
-     * @return
-     */
-    public static Dialog showThreeBtnDialog(Context context, String title, String content, String leftBtnString, String centerBtnString, String rightBtnString, final DialogClickListener dialogClickListener) {
-        return showDialog3Btn(context, true, title, content, leftBtnString, centerBtnString, rightBtnString, dialogClickListener, false);
-    }
-
-    //内容多选对话框(样式不同)
-    public static Dialog showListDialogDefind(Context context, String title, ArrayList<String> items, int pMaxHeight, final DialogItemClickListener2 dialogItemClickListener) {
-        return ShowListItemDialogDefind(context, title, items, pMaxHeight, dialogItemClickListener);
-    }
-
-    public static Dialog showDialog3Btn(Context context, boolean cancel, String title, String content, String pLeftBtnStr, String pcenterBtnStr, String pRightBtnStr, final DialogClickListener dialogClickListener, boolean isSystem) {
-        final Dialog dialog = new Dialog(context, R.style.DialogStyle2);
-        dialog.setCancelable(cancel);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_select_three_btn, null);
-        dialog.setContentView(view);
-        LinearLayout mSelectLayout = (LinearLayout) view.findViewById(R.id.select_layout);
-        TextView mTitle = (TextView) view.findViewById(R.id.dialog_title_tv);
-        TextView mContent = (TextView) view.findViewById(R.id.content_tv);
-        TextView mLeftBtn = (TextView) view.findViewById(R.id.left_tv);
-        TextView mCenterBtn = (TextView) view.findViewById(R.id.center_btn_tv);
-        TextView mRightBtn = (TextView) view.findViewById(R.id.right_tv);
-        View view_line1 = view.findViewById(R.id.view_line1);
-        View view_line2 = view.findViewById(R.id.view_line2);
-        if (!TextUtils.isEmpty(title)) {
-            mTitle.setVisibility(View.VISIBLE);
-            mTitle.setText(title);
-        } else {
-            mTitle.setVisibility(View.GONE);
-        }
-        if (!TextUtils.isEmpty(pLeftBtnStr)) {
-            mLeftBtn.setVisibility(View.VISIBLE);
-            mLeftBtn.setText(pLeftBtnStr);
-            if (TextUtils.isEmpty(pcenterBtnStr)) {
-                view_line1.setVisibility(View.GONE);
-            }
-        } else {
-            mLeftBtn.setVisibility(View.GONE);
-            mLeftBtn.setText("");
-        }
-        if (!TextUtils.isEmpty(pRightBtnStr)) {
-            mRightBtn.setVisibility(View.VISIBLE);
-            mRightBtn.setText(pRightBtnStr);
-        } else {
-            mRightBtn.setVisibility(View.GONE);
-            mRightBtn.setText("");
-        }
-        if (!TextUtils.isEmpty(pcenterBtnStr)) {
-            mCenterBtn.setVisibility(View.VISIBLE);
-            mCenterBtn.setText(pcenterBtnStr);
-            view_line2.setVisibility(View.VISIBLE);
-        } else {
-            mCenterBtn.setVisibility(View.GONE);
-            view_line2.setVisibility(View.GONE);
-            mCenterBtn.setText("");
-        }
-        mContent.setText(content);
-        mLeftBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialogClickListener.cancel();
-                    }
-                }, 200);
-            }
-        });
-        mRightBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialogClickListener.confirm();
-                    }
-                }, 200);
-            }
-        });
-        mCenterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialogClickListener.centerBtn();
-                    }
-                }, 200);
-            }
-        });
-        Window mWindow = dialog.getWindow();
-        WindowManager.LayoutParams lp = mWindow.getAttributes();
-        if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {// 横屏
-            lp.width = ScreenUtil.getScreenHeight(context) / 10 * 8;
-        } else {
-            lp.width = ScreenUtil.getScreenWidth(context) / 10 * 8;
-        }
-        mWindow.setAttributes(lp);
-        if (isSystem) {
-            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        }
-        dialog.show();
-        return dialog;
-    }
-
-
-    private static Dialog ShowListItemDialogDefind(final Context context, String title, final ArrayList<String> items, int pMaxHeight, final DialogItemClickListener2 dialogClickListener) {
-        final Dialog dialog = new Dialog(context, R.style.DialogStyle2);
-        return dialog;
-    }
-
-    public interface DialogClickListener {
-        public abstract void confirm();
-
-        public abstract void cancel();
-
-        public abstract void centerBtn();
-    }
-
-    public interface DialogItemClickListener {
-        public abstract void confirm(String result);
-    }
-
-    public interface DialogItemClickListener2 {
-        public abstract void confirm(String result, int position);
     }
 
 

@@ -37,7 +37,9 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.BaseAppCache;
+import com.nucarf.base.utils.LogUtils;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.listener.DefaultPatchListener;
 import com.tencent.tinker.lib.patch.UpgradePatch;
@@ -159,7 +161,8 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         param.append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
         SpeechUtility.createUtility(this.getApplication().getBaseContext(), param.toString());
 //        SpeechUtility.createUtility(this.getApplication().getBaseContext(), SpeechConstant.APPID + "=5d5a1b6d");
-
+//初始化x5webview
+        initX5WebView();
     }
 
     private void initTinker() {
@@ -288,5 +291,30 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     public void registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks callback) {
         getApplication().registerActivityLifecycleCallbacks(callback);
     }
+    /*使用腾讯x5 webview，解决安卓原生wenview不适配不同机型问题*/
+    private void initX5WebView() {
 
+        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+
+            @Override
+            public void onViewInitFinished(boolean arg0) {
+                // TODO Auto-generated method stub
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                LogUtils.d("onViewInitFinished", " onViewInitFinished is " + arg0);
+                if(arg0){
+                    LogUtils.d("onViewInitFinished", "腾讯X5内核加载成功");
+                }else {
+                    LogUtils.d("onViewInitFinished", "腾讯X5内核加载失败，使用原生安卓webview");
+                }
+            }
+
+            @Override
+            public void onCoreInitFinished() {
+                // TODO Auto-generated method stub
+            }
+        };
+        //x5内核初始化接口
+        QbSdk.initX5Environment(this.getApplication().getBaseContext(),  cb);
+    }
 }

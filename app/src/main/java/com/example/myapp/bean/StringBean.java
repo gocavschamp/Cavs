@@ -10,9 +10,27 @@ public class StringBean extends MultipleItem implements Serializable {
     private String code;
     private boolean isChoice = false;
     private String name;
+    private int icon;
+    private String value;
     private String id;
     private String type;
     private String token;
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public String getCompany_name() {
         return company_name;

@@ -90,6 +90,7 @@ dependencies {
     api 'androidx.recyclerview:recyclerview:1.1.0'
     //沉浸式状态栏
     api 'com.gyf.barlibrary:barlibrary:2.3.0'
+    //黄油刀
     api 'com.jakewharton:butterknife:10.2.1'
     //tablayout
     api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
@@ -101,4 +102,6 @@ dependencies {
     api 'me.jessyan:retrofit-url-manager:1.4.0'
     api files('libs/Msc.jar')
     api project(path: ':appbarspring')
+    api files('libs/tbs_sdk_thirdapp_v4.3.0.39_43939_sharewithdownloadwithfile_withoutGame_obfs_20200713_223411.jar')
+
 }
