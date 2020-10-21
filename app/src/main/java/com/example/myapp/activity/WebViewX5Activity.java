@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.JavascriptInterface;
 
+import com.example.myapp.R;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
@@ -23,7 +24,6 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 import android.widget.FrameLayout;
 
-import com.nucarf.base.R;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;
 

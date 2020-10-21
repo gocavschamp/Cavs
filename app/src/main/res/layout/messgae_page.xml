@@ -27,8 +27,20 @@
         app:team1_flag="湖人加油"
         app:team2_flag="快船必胜"
         android:gravity="right"
+        android:clickable="true"
         android:layout_gravity="right"
         app:team1_bg_color="@color/blue"
+        app:team2_bg_color="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.example.myapp.widget.HupuGiftView
+        android:id="@+id/hupu2"
+        app:team1_flag="快船必胜"
+        app:team2_flag="快船必胜"
+        android:clickable="true"
+        android:gravity="right"
+        android:layout_gravity="right"
+        app:team1_bg_color="@color/green"
         app:team2_bg_color="@color/green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

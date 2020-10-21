@@ -17,6 +17,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
@@ -28,6 +29,7 @@ import androidx.annotation.Nullable;
 
 import com.example.myapp.R;
 import com.nucarf.base.utils.LogUtils;
+import com.nucarf.base.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,10 +69,12 @@ public class HupuGiftView extends RelativeLayout {
     private View rl_content;
     private boolean isShowing = false;
     private RelativeLayout rl_content2;
-    private TextView tv2Flag;
-    private TextView tv2Gift1;
-    private TextView tv2Gift2;
-    private TextView tv2Gift3;
+    private HupuGiftView hupu2;
+    private OnGiftClickLister onGiftClickLister;
+//    private TextView tv2Flag;
+//    private TextView tv2Gift1;
+//    private TextView tv2Gift2;
+//    private TextView tv2Gift3;
 
     public HupuGiftView(Context context) {
         this(context, null, 0);
@@ -127,13 +131,13 @@ public class HupuGiftView extends RelativeLayout {
         tvGift1 = inflate.findViewById(R.id.tv_gift1);
         tvGift2 = inflate.findViewById(R.id.tv_gift2);
         tvGift3 = inflate.findViewById(R.id.tv_gift3);
-        View inflate1 = View.inflate(context, R.layout.hupu_gift_view2, null);
-        rl_content2 = inflate1.findViewById(R.id.rl_content2);
-        tv2Flag = inflate1.findViewById(R.id.tv2_flag);
-        tv2Gift1 = inflate1.findViewById(R.id.tv2_gift1);
-        tv2Gift2 = inflate1.findViewById(R.id.tv2_gift2);
-        tv2Gift3 = inflate1.findViewById(R.id.tv2_gift3);
-        tv2Flag.setText(team2_flag);
+//        View inflate1 = View.inflate(context, R.layout.hupu_gift_view2, null);
+//        rl_content2 = inflate1.findViewById(R.id.rl_content2);
+//        tv2Flag = inflate1.findViewById(R.id.tv2_flag);
+//        tv2Gift1 = inflate1.findViewById(R.id.tv2_gift1);
+//        tv2Gift2 = inflate1.findViewById(R.id.tv2_gift2);
+//        tv2Gift3 = inflate1.findViewById(R.id.tv2_gift3);
+//        tv2Flag.setText(team2_flag);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(Gravity.RIGHT);
         layoutParams.addRule(ALIGN_PARENT_RIGHT);
@@ -146,15 +150,18 @@ public class HupuGiftView extends RelativeLayout {
         LayoutParams layoutParams2 = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams2.addRule(BELOW, R.id.rl_content);
 //        layoutParams2.addRule(ALIGN_PARENT_RIGHT);
-        addView(inflate1, layoutParams2);
+//        addView(inflate1, layoutParams2);
 
-        tvFlag.setText(team1_flag);
+        CharSequence charSequence = team1_flag.subSequence(0, 2);
+        CharSequence charSequence1 = team1_flag.subSequence(2, team1_flag.length());
+        String team1_flag4 = charSequence+"\n"+charSequence1;
+        tvFlag.setText(team1_flag4);
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setColor(team1_bg_color);
         gradientDrawable.setShape(GradientDrawable.OVAL);
         gradientDrawable.setCornerRadius(team_size);
         GradientDrawable gradientDrawable1 = new GradientDrawable();
-        gradientDrawable1.setColor(team2_bg_color);
+        gradientDrawable1.setColor(team1_bg_color);
         gradientDrawable1.setShape(GradientDrawable.OVAL);
         gradientDrawable1.setCornerRadius(team_size);
 
@@ -174,22 +181,43 @@ public class HupuGiftView extends RelativeLayout {
         tvGift2.setBackground(gradientDrawable2);
         tvGift3.setBackground(gradientDrawable3);
         tvFlag.setOnClickListener((v -> {
-            if (!isShow) {
-                showGift();
-            } else {
-                closeGift();
-            }
+            onGiftClickLister.ClickView(this);
         }));
+        tvGift1.setOnClickListener((view)->{
+            closeGift();
+            ToastUtils.show_middle(getContext(),team1_flag,0);
+        });
+        tvGift2.setOnClickListener((view)->{
+            closeGift();
+            ToastUtils.show_middle(getContext(),team1_flag,0);
+
+        });
+        tvGift3.setOnClickListener((view)->{
+            closeGift();
+            ToastUtils.show_middle(getContext(),team1_flag,0);
+
+        });
 
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    public void switchGift(){
+        if (!isShow) {
+            showGift();
+        } else {
+            closeGift();
+        }
+    }
     private void showGift() {
         if (isShowing) {
             return;
@@ -313,5 +341,17 @@ public class HupuGiftView extends RelativeLayout {
         super.onDraw(canvas);
         canvas.drawCircle(defWidth - 10 - team_size / 2, 10 + team_size / 2, team_size / 2, team1BgPaint);
         invalidate();
+    }
+
+    public boolean isShowing() {
+        return isShow||isShowing;
+    }
+
+    public void setOnGiftClick(OnGiftClickLister lister){
+        onGiftClickLister =  lister;
+    }
+    public interface OnGiftClickLister{
+        void ClickView(View view);
+        void ClickGiftView(View view);
     }
 }

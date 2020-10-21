@@ -9,6 +9,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.example.myapp.R;
 import com.example.myapp.widget.CustomView;
+import com.example.myapp.widget.HupuGiftView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.gyf.barlibrary.OnKeyboardListener;
 import com.nucarf.base.ui.BaseLazyFragment;
@@ -16,7 +17,7 @@ import com.nucarf.base.ui.BaseLazyFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusChangeListener, View.OnClickListener, OnKeyboardListener {
+public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusChangeListener, View.OnClickListener, OnKeyboardListener, HupuGiftView.OnGiftClickLister {
 
 
     @BindView(R.id.tvTitle)
@@ -33,6 +34,10 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
     NestedScrollView scrollView;
     @BindView(R.id.ll_content)
     LinearLayout llContent;
+    @BindView(R.id.hupu)
+    HupuGiftView hupu;
+    @BindView(R.id.hupu2)
+    HupuGiftView hupu2;
 
     public MessgaeFragment() {
     }
@@ -66,7 +71,8 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
         etName.setOnClickListener(this);
         etPhone.setOnClickListener(this);
         etCard.setOnClickListener(this);
-
+        hupu.setOnGiftClick(this);
+        hupu2.setOnGiftClick(this);
     }
 
     @Override
@@ -136,13 +142,39 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
                 });
 
                 break;
+
         }
     }
 
     @Override
     public void onKeyboardChange(boolean isPopup, int keyboardHeight) {
-        if(!isPopup) {
-            scrollView.smoothScrollTo(0,0);
+        if (!isPopup) {
+            scrollView.smoothScrollTo(0, 0);
         }
+    }
+
+    @Override
+    public void ClickView(View view) {
+        switch (view.getId()) {
+            case R.id.hupu:
+                if (hupu2.isShowing()) {
+                    hupu2.switchGift();
+                }
+                hupu.switchGift();
+
+                break;
+            case R.id.hupu2:
+                if (hupu.isShowing()) {
+                    hupu.switchGift();
+                }
+                hupu2.switchGift();
+                break;
+        }
+
+    }
+
+    @Override
+    public void ClickGiftView(View view) {
+
     }
 }

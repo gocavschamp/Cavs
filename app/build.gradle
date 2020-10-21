@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 android {
     compileSdkVersion 28
@@ -197,6 +199,7 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    mavenCentral()
 }
 greendao {
     schemaVersion 2 //数据库版本号
@@ -255,5 +258,7 @@ dependencies {
     }
     implementation project(path: ':apicloudlib')
     implementation project(path: ':exoplayerlibrary')
+    compile "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 apply from: 'tinkerpatch.gradle'
