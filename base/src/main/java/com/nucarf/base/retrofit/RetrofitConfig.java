@@ -71,7 +71,7 @@ public class RetrofitConfig {
     public static final String CODE_LOGIN_STR = isTest ? "2dd5183143e74b1a" : "2dd5183143e74b1a";
     public static final String PWD_LOGIN_STR = isTest ? "880e96ce5cda3ea607bf11184825ce6d" : "vB8SAqViGxYtUomFZpfF3NnQAe43Kt";
     //极光推送 app_key e516f2ff191ecad388c53974
-    public static final String CODE_JPUSH_STR = "e516f2ff191ecad388c53974";
+    public static final String CODE_JPUSH_STR = "e516f2ff191ecad388c539";
 
     /**
      //微信 apiSecret 995f6ee44a0b28ef026f0bfca0069c97
@@ -79,10 +79,10 @@ public class RetrofitConfig {
      微信 appid wx8d519b866f73fcbc
      */
     public static final String WX_APPID = "wx8d519b866f73fcbc";
-    public static final String WX_APISECRET = "995f6ee44a0b28ef026f0bfca0069c97";
+    public static final String WX_APISECRET = "995f6ee44a0b28ef026f0bfca00697";
 
     //友盟 AppKey：
     //5c19c610b465f56e03000259
-    public static final String UM_APPKEY = "5c19c610b465f56e030002";
+    public static final String UM_APPKEY = "5c19c610b465f56e0300";
 
 }

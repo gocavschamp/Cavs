@@ -150,7 +150,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         PlatformConfig.setWeixin(RetrofitConfig.WX_APPID, RetrofitConfig.WX_APISECRET);
 
         JPushInterface.setDebugMode(true);
-        JPushInterface.init(this.getApplication().getBaseContext());
+        JPushInterface.init(this.getApplication().getApplicationContext());
 
         // 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
 // 请勿在“=”与appid之间添加任何空字符或者转义符

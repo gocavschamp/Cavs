@@ -110,12 +110,10 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             builder.positiveColor = DialogNewUtils.getActionTextStateList(builder.context, builder.context.getResources().getColor(R.color.color_333333));
         }
         if (!builder.neutralColorSet) {
-            builder.neutralColor = DialogNewUtils.getActionTextStateList(builder.context, builder.context.getResources().getColor(R.color.color_333333));
-            ;
+            builder.neutralColor = DialogNewUtils.getActionTextStateList(builder.context, builder.context.getResources().getColor(R.color.color_333333));;
         }
         if (!builder.negativeColorSet) {
-            builder.negativeColor = DialogNewUtils.getActionTextStateList(builder.context, builder.context.getResources().getColor(R.color.color_333333));
-            ;
+            builder.negativeColor = DialogNewUtils.getActionTextStateList(builder.context, builder.context.getResources().getColor(R.color.color_333333));;
         }
 
         // Retrieve default title/content colors
@@ -131,92 +129,96 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
             builder.contentColor =
                     DialogNewUtils.resolveColor(builder.context, R.attr.md_content_color, contentColorFallback);
         }
-        // Retrieve references to views
-        dialog.title = dialog.view.findViewById(R.id.dialog_title_tv);
-        dialog.icon = dialog.view.findViewById(R.id.dialog_icon_iv);
-        dialog.content = dialog.view.findViewById(R.id.content_tv);
-        dialog.negativeButton = dialog.view.findViewById(R.id.left_tv);
-        dialog.neutralButton = dialog.view.findViewById(R.id.center_btn_tv);
-        dialog.positiveButton = dialog.view.findViewById(R.id.right_tv);
-        View view_line1 = dialog.view.findViewById(R.id.view_line1);
-        View view_line2 = dialog.view.findViewById(R.id.view_line2);
-        if (dialog.title != null) {
-            dialog.title.setTextColor(builder.titleColor);
-            dialog.title.setGravity(builder.titleGravity.getGravityInt());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                //noinspection ResourceType
-                dialog.title.setTextAlignment(builder.titleGravity.getTextAlignment());
-            }
 
-            if (TextUtils.isEmpty(builder.title)) {
-                dialog.title.setVisibility(View.GONE);
-            } else {
-                dialog.title.setText(builder.title);
-                dialog.title.setVisibility(View.VISIBLE);
-                dialog.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.titleSize); //22SP
-            }
-        }
-        // Setup content
-        if (dialog.content != null) {
-            dialog.content.setMovementMethod(new LinkMovementMethod());
-            dialog.content.setLineSpacing(0f, builder.contentLineSpacingMultiplier);
-            dialog.content.setTextColor(builder.contentColor);
-            dialog.content.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.contentSize); //22SP
-            dialog.content.setGravity(builder.contentGravity.getGravityInt());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                //noinspection ResourceType
-                dialog.content.setTextAlignment(builder.contentGravity.getTextAlignment());
-            }
-            if (!TextUtils.isEmpty(builder.content)) {
-                dialog.content.setText(builder.content);
-                dialog.content.setVisibility(View.VISIBLE);
-            } else {
-                dialog.content.setVisibility(View.GONE);
-            }
-        }
-
-        if (dialog.positiveButton != null) {
-            TextView positiveTextView = dialog.positiveButton;
-            if (!TextUtils.isEmpty(builder.positiveText) ) {
-                positiveTextView.setText(builder.positiveText);
-                positiveTextView.setTextColor(builder.positiveColor);
-                if (TextUtils.isEmpty(builder.neutralText)) {
-                    view_line2.setVisibility(View.GONE);
+        if (builder.customView != null) {
+        } else if (builder.items != null) {
+        } else {
+            // Retrieve references to views
+            dialog.title = dialog.view.findViewById(R.id.dialog_title_tv);
+            dialog.icon = dialog.view.findViewById(R.id.dialog_icon_iv);
+            dialog.content = dialog.view.findViewById(R.id.content_tv);
+            dialog.negativeButton = dialog.view.findViewById(R.id.left_tv);
+            dialog.neutralButton = dialog.view.findViewById(R.id.center_btn_tv);
+            dialog.positiveButton = dialog.view.findViewById(R.id.right_tv);
+            View view_line1 = dialog.view.findViewById(R.id.view_line1);
+            View view_line2 = dialog.view.findViewById(R.id.view_line2);
+            if (dialog.title != null) {
+                dialog.title.setTextColor(builder.titleColor);
+                dialog.title.setGravity(builder.titleGravity.getGravityInt());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    //noinspection ResourceType
+                    dialog.title.setTextAlignment(builder.titleGravity.getTextAlignment());
+                }
+                if (TextUtils.isEmpty(builder.title)) {
+                    dialog.title.setVisibility(View.GONE);
+                } else {
+                    dialog.title.setText(builder.title);
+                    dialog.title.setVisibility(View.VISIBLE);
+                    dialog.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.titleSize); //22SP
                 }
             }
-            dialog.positiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
-            dialog.positiveButton.setTag(DialogAction.POSITIVE);
-            dialog.positiveButton.setOnClickListener(dialog);
-        }
-        if (dialog.negativeButton != null) {
-            TextView negativeTextView = dialog.negativeButton;
-            if (!TextUtils.isEmpty(builder.negativeText )) {
-                negativeTextView.setText(builder.negativeText);
-                negativeTextView.setTextColor(builder.negativeColor);
-                negativeTextView.setVisibility(View.VISIBLE);
-            }else {
-                negativeTextView.setVisibility(View.GONE);
+            // Setup content
+            if (dialog.content != null) {
+                dialog.content.setMovementMethod(new LinkMovementMethod());
+                dialog.content.setLineSpacing(0f, builder.contentLineSpacingMultiplier);
+                dialog.content.setTextColor(builder.contentColor);
+                dialog.content.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.contentSize); //22SP
+                dialog.content.setGravity(builder.contentGravity.getGravityInt());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    dialog.content.setTextAlignment(builder.contentGravity.getTextAlignment());
+                }
+                if (!TextUtils.isEmpty(builder.content)) {
+                    dialog.content.setText(builder.content);
+                    dialog.content.setVisibility(View.VISIBLE);
+                } else {
+                    dialog.content.setVisibility(View.GONE);
+                }
             }
-            dialog.negativeButton.setTag(DialogAction.NEGATIVE);
-            dialog.negativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
-            dialog.negativeButton.setOnClickListener(dialog);
+
+            if (dialog.positiveButton != null) {
+                TextView positiveTextView = dialog.positiveButton;
+                if (!TextUtils.isEmpty(builder.positiveText) ) {
+                    positiveTextView.setText(builder.positiveText);
+                    positiveTextView.setTextColor(builder.positiveColor);
+                    if (TextUtils.isEmpty(builder.neutralText)) {
+                        view_line2.setVisibility(View.GONE);
+                    }
+                }
+                dialog.positiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
+                dialog.positiveButton.setTag(DialogAction.POSITIVE);
+                dialog.positiveButton.setOnClickListener(dialog);
+            }
+            if (dialog.negativeButton != null) {
+                TextView negativeTextView = dialog.negativeButton;
+                if (!TextUtils.isEmpty(builder.negativeText )) {
+                    negativeTextView.setText(builder.negativeText);
+                    negativeTextView.setTextColor(builder.negativeColor);
+                    negativeTextView.setVisibility(View.VISIBLE);
+                }else {
+                    negativeTextView.setVisibility(View.GONE);
+                }
+                dialog.negativeButton.setTag(DialogAction.NEGATIVE);
+                dialog.negativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
+                dialog.negativeButton.setOnClickListener(dialog);
+            }
+
+            if (dialog.neutralButton != null) {
+                TextView neutralTextView = dialog.neutralButton;
+                if (!TextUtils.isEmpty(builder.neutralText)) {
+                    neutralTextView.setText(builder.neutralText);
+                    neutralTextView.setTextColor(builder.neutralColor);
+                    view_line2.setVisibility(View.VISIBLE);
+                    neutralTextView.setVisibility(View.VISIBLE);
+                } else {
+                    view_line2.setVisibility(View.GONE);
+                    neutralTextView.setVisibility(View.GONE);
+                }
+                dialog.neutralButton.setTag(DialogAction.NEUTRAL);
+                dialog.neutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
+                dialog.neutralButton.setOnClickListener(dialog);
+            }
         }
 
-        if (dialog.neutralButton != null) {
-            TextView neutralTextView = dialog.neutralButton;
-            if (!TextUtils.isEmpty(builder.neutralText)) {
-                neutralTextView.setText(builder.neutralText);
-                neutralTextView.setTextColor(builder.neutralColor);
-                view_line2.setVisibility(View.VISIBLE);
-                neutralTextView.setVisibility(View.VISIBLE);
-            } else {
-                view_line2.setVisibility(View.GONE);
-                neutralTextView.setVisibility(View.GONE);
-            }
-            dialog.neutralButton.setTag(DialogAction.NEUTRAL);
-            dialog.neutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, builder.btnSize);
-            dialog.neutralButton.setOnClickListener(dialog);
-        }
 
         // Setup user listeners
         if (builder.showListener != null) {
@@ -234,10 +236,8 @@ public class DialogToolsNew extends DialogBase implements View.OnClickListener {
 
         // Setup internal show listener
         dialog.setOnShowListenerInternal();
-
         // Other internal initialization
         dialog.setViewInternal(dialog.view);
-
         // Min height and max width calculations
         WindowManager wm = dialog.getWindow().getWindowManager();
         Display display = wm.getDefaultDisplay();

@@ -37,4 +37,8 @@
         android:text="name"
         android:textColor="@color/color_333333"
         android:textSize="20sp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/fl_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -6,14 +6,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -24,6 +28,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.ui.WebActivity;
+import com.nucarf.base.utils.DialogUtils;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.widget.ViewPagerSlide;
@@ -72,6 +77,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void initData() {
 
         getPemision();
+        checkNotifyPermisson();
     }
 
 
@@ -116,7 +122,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以002。
     private void setAlias() {
         if (!ExampleUtil.isValidTagAndAlias("yuwenming")) {
-            Toast.makeText(this, "yicunzai", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "已存在", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -127,9 +133,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         // 调   用 Handler 来异步设置别名dev002
         //  dev001修改
         //  dev002修改
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111"));
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111    dev"));
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111    dev"));
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming111"));
+//        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111    dev"));
+//        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, "yuwenming 1111111    dev"));
     }
 
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
@@ -239,6 +245,43 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
 
         super.onBackPressed();
+    }
+
+    // 检查通知权限
+    private void checkNotifyPermisson() {
+        if (!NotificationManagerCompat.from(mContext).areNotificationsEnabled()) {
+            DialogUtils.getInstance().showSelectDialog(mContext, "您还未打开通知权限\n去打开权限", "取消", "确定", new DialogUtils.DialogClickListener() {
+                @Override
+                public void confirm() {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                        intent.putExtra("app_package", MainActivity.this.getPackageName());
+                        intent.putExtra("app_uid", MainActivity.this.getApplicationInfo().uid);
+                        startActivity(intent);
+                    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        intent.setData(Uri.parse("package:" + MainActivity.this.getPackageName()));
+                        startActivity(intent);
+                    } else {
+                        Intent localIntent = new Intent();
+                        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        localIntent.setData(Uri.fromParts("package", MainActivity.this.getPackageName(), null));
+                        startActivity(localIntent);
+                    }
+                    Log.d("open_notify", "true");
+                }
+
+                @Override
+                public void cancel() {
+                    Log.d("open_notify", "false ");
+
+                }
+            });
+        }
     }
 
 

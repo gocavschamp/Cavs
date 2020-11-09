@@ -24,5 +24,5 @@ public class SharedKeys {
     public static final String NOT_PASS = "not_pass";
     public static final String PAY_PASS = "pay_pass";
     public static final String SP_DOWNLOAD_PATH = "download.path";
-    public static final String ISSETALIAS = "isSetAlias";
+    public static final String ISSETALIAS = "isSetAlias";//极光设置别名
 }

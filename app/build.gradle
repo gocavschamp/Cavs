@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "com.yuwenming.flyvideo"
+        applicationId "com.moonlight.flyvideo"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 191213
@@ -20,7 +20,7 @@ android {
         //keep specific classes using proguard syntax
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters  'armeabi-v7a'
+            abiFilters 'armeabi-v7a'
 //            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
@@ -45,7 +45,7 @@ android {
         happy {
             // applicationId 应用的包名，会覆盖 defaultConfig 中的 applicationId
             // applicationId 会替换 AndroidManifest.xml 中的 manifest 标签下 package 的 value
-            applicationId "com.yuwenming.happy"
+            applicationId "com.moonlight.flyvideo"
             dimension "mode"
             resValue "string", "app_name", "Happy"
             resValue "string", "app_welcome", "欢迎来到Happy"
@@ -60,7 +60,7 @@ android {
 
         }
         sad {
-            applicationId "com.yuwenming.sad"
+            applicationId "com.moonlight.flyvideo"
             dimension "mode"
             resValue "string", "app_name", "Sad"
             resValue "string", "app_welcome", "欢迎来到Sad"
@@ -68,8 +68,8 @@ android {
             manifestPlaceholders = [
 
                     //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
-                    icon        : "@mipmap/icon_center_habit",
-                    launcherIcon: "@mipmap/icon_center_habit"
+                    icon        : "@drawable/lakers_test",
+                    launcherIcon: "@drawable/lakers_test"
 
             ]
         }
@@ -95,8 +95,8 @@ android {
             manifestPlaceholders = [
 
                     //此方式可直接在 manifest 中通过 ${icon} 进行占位引用； 或者在main同级中创建不同渠道后创建 res 资源文件
-                    icon        : "@mipmap/icon_center_habit",
-                    launcherIcon: "@mipmap/icon_center_habit"
+                    icon        : "@drawable/lakers_test",
+                    launcherIcon: "@drawable/lakers_test"
 
             ]
         }
@@ -117,19 +117,21 @@ android {
                     APP_IS_TEST_VALUE    : false,
                     HOST_URL_VALUE       : "http://tapi.nucarf.cn/V1/",
                     WECHAT_HOST_URL_VALUE: "https://wechat.nucarf.com",
-                    JPUSH_PKGNAME        : "com.yuwenming.flyvideo",
-                    JPUSH_APPKEY         : "502b8e17dc24899f6d66105a", //JPush 上注册的包名对应的 Appkey.
+                    JPUSH_PKGNAME        : "com.moonlight.flyvideo",
+                    JPUSH_APPKEY         : "f43d0d154bd1093cd75ac513", //JPush 上注册的包名对应的 Appkey.
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
             ]
         }
         // 测试类型，给测试人员
         debug {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
-            applicationIdSuffix ".debug"//applicationId 添加后缀
+//            applicationIdSuffix ".debug"//applicationId 添加后缀
+            applicationIdSuffix ""//applicationId 添加后缀
             signingConfig signingConfigs.debug
             debuggable true
             minifyEnabled false//开启混淆
-            versionNameSuffix "_debug"//这里是给versionName添加后缀
+//            versionNameSuffix "_debug"//这里是给versionName添加后缀
+            versionNameSuffix ""//这里是给versionName添加后缀
             zipAlignEnabled true  //会对应用程序进行字节对齐，对齐后会减少了运行应用程序时消耗的内存。
 //            shrinkResources false // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardRules.pro'
@@ -140,12 +142,12 @@ android {
             // 添加至 res/value，通过 R.string.age 获取
             resValue('string', 'age', '12 years old')
             manifestPlaceholders = [
-                    APP_LOGO_ICON        : "@mipmap/icon_center_habit",
+                    APP_LOGO_ICON        : "@drawable/lakers_test",
                     APP_IS_TEST_VALUE    : true,
                     HOST_URL_VALUE       : "http://2019_0418_invoice_new.api.yidian.nucarf.cn/V1/",
                     WECHAT_HOST_URL_VALUE: "http://twechat.nucarf.cn",
-                    JPUSH_PKGNAME        : "com.yuwenming.flyvideo",
-                    JPUSH_APPKEY         : "502b8e17dc24899f6d66105a", //JPush 上注册的包名对应的 Appkey.
+                    JPUSH_PKGNAME        : "com.moonlight.flyvideo",
+                    JPUSH_APPKEY         : "f43d0d154bd1093cd75ac513", //JPush 上注册的包名对应的 Appkey.
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
             ]
         }
@@ -228,14 +230,13 @@ dependencies {
     //弹框显示
     implementation 'com.afollestad.material-dialogs:core:3.1.1'
     implementation 'com.afollestad.material-dialogs:input:3.1.1'
-    //极光
-    implementation 'cn.jiguang.sdk:jpush:3.2.0'
-    // 此处以JPush 3.2.0 版本为例。
-    implementation 'cn.jiguang.sdk:jcore:1.2.7'
-    // 此处以JCore 1.2.7 版本为例。
+    //极光 此处以JPush 3.8.6 版本为例。
+    implementation 'cn.jiguang.sdk:jpush:3.8.6'
+    // 此处以JCore 2.5.5 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:2.5.5'
     implementation project(':base')
 
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.2.1'
     //dagger2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
     implementation 'com.google.dagger:dagger-android:2.21'
@@ -258,7 +259,8 @@ dependencies {
     }
     implementation project(path: ':apicloudlib')
     implementation project(path: ':exoplayerlibrary')
-    compile "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(path: ':flutter')
 }
 apply from: 'tinkerpatch.gradle'

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,6 @@ import com.example.myapp.bean.FileVersionBean;
 import com.example.myapp.db.MySqliteHelper;
 import com.example.myapp.utils.download.DownloadHelper;
 import com.example.myapp.utils.download.DownloadListener;
-import com.nucarf.base.retrofit.LoginEvent;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.utils.GlideUtils;
@@ -24,6 +24,8 @@ import com.nucarf.base.widget.StarBar;
 import java.io.File;
 
 import butterknife.BindView;
+import io.flutter.view.FlutterView;
+//import io.flutter.facade.Flutter;
 
 public class MineFragment extends BaseLazyFragment implements DownloadListener {
 
@@ -36,6 +38,8 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
     RoundImageView roundIvHead;
     @BindView(R.id.iv_pic)
     ImageView ivPic;
+    @BindView(R.id.fl_content)
+    FrameLayout flContent;
     private MySqliteHelper mySqliteHelper;
 
     public MineFragment() {
