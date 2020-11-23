@@ -49,7 +49,6 @@ public class LoadingBox {
 
     private final String[] mSupportedAbsListViews = new String[]{"listview", "gridview", "expandablelistview"};
     private final String[] mSupportedViews = new String[]{"linearlayout", "relativelayout", "framelayout", "scrollview", "nestedscrollview", "recyclerview", "viewgroup", "swipetoloadlayout", "webview", "viewpager"};
-    private ViewGroup.LayoutParams mTargetViewLayoutParams;
 
     public LoadingBox(Context context, View targetView) {
         this.mContext = context;
@@ -81,7 +80,6 @@ public class LoadingBox {
         this.mDefaultViews = new ArrayList<View>();
 
         Class viewClass = mTargetView.getClass();
-        mTargetViewLayoutParams = mTargetView.getLayoutParams();
         Class superViewClass = viewClass.getSuperclass();
         String viewType = viewClass.getName().substring(viewClass.getName().lastIndexOf('.') + 1).toLowerCase(Locale.getDefault());
         String superViewType = superViewClass.getName().substring(superViewClass.getName().lastIndexOf('.') + 1).toLowerCase(Locale.getDefault());
@@ -102,7 +100,7 @@ public class LoadingBox {
         ViewGroup group = (ViewGroup) mTargetView.getParent();
         int index = 0;
         Clonner target = new Clonner(mTargetView);
-        Clonner1 targetpara = new Clonner1(mTargetView.getLayoutParams());
+        Clonner1 targetLayoutParams= new Clonner1(mTargetView.getLayoutParams());
         if (group != null) {
             index = group.indexOfChild(mTargetView);
             group.removeView(mTargetView);
@@ -114,7 +112,7 @@ public class LoadingBox {
         mSwitcher.setDisplayedChild(1);
 
         if (group != null) {
-            group.addView(mSwitcher, index, targetpara.layoutParams);
+            group.addView(mSwitcher, index, targetLayoutParams.layoutParams);
         } else {
             ((Activity) mContext).setContentView(mSwitcher);
         }
@@ -239,13 +237,6 @@ public class LoadingBox {
         if (buttonView != null)
             buttonView.setOnClickListener(this.mClickListener);
 
-//        View loginView = view.findViewById(R.id.go_login);
-//        if (loginView != null)
-//            loginView.setOnClickListener(this.mLoginClickListener);
-//        View loginOffLineView = view.findViewById(R.id.exception_offline);
-//        if (loginOffLineView != null) {
-//            loginOffLineView.setOnClickListener(this.mLoginClickListener);
-//        }
         return view;
     }
 
