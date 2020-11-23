@@ -1,5 +1,6 @@
 package com.example.myapp.homepage.homedemo.bannertest;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.example.myapp.homepage.homedemo.bannertest.adapter.MultipleTypesAdapt
 import com.example.myapp.homepage.homedemo.bannertest.adapter.TopLineAdapter;
 import com.example.myapp.homepage.homedemo.bannertest.bean.DataBean;
 import com.google.android.material.snackbar.Snackbar;
+import com.nucarf.base.retrofit.CommonSubscriber;
+import com.nucarf.base.retrofit.RxSchedulers;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.youth.banner.Banner;
 import com.youth.banner.config.BannerConfig;
@@ -29,13 +32,19 @@ import com.youth.banner.indicator.RectangleIndicator;
 import com.youth.banner.indicator.RoundLinesIndicator;
 import com.youth.banner.listener.OnPageChangeListener;
 import com.youth.banner.transformer.AlphaPageTransformer;
+import com.youth.banner.transformer.RotateYTransformer;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
 import com.youth.banner.util.BannerUtils;
 import com.youth.banner.util.LogUtils;
 
+import java.util.Observer;
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 public class BannerActivity extends BaseActivityWithTitle implements OnPageChangeListener {
 
@@ -74,12 +83,21 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
     @BindView(R.id.banner3)
     Banner banner3;
 
+    @SuppressLint("CheckResult")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner_test);
         ButterKnife.bind(this);
         titlelayout.setTitleText("banner  test");
+        showTitleBar(true);
+        loadingBox.showLoadingLayout();
+        loadingBox.setClickListener(v -> {
+        });
+        Observable.timer(3, TimeUnit.SECONDS).compose(RxSchedulers.io_main()).subscribe(aLong -> {
+            loadingBox.hideAll();
+
+        });
 
     }
 
@@ -92,13 +110,15 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                 .addBannerLifecycleObserver(this)//添加生命周期观察者
 //                .setBannerRound(BannerUtils.dp2px(5))//圆角
 //              .addPageTransformer(new RotateYTransformer())//添加切换效果
-                .setIndicator(new CircleIndicator(this))//设置指示器
+//              .addPageTransformer(new HorizontalStackTransformerWithRotation())//添加切换效果
+//                .setIndicator(new CircleIndicator(this))//设置指示器
                 .addOnPageChangeListener(this)//添加切换监听
                 .setOnBannerListener((data, position) -> {
                     Snackbar.make(banner, ((DataBean) data).title, Snackbar.LENGTH_SHORT).show();
                     LogUtils.d("position：" + position);
                 });//设置点击事件,传this也行
-        banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(20)));
+        banner.setPageTransformer(new HorizontalStackTransformerWithRotation());
+        banner.getViewPager2().setOffscreenPageLimit(DataBean.getTestData().size());
         //魅族效果
 //        banner.setBannerGalleryMZ(20);
         banner3.setAdapter(new ImageNetAdapter(DataBean.getTestData3()))//设置适配器
@@ -154,7 +174,7 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                 banner.setAdapter(new ImageAdapter(DataBean.getTestData()));
                 banner.setIndicator(new CircleIndicator(this));
                 banner.setIndicatorGravity(IndicatorConfig.Direction.CENTER);
-                banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(0)));
+//                banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(0)));
 
                 break;
             case R.id.style_image_title:
@@ -199,7 +219,7 @@ public class BannerActivity extends BaseActivityWithTitle implements OnPageChang
                 banner.setUserInputEnabled(true);
                 break;
             case R.id.gallery:
-                banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(20)));
+//                banner.addPageTransformer(new MarginPageTransformer((int) BannerUtils.dp2px(20)));
 
 //                refresh.setEnabled(false);
 //                banner.setAdapter(new ImageNetAdapter(DataBean.getTestData3()));

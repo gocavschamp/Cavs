@@ -2,6 +2,7 @@ package com.example.myapp.homepage.homedemo.videolist;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -18,18 +19,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.loadingbox.LoadingBox;
 import com.example.myapp.R;
 import com.example.myapp.mvp.BaseMvpActivity;
 import com.gyf.barlibrary.ImmersionBar;
+import com.nucarf.base.retrofit.RxSchedulers;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.widget.TitleLayout;
 import com.nucarf.exoplayerlibrary.ui.ExoPlayerLayout;
 import com.nucarf.exoplayerlibrary.ui.ExoPlayerListener;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> implements VideoListContract.View, ExoPlayerListener, View.OnClickListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -46,6 +51,7 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
     private ExoPlayerLayout mExoPlayer;
     private View mVideoView;
     private int mCurrentPosition = -1;
+    private LoadingBox loadingBox;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,23 +76,22 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
     }
 
     private void initView() {
-        titlelayout.setLeftClickListener(view -> {
-            finish();
-        });
+        titlelayout.setLeftClickListener(view -> finish());
+        loadingBox = new LoadingBox(this,videoRecycleview);
+        loadingBox.showLoadingLayout();
+        loadingBox.setExceptionBackgroundColor(Color.GRAY);
+        loadingBox.setClickListener(v -> mPresenter.loadData(true));
         layoutManager = new GridLayoutManager(mContext,2, RecyclerView.VERTICAL, false);
         videoRecycleview.setLayoutManager(layoutManager);
         videoListAdapter = new VideoListAdapter(R.layout.item_video_list);
         videoRecycleview.setAdapter(videoListAdapter);
-        videoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startPlay(position, mVideoView);
+        videoListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            startPlay(position, mVideoView);
 //                if (mExoPlayer != null) {
 //                    flContent.setVisibility(View.VISIBLE);
 //                    String url = videoListAdapter.getData().get(position).getPlay_url();
 //                    mExoPlayer.play(url, null, null, false, mPlayTime, true);
 //                }
-            }
         });
         videoListAdapter.setOnLoadMoreListener(this, videoRecycleview);
         mVideoView = View.inflate(mContext, R.layout.video_layout, null);
@@ -125,6 +130,12 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
     }
 
     @Override
+    public void onNetError(int errorCode, String errorMsg) {
+
+        loadingBox.showInternetErrorLayout();
+    }
+
+    @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
@@ -141,6 +152,7 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
             }
             if (viewHolder != null) {
                 FrameLayout mVideoContent = viewHolder.getView(R.id.fl_content_item);
+                mVideoContent.setVisibility(View.VISIBLE);
                 mVideoContent.addView(mVideoView, 0);
                 if (mExoPlayer != null) {
                     String url = videoListAdapter.getData().get(visibleItemPosition).getPlay_url();
@@ -194,6 +206,7 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
 
     @Override
     public void setData(boolean isRefresh, List<VideoListData.ResponseBean.VideosBean> data, boolean isEnd) {
+        loadingBox.hideAll();
         videoListAdapter.loadMoreComplete();
         videoListAdapter.addData(data);
     }

@@ -1,4 +1,4 @@
-include ':banner'
+include ':banner', ':loadingbox'
 setBinding(new Binding([gradle: this]))
 evaluate(new File(
   settingsDir,

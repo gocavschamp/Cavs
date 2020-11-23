@@ -2,6 +2,7 @@ package com.nucarf.exoplayerlibrary.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -120,6 +121,7 @@ public class ExoPlayerLayout extends FrameLayout implements View.OnTouchListener
             mediaController.setupListener(this);
             mediaController.setEnabled(true);
             simpleExoPlayerView.setPlayer(player);
+            simpleExoPlayerView.setBackgroundColor(Color.BLACK);
             if (isTimelineStatic) {
                 if (playerPosition == C.TIME_UNSET) {
                     player.seekToDefaultPosition(playerWindow);

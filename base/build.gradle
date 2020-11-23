@@ -10,7 +10,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi-v7a'
+//            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
     sourceSets {
         main {
@@ -107,5 +112,6 @@ dependencies {
     api files('libs/Msc.jar')
     api project(path: ':appbarspring')
     api files('libs/tbs_sdk_thirdapp_v4.3.0.39_43939_sharewithdownloadwithfile_withoutGame_obfs_20200713_223411.jar')
+    api project(path: ':loadingbox')
 
 }

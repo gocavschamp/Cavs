@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.example.myapp.homepage.homedemo.videolist.VideoListActivity">
-
     <com.nucarf.base.widget.TitleLayout
         android:id="@+id/titlelayout"
         android:layout_width="match_parent"
@@ -21,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/titlelayout"
+        tools:listitem="@layout/item_video_list"
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15" />
-
     <RelativeLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"

@@ -66,6 +66,8 @@ public class VideoListPresenter extends BasePAV<VideoListContract.View> implemen
                     @Override
                     public void onFail(String code, String message) {
 
+                        mView.closeLoading();
+                        mView.onNetError(1, message);
                     }
                 });
 

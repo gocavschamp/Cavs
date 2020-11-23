@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.loadingbox.LoadingBox;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.R;
 import com.nucarf.base.utils.DialogUtils;
@@ -36,6 +37,7 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
     protected TitleLayout titlelayout;
     protected LinearLayout ll_bar;
     private CompositeDisposable mCompositeDisposable;
+    protected LoadingBox loadingBox;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
             fl_root_content.addView(View.inflate(this, layoutId, null));
             setContentView(content_view);
             initTitleBar();
+            loadingBox = new LoadingBox(this, fl_root_content);
+
         }
 //        ImmersionBar.with(this).statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
 //                .flymeOSStatusBarFontColor(R.color.black)//修改 flyme OS 状态栏字体颜色
@@ -67,11 +71,9 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
     }
 
     private void initTitleBar() {
-        titlelayout.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+        titlelayout.setLeftClickListener(v -> {
+            onClickBack();
+            finish();
         });
 
     }
@@ -139,6 +141,22 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
 //        if (exitApp.isExit()) {
 //            finish();
 //        }
+    }
+
+    /**
+     * click back icon
+     */
+    protected void onClickBack() {
+
+    }
+
+    /**
+     * show titlebar or not
+     */
+    protected void showTitleBar(boolean showTitleBar) {
+        if (null != titlelayout) {
+            titlelayout.setVisibility(showTitleBar ? View.VISIBLE : View.GONE);
+        }
     }
 
 
