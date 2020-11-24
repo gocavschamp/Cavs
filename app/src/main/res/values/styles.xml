@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/main_color</item>
         <item name="android:windowBackground">@color/color_eeeeee</item>
     </style>
+    <style name="SplashTheme" parent="Theme.MaterialSheetFab.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/transparent</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+        <item name="colorAccent">@color/main_color</item>
+        <item name="android:windowBackground">@drawable/lakers_test</item>
+    </style>
 
     <style name="FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
@@ -75,7 +82,7 @@
     <style name="Theme.MaterialSheetFab.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+<!--        <item name="android:windowIsTranslucent">true</item>-->
     </style>
 
 </resources>
