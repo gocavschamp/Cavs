@@ -78,8 +78,8 @@ public class RetrofitConfig {
      *
      微信 appid wx8d519b866f73fcbc
      */
-    public static final String WX_APPID = "wx8d519b866f73fcbc";
-    public static final String WX_APISECRET = "995f6ee44a0b28ef026f0bfca00697";
+    public static final String WX_APPID = "yyywx8d519b866f73fcbc";
+    public static final String WX_APISECRET = "yyy995f6ee44a0b28ef026f0bfca00697";
 
     //友盟 AppKey：
     //5c19c610b465f56e03000259

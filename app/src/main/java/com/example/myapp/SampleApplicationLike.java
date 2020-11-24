@@ -24,6 +24,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.os.StrictMode;
 import android.util.Log;
 
 import androidx.multidex.MultiDex;
@@ -33,9 +34,12 @@ import com.example.myapp.database.greenDao.db.DaoSession;
 import com.example.myapp.dragger.component.AppComponent;
 import com.example.myapp.dragger.component.DaggerAppComponent;
 import com.example.myapp.dragger.module.AppModule;
+import com.example.myapp.task.InitGreenDaoTask;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.liys.doubleclicklibrary.ViewDoubleHelper;
 import com.nucarf.base.retrofit.RetrofitConfig;
+import com.nucarf.base.utils.ActivityHelper;
 import com.nucarf.base.utils.BaseAppCache;
 import com.nucarf.base.utils.LogUtils;
 import com.squareup.leakcanary.LeakCanary;
@@ -60,6 +64,11 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.uzmap.pkg.openapi.APICloud;
 
+import org.jay.launchstarter.TaskDispatcher;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import cn.jpush.android.api.JPushInterface;
@@ -124,45 +133,29 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         instance = (com.example.myapp.MyApplication) this.getApplication();
         BaseAppCache.setContext(this.getApplication().getBaseContext());
         BaseAppCache.setApplication((MyApplication)this.getApplication());
+        disableAPIDialog();
+        // android 7.0系统解决拍照的问题
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            builder.detectFileUriExposure();
+        }
+        TaskDispatcher.init(instance);
+        TaskDispatcher taskDispatcher = TaskDispatcher.createInstance();
+        taskDispatcher.addTask(new InitGreenDaoTask()).start();
+
 //        if (LeakCanary.isInAnalyzerProcess(this.getApplication())) {
 //            // This process is dedicated to LeakCanary for heap analysis.
 //            // You should not init your app in this process.
 //            return;
 //        }
 //        LeakCanary.install(this.getApplication());
+        //去除9.0 弹框
+        registerActivityLifecycleCallbacks(new ActivityHelper());
         //屏幕适配
         AutoSizeConfig.getInstance().setExcludeFontScale(true);
-        initGreenDao(this.getApplication());
-        APICloud.initialize(this.getApplication());//初始化APICloud，SDK中所有的API均需要初始化后方可调用执行
-        //友盟分享统计
-        ApplicationInfo appInfo = null;
-        try {
-            appInfo = this.getApplication().getBaseContext().getPackageManager()
-                    .getApplicationInfo(this.getApplication().getBaseContext().getPackageName(),
-                            PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-//        String MTA_CHANNEL_VALUE = appInfo.metaData.getString("CHANNEL_VALUE");
-//        BaseAppCache.setChannel_name(MTA_CHANNEL_VALUE);
-        BaseAppCache.setVersion_code(BuildConfig.VERSION_CODE);
-        UMConfigure.init(this.getApplication().getBaseContext(), RetrofitConfig.UM_APPKEY, "member1", UMConfigure.DEVICE_TYPE_PHONE, "");//pushSecret 58edcfeb310c93091c000be2 5965ee00734be40b580001a0
-        PlatformConfig.setWeixin(RetrofitConfig.WX_APPID, RetrofitConfig.WX_APISECRET);
 
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this.getApplication().getApplicationContext());
 
-        // 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
-// 请勿在“=”与appid之间添加任何空字符或者转义符
-        StringBuffer param = new StringBuffer();
-        param.append("appid=5d5a1b6d");
-        param.append(",");
-        // 设置使用v5+
-        param.append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
-        SpeechUtility.createUtility(this.getApplication().getBaseContext(), param.toString());
-//        SpeechUtility.createUtility(this.getApplication().getBaseContext(), SpeechConstant.APPID + "=5d5a1b6d");
-//初始化x5webview
-        initX5WebView();
     }
 
     private void initTinker() {
@@ -268,7 +261,30 @@ public class SampleApplicationLike extends DefaultApplicationLike {
                 .appModule(new AppModule(instance))
                 .build();
     }
-
+    /**
+     * 反射 禁止弹窗
+     */
+    private void disableAPIDialog() {
+        if (Build.VERSION.SDK_INT < 28) return;
+        try {
+            Class aClass = Class.forName("android.content.pm.PackageParser$Package");
+            Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
+            declaredConstructor.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Class clazz = Class.forName("android.app.ActivityThread");
+            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+            currentActivityThread.setAccessible(true);
+            Object activityThread = currentActivityThread.invoke(null);
+            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+            mHiddenApiWarningShown.setAccessible(true);
+            mHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * 初始化GreenDao,直接在Application中进行初始化操作
      *
@@ -291,30 +307,5 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     public void registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks callback) {
         getApplication().registerActivityLifecycleCallbacks(callback);
     }
-    /*使用腾讯x5 webview，解决安卓原生wenview不适配不同机型问题*/
-    private void initX5WebView() {
 
-        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
-
-            @Override
-            public void onViewInitFinished(boolean arg0) {
-                // TODO Auto-generated method stub
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                LogUtils.d("onViewInitFinished", " onViewInitFinished is " + arg0);
-                if(arg0){
-                    LogUtils.d("onViewInitFinished", "腾讯X5内核加载成功");
-                }else {
-                    LogUtils.d("onViewInitFinished", "腾讯X5内核加载失败，使用原生安卓webview");
-                }
-            }
-
-            @Override
-            public void onCoreInitFinished() {
-                // TODO Auto-generated method stub
-            }
-        };
-        //x5内核初始化接口
-        QbSdk.initX5Environment(this.getApplication().getBaseContext(),  cb);
-    }
 }

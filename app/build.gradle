@@ -257,6 +257,10 @@ dependencies {
     implementation("com.tinkerpatch.sdk:tinkerpatch-android-sdk:${TINKERPATCH_VERSION}") {
         changing = true
     }
+    //防抖动
+    implementation 'com.github.liys666666:DoubleClick:V1.0.4'
+    // // 启动器
+    implementation 'com.github.hufeiyang:LaunchStarter:0.0.1'
     implementation project(path: ':apicloudlib')
     implementation project(path: ':exoplayerlibrary')
     implementation "androidx.core:core-ktx:+"
