@@ -17,6 +17,9 @@ import com.uzmap.pkg.openapi.APICloud;
 import org.jay.launchstarter.Task;
 
 import cn.jpush.android.api.JPushInterface;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
 
 
 /**
@@ -25,6 +28,7 @@ import cn.jpush.android.api.JPushInterface;
  * @Date 2020/11/24 16:04
  */
 public class InitGreenDaoTask extends Task {
+
     @Override
     public void run() {
         //防止点击抖动
@@ -48,6 +52,7 @@ public class InitGreenDaoTask extends Task {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(mContext);
         LogUtils.e("task  第三方初始化");
+
 
     }
     /*使用腾讯x5 webview，解决安卓原生wenview不适配不同机型问题*/

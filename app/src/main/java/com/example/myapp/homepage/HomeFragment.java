@@ -15,6 +15,7 @@ import com.example.myapp.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.homepage.homedemo.DBTestActivity;
 import com.example.myapp.homepage.homedemo.EdittextTextActivity;
+import com.example.myapp.homepage.homedemo.FlutterTestActivity;
 import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
 import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.flutter.embedding.android.FlutterActivity;
 
 public class HomeFragment extends BaseLazyFragment {
 
@@ -90,6 +92,8 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("下拉回弹  拖拽布局");
         data.add("数据库增删改查，升级操作");
         data.add("webview");
+        data.add("flutter");
+        data.add("flutterFragment");
         mycenterAdapter.setNewData(data);
 
 
@@ -165,6 +169,13 @@ public class HomeFragment extends BaseLazyFragment {
                     case 14:
                         UiGoto.startAty(mActivity, WebViewX5KtActivity.class);
 
+                        break;
+                    case 15:
+                        Intent intentflutter = FlutterActivity.withCachedEngine("my_engine_id").build(mActivity);
+                        startActivity(intentflutter);
+                        break;
+                    case 16:
+                        UiGoto.startAty(mActivity, FlutterTestActivity.class);
                         break;
                 }
             }

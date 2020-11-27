@@ -72,6 +72,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import cn.jpush.android.api.JPushInterface;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
 import me.jessyan.autosize.AutoSizeConfig;
 
 
@@ -103,6 +106,7 @@ import me.jessyan.autosize.AutoSizeConfig;
 public class SampleApplicationLike extends DefaultApplicationLike {
     private static final String TAG = "Tinker_SampleAppLike";
     private static MyApplication instance;
+    private FlutterEngine flutterEngine;
 
     public SampleApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
                                  long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
@@ -140,6 +144,15 @@ public class SampleApplicationLike extends DefaultApplicationLike {
             StrictMode.setVmPolicy(builder.build());
             builder.detectFileUriExposure();
         }
+        flutterEngine = new FlutterEngine(this.getApplication());
+        // Start executing Dart code to pre-warm the FlutterEngine.
+        flutterEngine.getDartExecutor().executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+        );
+        // Cache the FlutterEngine to be used by FlutterActivity.
+        FlutterEngineCache
+                .getInstance()
+                .put("my_engine_id", flutterEngine);
         TaskDispatcher.init(instance);
         TaskDispatcher taskDispatcher = TaskDispatcher.createInstance();
         taskDispatcher.addTask(new InitGreenDaoTask()).start();

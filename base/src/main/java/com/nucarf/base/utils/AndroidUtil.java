@@ -17,6 +17,7 @@ package com.nucarf.base.utils;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +31,7 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Window;
@@ -44,7 +46,7 @@ public class AndroidUtil {
 
 	/**
 	 * Dp float value xform to Px int value
-	 * 
+	 *
 	 * @param context
 	 * @param dpValue
 	 * @return int px value
@@ -71,6 +73,9 @@ public class AndroidUtil {
 			return "no version name";
 		}
 	}
+	public static String getAndroidId(Context context) {
+		return  Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+	}
 
 	// Imsi
 	public static String getDeviceImsi(Context context) {
@@ -85,7 +90,7 @@ public class AndroidUtil {
 
 	/**
 	 * 获取DeviceId 唯一的设备ID： GSM手机的 IMEI 和 CDMA手机的 MEID.
-	 * 
+	 *
 	 * @param context
 	 * @return 当获取到的TelephonyManager为null时，将返回"null"
 	 */
@@ -98,7 +103,14 @@ public class AndroidUtil {
 			return id == null ? "null" : id;
 		}
 	}
-
+	private String getIMEI(Context context) {
+		TelephonyManager tm = (TelephonyManager) context.getSystemService(Service.TELEPHONY_SERVICE);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			return tm.getImei();
+		} else {
+			return tm.getDeviceId();
+		}
+	}
 	/**
 	 * 获取PhoneNumber
 	 * 

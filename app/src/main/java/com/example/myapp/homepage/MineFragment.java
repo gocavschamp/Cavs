@@ -24,8 +24,6 @@ import com.nucarf.base.widget.StarBar;
 import java.io.File;
 
 import butterknife.BindView;
-import io.flutter.view.FlutterView;
-//import io.flutter.facade.Flutter;
 
 public class MineFragment extends BaseLazyFragment implements DownloadListener {
 
