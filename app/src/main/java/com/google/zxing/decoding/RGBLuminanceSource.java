@@ -68,6 +68,26 @@ public final class RGBLuminanceSource extends LuminanceSource {
 		}
 	}
 
+	public RGBLuminanceSource(int width, int height, int[] pixels) {
+		super(width, height);
+		luminances = new byte[width * height];
+		for (int y = 0; y < height; y++) {
+			int offset = y * width;
+			for (int x = 0; x < width; x++) {
+				int pixel = pixels[offset + x];
+				int r = (pixel >> 16) & 0xff;
+				int g = (pixel >> 8) & 0xff;
+				int b = pixel & 0xff;
+				if (r == g && g == b) {
+					// Image is already greyscale, so pick any channel.
+					luminances[offset + x] = (byte) r;
+				} else {
+					// Calculate luminance cheaply, favoring green.
+					luminances[offset + x] = (byte) ((r + g + g + b) >> 2);
+				}
+			}
+		}
+	}
 
 
 
