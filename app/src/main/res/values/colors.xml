@@ -41,5 +41,8 @@
     <color name="white">#ffffff</color>
     <color name="blue">#0997F7</color>
     <color name="green">#11EE96</color>
+    <color name="color_0B1527">#0b1527</color>
+    <color name="color_fa7351">#fa7351</color>
+    <color name="color_5F6879">#5F6879</color>
     <!-- QRCode scanner color end -->
 </resources>

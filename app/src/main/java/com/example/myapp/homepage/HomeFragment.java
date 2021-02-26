@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
+import com.example.myapp.activity.tantan.TanTanActivity;
 import com.example.myapp.homepage.homedemo.DBTestActivity;
 import com.example.myapp.homepage.homedemo.EdittextTextActivity;
 import com.example.myapp.homepage.homedemo.FlutterTestActivity;
@@ -94,6 +95,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("webview");
         data.add("flutter");
         data.add("flutterFragment");
+        data.add("tantan");
         mycenterAdapter.setNewData(data);
 
 
@@ -176,6 +178,9 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 16:
                         UiGoto.startAty(mActivity, FlutterTestActivity.class);
+                        break;
+                    case 17:
+                        UiGoto.startAty(mActivity, TanTanActivity.class);
                         break;
                 }
             }

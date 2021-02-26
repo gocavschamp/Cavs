@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/draw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="7dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_dislike"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@mipmap/icon_tantan_like_bg"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_dislike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/icon_tantan_dislike_bottom" />
+
+            <TextView
+                android:id="@+id/tv_dislike_str"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_dislike"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="无感"
+                android:textColor="#FF41197D"
+                android:textSize="10dp"
+                android:visibility="visible" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_like"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="80dp"
+            android:background="@mipmap/icon_tantan_like_bg"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="32dp"
+                android:layout_height="28dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_tantan_like_bottom" />
+
+            <TextView
+                android:id="@+id/tv_like_str"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_like"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="来电"
+                android:textColor="#FFFF2455"
+                android:textSize="20dp"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        tools:listitem="@layout/item_tantan_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_bottom"
+        android:layout_marginBottom="15dp"/>
+
+</RelativeLayout>
