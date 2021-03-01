@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="30dp"
+            android:text="svga"
+            android:textSize="18dp" />
+        <LinearLayout
+            android:layout_below="@id/tvTitle"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <com.opensource.svgaplayer.SVGAImageView
+                android:id="@+id/svga"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300"
+                android:layout_gravity="center_vertical"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                app:autoPlay="true"
+                app:fillMode="Forward"
+                app:loopCount="1" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="弹框组件展示"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:clipChildren="false"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="10px">
+
+            <com.example.myapp.widget.gift.GiftRootLayout
+                android:id="@+id/giftRoot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.example.myapp.widget.gift.GiftItemLayout
+                    android:id="@+id/firstItemLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200px"
+                    android:clipChildren="false"
+                    android:visibility="invisible"
+                    app:gift_index="1" />
+
+                <com.example.myapp.widget.gift.GiftItemLayout
+                    android:id="@+id/lastItemLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200px"
+                    android:layout_marginTop="30px"
+                    android:visibility="invisible"
+                    app:gift_index="0" />
+            </com.example.myapp.widget.gift.GiftRootLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

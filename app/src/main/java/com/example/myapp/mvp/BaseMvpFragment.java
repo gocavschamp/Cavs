@@ -8,10 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapp.SampleApplicationLike;
-import com.example.myapp.dragger.component.DaggerFragmentComponent;
-import com.example.myapp.dragger.component.FragmentComponent;
-import com.example.myapp.dragger.module.FragmentModule;
+//import com.example.myapp.MyApplication;
+//import com.example.myapp.MyApplication1;
+//import com.example.myapp.SampleApplicationLike;
+import com.example.myapp.MyApplication1;
+//import com.example.myapp.dragger.component.DaggerFragmentComponent;
+//import com.example.myapp.dragger.component.FragmentComponent;
+//import com.example.myapp.dragger.module.FragmentModule;
+//import com.example.myapp.dragger.component.DaggerFragmentComponent;
+//import com.example.myapp.dragger.component.FragmentComponent;
+//import com.example.myapp.dragger.module.FragmentModule;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.nucarf.base.mvp.BasePresenter;
 import com.nucarf.base.mvp.BaseView;
@@ -77,12 +83,12 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment 
         initEventAndData();
     }
 
-    protected FragmentComponent getFragmentComponent() {
-        return DaggerFragmentComponent.builder()
-                .appComponent(SampleApplicationLike.getAppComponent())
-                .fragmentModule(new FragmentModule(this))
-                .build();
-    }
+//    protected FragmentComponent getFragmentComponent() {
+//        return DaggerFragmentComponent.builder()
+//                .appComponent(MyApplication1.getAppComponent())
+//                .fragmentModule(new FragmentModule(this))
+//                .build();
+//    }
 
     @Override
     public void onDestroyView() {

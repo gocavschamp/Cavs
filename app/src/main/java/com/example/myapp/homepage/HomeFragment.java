@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
+import com.example.myapp.activity.svga.SvgaGiftActivity;
 import com.example.myapp.activity.tantan.TanTanActivity;
 import com.example.myapp.homepage.homedemo.DBTestActivity;
 import com.example.myapp.homepage.homedemo.EdittextTextActivity;
@@ -96,6 +97,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("flutter");
         data.add("flutterFragment");
         data.add("tantan");
+        data.add("svga ANIMATION");
         mycenterAdapter.setNewData(data);
 
 
@@ -181,6 +183,9 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 17:
                         UiGoto.startAty(mActivity, TanTanActivity.class);
+                        break;
+                    case 18:
+                        UiGoto.startAty(mActivity, SvgaGiftActivity.class);
                         break;
                 }
             }

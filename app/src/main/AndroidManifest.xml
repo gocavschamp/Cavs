@@ -32,7 +32,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".MyApplication1"
         android:allowBackup="true"
         android:icon="${APP_LOGO_ICON}"
         android:label="@string/app_name"
@@ -71,6 +71,10 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.tantan.TanTanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.svga.SvgaGiftActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity

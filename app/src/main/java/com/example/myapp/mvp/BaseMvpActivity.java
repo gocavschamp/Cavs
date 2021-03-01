@@ -8,10 +8,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapp.SampleApplicationLike;
-import com.example.myapp.dragger.component.ActivityComponent;
-import com.example.myapp.dragger.component.DaggerActivityComponent;
-import com.example.myapp.dragger.module.ActivityModule;
+//import com.example.myapp.MyApplication1;
+//import com.example.myapp.SampleApplicationLike;
+//import com.example.myapp.dragger.component.ActivityComponent;
+////import com.example.myapp.dragger.component.DaggerActivityComponent;
+//import com.example.myapp.dragger.component.DaggerActivityComponent;
+//import com.example.myapp.dragger.module.ActivityModule;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.nucarf.base.R;
@@ -59,12 +61,12 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
         return super.getResources();
     }
 
-    protected ActivityComponent getActivityComponent() {
-        return DaggerActivityComponent.builder()
-                .appComponent(SampleApplicationLike.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-    }
+//    protected ActivityComponent getActivityComponent() {
+//        return DaggerActivityComponent.builder()
+//                .appComponent(MyApplication1.getAppComponent())
+//                .activityModule(new ActivityModule(this))
+//                .build();
+//    }
 
     @Override
     public void setContentView(int layoutResID) {

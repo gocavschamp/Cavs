@@ -5,23 +5,42 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.os.StrictMode;
 
 import com.example.myapp.database.greenDao.db.DaoMaster;
 import com.example.myapp.database.greenDao.db.DaoSession;
+//import com.example.myapp.dragger.component.AppComponent;
+//import com.example.myapp.dragger.component.DaggerAppComponent;
+//import com.example.myapp.dragger.module.AppModule;
 import com.nucarf.base.BuildConfig;
 import com.nucarf.base.retrofit.RetrofitConfig;
+import com.nucarf.base.utils.ActivityHelper;
 import com.nucarf.base.utils.BaseAppCache;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
 import androidx.multidex.MultiDex;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import cn.jpush.android.api.JPushInterface;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
+import me.jessyan.autosize.AutoSizeConfig;
 
 public class MyApplication1 extends Application {
+    private FlutterEngine flutterEngine;
+    private static MyApplication1 instance;
+
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,8 +63,64 @@ public class MyApplication1 extends Application {
 
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        BaseAppCache.setContext(this);
+        BaseAppCache.setApplication(this);
+        disableAPIDialog();
+        // android 7.0系统解决拍照的问题
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            builder.detectFileUriExposure();
+        }
+        flutterEngine = new FlutterEngine(this);
+        // Start executing Dart code to pre-warm the FlutterEngine.
+        flutterEngine.getDartExecutor().executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+        );
+        // Cache the FlutterEngine to be used by FlutterActivity.
+        FlutterEngineCache
+                .getInstance()
+                .put("my_engine_id", flutterEngine);
+        //去除9.0 弹框
+        registerActivityLifecycleCallbacks(new ActivityHelper());
+        //屏幕适配
+        AutoSizeConfig.getInstance().setExcludeFontScale(true);
     }
 
+    public static synchronized MyApplication1 getInstance() {
+        return instance;
+    }
+
+//    public static AppComponent getAppComponent() {
+//        return DaggerAppComponent.builder()
+//                .appModule(new AppModule(instance))
+//                .build();
+//    }
+
+    /**
+     * 反射 禁止弹窗
+     */
+    private void disableAPIDialog() {
+        if (Build.VERSION.SDK_INT < 28) return;
+        try {
+            Class aClass = Class.forName("android.content.pm.PackageParser$Package");
+            Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
+            declaredConstructor.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Class clazz = Class.forName("android.app.ActivityThread");
+            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+            currentActivityThread.setAccessible(true);
+            Object activityThread = currentActivityThread.invoke(null);
+            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+            mHiddenApiWarningShown.setAccessible(true);
+            mHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * 初始化GreenDao,直接在Application中进行初始化操作
      */

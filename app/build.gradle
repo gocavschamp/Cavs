@@ -240,8 +240,9 @@ dependencies {
     //dagger2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
     implementation 'com.google.dagger:dagger-android:2.21'
-    implementation 'com.google.dagger:dagger-android-support:2.21'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
+    implementation 'com.google.dagger:dagger:2.21'
+//    implementation 'com.google.dagger:dagger-android-support:2.21'
+//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     //热修改
     //tinker的核心库
@@ -267,4 +268,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(path: ':flutter')
 }
+
 apply from: 'tinkerpatch.gradle'

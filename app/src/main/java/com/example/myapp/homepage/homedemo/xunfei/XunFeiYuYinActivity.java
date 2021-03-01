@@ -82,7 +82,8 @@ public class XunFeiYuYinActivity extends BaseMvpActivity<XunFeiPresenter> implem
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+        mPresenter = new XunFeiPresenter();
+//        getActivityComponent().inject(this);
     }
 
     @Override

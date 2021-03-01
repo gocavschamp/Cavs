@@ -2,7 +2,7 @@ package com.example.myapp.dragger.component;
 
 
 
-import com.example.myapp.MyApplication;
+import com.example.myapp.MyApplication1;
 import com.example.myapp.dragger.ContextLife;
 import com.example.myapp.dragger.module.AppModule;
 
@@ -22,6 +22,6 @@ public interface AppComponent {
      * @return
      */
     @ContextLife("Application")
-    MyApplication getContext();
+    MyApplication1 getContext();
 
 }

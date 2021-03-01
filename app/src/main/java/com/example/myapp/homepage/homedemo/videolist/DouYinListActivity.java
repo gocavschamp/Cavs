@@ -57,7 +57,8 @@ public class DouYinListActivity extends BaseMvpActivity<VideoListPresenter> impl
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+//        getActivityComponent().inject(this);
+        mPresenter = new VideoListPresenter();
     }
 
     @Override

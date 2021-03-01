@@ -124,8 +124,8 @@ public class BottomSheetBihaverActivity extends BaseMvpActivity<BottomSheetPrese
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
-//        mPresenter = new BottomSheetPresenter(this);
+//        getActivityComponent().inject(this);
+        mPresenter = new BottomSheetPresenter();
     }
 
     @Override

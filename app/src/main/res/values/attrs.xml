@@ -48,4 +48,9 @@
         <attr name="bottom_right" format="boolean" />
         <attr name="radius" format="dimension" />
     </declare-styleable>
+
+    <!---->
+    <declare-styleable name="GiftItemLayout">
+        <attr name="gift_index" format="integer" />
+    </declare-styleable>
 </resources>

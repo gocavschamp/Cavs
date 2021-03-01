@@ -63,13 +63,14 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+//        getActivityComponent().inject(this);
+        mPresenter = new VideoListPresenter();
+
     }
 
     @Override
     protected void initData() {
         initView();
-
         if (null != mPresenter) {
             mPresenter.loadData(true);
         }
