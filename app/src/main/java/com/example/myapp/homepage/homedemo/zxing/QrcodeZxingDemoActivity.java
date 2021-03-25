@@ -7,22 +7,32 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapp.R;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.instagram.InsGallery;
+import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.nucarf.base.ui.BaseActivityWithTitle;
+import com.nucarf.base.utils.GlideEngine;
 import com.nucarf.base.utils.ImageUtil;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ScreenUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -118,6 +128,8 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
                         if (aBoolean) {
                             //用户同意使用权限
                             CaptureActivity.lauch(mContext, "1");
+                            //insgallery  相册
+//                            InsGallery.openGallery(mContext, GlideEngine.createGlideEngine(), new OnResultCallbackListenerImpl(mAdapter));
                         } else {
                             //用户不同意使用权限
                             // 如果用户没有授权，那么应该说明意图，引导用户去设置里面授权。
@@ -128,5 +140,47 @@ public class QrcodeZxingDemoActivity extends BaseActivityWithTitle {
                         }
                     }
                 });
+    }
+
+    private static final String TAG = "image--";
+    private static class OnResultCallbackListenerImpl implements OnResultCallbackListener<LocalMedia> {
+        private WeakReference<GridImageAdapter> mAdapter;
+
+        public OnResultCallbackListenerImpl(GridImageAdapter adapter) {
+            mAdapter = new WeakReference<>(adapter);
+        }
+
+        @Override
+        public void onResult(List<LocalMedia> result) {
+            for (LocalMedia media : result) {
+                Log.i(TAG, "是否压缩:" + media.isCompressed());
+                Log.i(TAG, "压缩:" + media.getCompressPath());
+                Log.i(TAG, "原图:" + media.getPath());
+                Log.i(TAG, "是否裁剪:" + media.isCut());
+                Log.i(TAG, "裁剪:" + media.getCutPath());
+                Log.i(TAG, "是否开启原图:" + media.isOriginal());
+                Log.i(TAG, "原图路径:" + media.getOriginalPath());
+                Log.i(TAG, "Android Q 特有Path:" + media.getAndroidQToPath());
+                Log.i(TAG, "Size: " + media.getSize());
+            }
+            GridImageAdapter adapter = mAdapter.get();
+            if (adapter != null) {
+                adapter.setList(result);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            Log.i(TAG, "PictureSelector Cancel");
+        }
+    }
+    /**
+     * @author：luck
+     * @date：2020-01-13 17:58
+     * @describe：长按事件
+     */
+    public interface OnItemLongClickListener {
+        void onItemLongClick(RecyclerView.ViewHolder holder, int position, View v);
     }
 }

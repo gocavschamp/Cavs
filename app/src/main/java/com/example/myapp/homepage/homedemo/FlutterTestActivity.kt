@@ -34,13 +34,12 @@ class FlutterTestActivity : FragmentActivity() {
         flutterFragment = fragmentManager
                 .findFragmentByTag(TAG_FLUTTER_FRAGMENT) as FlutterFragment?
         if (flutterFragment == null) {
-            var newFlutterFragment = FlutterFragment.createDefault()
-            flutterFragment = newFlutterFragment
+            var flutterFragment = FlutterFragment.createDefault()
             fragmentManager
                     .beginTransaction()
                     .add(
                             R.id.rl_content,
-                            newFlutterFragment,
+                            flutterFragment,
                             TAG_FLUTTER_FRAGMENT
                     )
                     .commit()
@@ -49,7 +48,7 @@ class FlutterTestActivity : FragmentActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        flutterFragment!!.onRequestPermissionsResult(
+        flutterFragment?.onRequestPermissionsResult(
                 requestCode,
                 permissions,
                 grantResults
@@ -57,47 +56,47 @@ class FlutterTestActivity : FragmentActivity() {
     }
     override fun onPostResume() {
         super.onPostResume()
-        flutterFragment!!.onPostResume()
+        flutterFragment?.onPostResume()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        flutterFragment!!.onNewIntent(intent)
+        flutterFragment?.onNewIntent(intent)
 
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        flutterFragment!!.onTrimMemory(level)
+        flutterFragment?.onTrimMemory(level)
     }
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        flutterFragment!!.onUserLeaveHint()
+        flutterFragment?.onUserLeaveHint()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        flutterFragment!!.onBackPressed()
+        flutterFragment?.onBackPressed()
     }
     override fun onResume() {
         super.onResume()
-        flutterFragment!!.onResume()
+        flutterFragment?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        flutterFragment!!.onPause()
+        flutterFragment?.onPause()
 
     }
 
     override fun onStart() {
         super.onStart()
-        flutterFragment!!.onStart()
+        flutterFragment?.onStart()
     }
     override fun onStop() {
         super.onStop()
-        flutterFragment!!.onStop()
+        flutterFragment?.onStop()
 
     }
 }

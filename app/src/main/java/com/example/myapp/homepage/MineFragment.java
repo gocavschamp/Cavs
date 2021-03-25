@@ -58,14 +58,14 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
 
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("卡卡罗特\n");
-        stringBuffer.append(BuildConfig.APPLICATION_ID + "  id\n");
-        stringBuffer.append(BuildConfig.BUILD_TYPE + "  buildtype\n");
-        stringBuffer.append(BuildConfig.FLAVOR + "  flavor\n");
-        stringBuffer.append(BuildConfig.VERSION_CODE + "  code\n");
-        stringBuffer.append(BuildConfig.VERSION_NAME + "  name\n");
-        stringBuffer.append(getString(R.string.app_name) + "  app name\n");
-        stringBuffer.append(getString(R.string.app_welcome) + "  app welcome\n");
-        stringBuffer.append(getString(R.string.age) + "  age\n");
+//        stringBuffer.append(BuildConfig.APPLICATION_ID + "  id\n");
+//        stringBuffer.append(BuildConfig.BUILD_TYPE + "  buildtype\n");
+//        stringBuffer.append(BuildConfig.FLAVOR + "  flavor\n");
+//        stringBuffer.append(BuildConfig.VERSION_CODE + "  code\n");
+//        stringBuffer.append(BuildConfig.VERSION_NAME + "  name\n");
+//        stringBuffer.append(getString(R.string.app_name) + "  app name\n");
+//        stringBuffer.append(getString(R.string.app_welcome) + "  app welcome\n");
+//        stringBuffer.append(getString(R.string.age) + "  age\n");
         tvInfo.setText(stringBuffer);
         GlideUtils.load(mActivity, getString(R.string.kakaluot), roundIvHead);
         GlideUtils.load(mActivity, getString(R.string.kakaluot), ivPic);
