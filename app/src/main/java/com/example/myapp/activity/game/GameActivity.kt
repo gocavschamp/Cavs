@@ -1,12 +1,16 @@
 package com.example.myapp.activity.game
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.myapp.R
+import com.example.myapp.activity.WebViewX5KtActivity
 import com.example.myapp.bean.SearchWayBean
 import com.google.gson.Gson
 import com.nucarf.base.ui.BaseActivityWithTitle
+import com.nucarf.base.ui.WebActivity
 import com.nucarf.base.utils.AssetUtil
 import com.nucarf.base.utils.LogUtils
 import kotlinx.android.synthetic.main.activity_game.*
@@ -30,10 +34,14 @@ class GameActivity : BaseActivityWithTitle() {
             LogUtils.e("$name--", e.message)
             return
         }
-        recyclerView.layoutManager = GridLayoutManager(mContext,2,GridLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager = GridLayoutManager(mContext,3,GridLayoutManager.VERTICAL,false)
         adapter =  GameAdapter(R.layout.item_game_layout);
         recyclerView.adapter = adapter
         adapter.setNewData(gameList?.game)
+        adapter.setOnItemClickListener { adapter, view, position ->
+
+            gameList?.game?.get(position)?.let { WebActivity.lauch(mContext, it.getName(),it.url) }
+        }
 
     }
 }

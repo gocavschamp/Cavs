@@ -17,4 +17,5 @@ class GameAdapter(layoutResId: Int) : BaseQuickAdapter<GameBean, BaseViewHolder>
 
     }
 
+
 }
