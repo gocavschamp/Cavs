@@ -191,12 +191,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                outputFileName = defaultConfig.applicationId.subSequence(defaultConfig.applicationId.lastIndexOf(".") + 1, defaultConfig.applicationId.length()) + "-v" + defaultConfig.versionName + "-" + releaseTime() + "-" + output.baseName + ".apk"
+            }
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
 }
+
+def releaseTime() {
+    return new Date().format("yyyyMMddHH", TimeZone.getTimeZone("UTC"))
+}
+
+
 repositories {
     flatDir {
         dirs 'libs'

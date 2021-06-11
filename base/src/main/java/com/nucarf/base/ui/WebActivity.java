@@ -2,6 +2,8 @@ package com.nucarf.base.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
@@ -58,6 +60,18 @@ public class WebActivity extends BaseActivityWithTitle {
 
     }
 
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        LogUtils.e("TAG", "orientation = " + newConfig.orientation);
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation == 2) {
+            ll_bar.setVisibility(View.GONE);
+        }else {
+            ll_bar.setVisibility(View.VISIBLE);
+        }
+
+    }
     private void initWeb() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
