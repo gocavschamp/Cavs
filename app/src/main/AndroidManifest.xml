@@ -40,14 +40,15 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".activity.game.GameActivity"
+        <activity android:name=".activity.speak.SpeakActivity"></activity>
+        <activity
+            android:name=".activity.game.GameActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
-        <activity android:name=".activity.SpcialTopActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.SpcialTopActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".homepage.homedemo.DBTestActivity" />
         <activity
             android:name=".activity.SplashActivity"
