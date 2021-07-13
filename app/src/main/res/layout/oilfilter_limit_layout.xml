@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_limit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_60"
+    android:orientation="horizontal"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:id="@+id/ll_limit_cotnent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_400"
+        android:orientation="horizontal"
+        android:visibility="visible">
+<!--        android:layout_height="@dimen/dp_400"-->
+
+        <LinearLayout
+            android:id="@+id/ll_limit_insert_cotnent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleview_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_limit_city"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_400"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</LinearLayout>

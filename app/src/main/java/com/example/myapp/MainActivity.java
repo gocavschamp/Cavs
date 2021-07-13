@@ -113,7 +113,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         vpMain.setSlidAble(false);
         vpMain.setOffscreenPageLimit(viewPagerAdapterMain.COUNT);
         vpMain.addOnPageChangeListener(this);
-        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息", "我的"});
+//        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息", "测试"});
+        stlMain.setViewPager(vpMain, new String[]{"首页", "论坛", "消息", "我的","测试"});
 //        stlMain.setViewPager(vpMain, new String[]{"首页", "首页", "wodededeeee"});
         stlMain.setOnTabSelectListener(this);
     }

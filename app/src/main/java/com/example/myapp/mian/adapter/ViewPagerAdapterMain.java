@@ -10,6 +10,7 @@ import com.example.myapp.homepage.HomeFragment;
 import com.example.myapp.homepage.MessgaeFragment;
 import com.example.myapp.homepage.MineFragment;
 import com.example.myapp.homepage.MyCenterFragment;
+import com.example.myapp.homepage.MyCenterTestFragment;
 
 
 /**
@@ -19,7 +20,7 @@ import com.example.myapp.homepage.MyCenterFragment;
  */
 
 public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
-    public final int COUNT = 4;
+    public final int COUNT = 5;
 
     public ViewPagerAdapterMain(FragmentManager fm) {
         super(fm);
@@ -36,6 +37,8 @@ public class ViewPagerAdapterMain extends FragmentStatePagerAdapter {
                 return MessgaeFragment.newInstance();
             case 3://我的
                 return MineFragment.newInstance();
+            case 4://我的
+                return MyCenterTestFragment.newInstance();
         }
         return null;
     }

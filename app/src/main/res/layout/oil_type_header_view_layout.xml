@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_80"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/px_16">
+
+        <TextView
+            android:id="@+id/tv_title_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="偏好油品："
+            android:textColor="@color/color_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_oil_type"
+            android:layout_width="@dimen/dp_150"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_title_str"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px_14"
+            android:layout_toRightOf="@id/tv_title_str"
+            android:textColor="@color/main_color"
+            android:textSize="15sp"
+            tools:text="-10#柴油" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_str"
+            android:layout_marginTop="@dimen/px_5"
+            android:text="默认根据您的设置显示油站"
+            android:textColor="#979ba3"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_set_oil_type"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/px_30"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/px_16"
+        android:background="@drawable/rec_gray_stoke_eee_4"
+        android:gravity="center"
+        android:paddingLeft="@dimen/px_10"
+        android:paddingRight="@dimen/px_10"
+        android:text="修改加油偏好"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+</RelativeLayout>

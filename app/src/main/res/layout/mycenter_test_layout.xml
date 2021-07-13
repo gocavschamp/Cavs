@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rl_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@drawable/rec_stoke_main_100"
+        android:paddingTop="4dp"
+        android:paddingBottom="10dp">
+
+        <com.nucarf.base.widget.CircleImageView
+            android:id="@+id/iv_head"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_center_habit"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="@dimen/dp_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_search_station"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_sercice"
+            android:layout_toRightOf="@id/iv_head"
+            android:background="@drawable/rec_white_stoke_eee_4"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_head"
+            app:layout_constraintRight_toLeftOf="@id/iv_sercice"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/home_speak_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/icon_arrow_up_red"
+                android:drawablePadding="@dimen/dp_5"
+                android:gravity="center"
+                android:paddingLeft="14dp"
+                android:paddingRight="6dp"
+                android:text="语音"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="16dp"
+                android:background="#70FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="请输入油站、高速、地区搜索油站"
+                android:textColor="#B0FFFFFF"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_sercice"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_search_black"
+            android:visibility="visible"
+            app:layout_constraintLeft_toRightOf="@id/ll_search_station"
+            app:layout_constraintRight_toLeftOf="@id/iv_msg" />
+
+        <ImageView
+            android:id="@+id/iv_msg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginRight="@dimen/dp_12"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_map_start_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_sercice"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_msg_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:minWidth="14dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:textColor="#F2503A"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toLeftOf="@id/iv_msg"
+            app:layout_constraintTop_toTopOf="@id/iv_msg"
+            tools:text="99+" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/home_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_title_layout"
+        app:srlFooterTranslationViewId="@+id/home_viewPager">
+
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlClassicsSpinnerStyle="Scale"
+            app:srlPrimaryColor="#FF5800"
+            app:srlAccentColor="@android:color/white"/>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/home_appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp" >
+
+                <LinearLayout
+                    android:id="@+id/ll_top_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_scrollFlags="scroll">
+                    <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+
+                    <include layout="@layout/hupu_gift_view" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:orientation="horizontal"
+                        android:overScrollMode="always"
+                        android:scrollbarFadeDuration="0"
+                        android:scrollbarStyle="outsideInset"
+                        android:scrollbars="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:itemCount="9"
+                        tools:listitem="@layout/item_small_gift" />
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_86"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="12dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginTop="22dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp"
+                        android:text="优惠站点"
+                        android:textColor="#0B1527"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:tag="fixed"-->
+<!--    app:layout_collapseMode="pin"-->
+<!--    app:layout_scrollFlags="exitUntilCollapsed|enterAlways|enterAlwaysCollapsed"-->
+<!--    android:layout_height="wrap_content"/>-->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/home_tab_layout"
+                    style="@style/CommunityFragment_TabLayout"
+                    android:layout_height="48dp"
+                    android:tag="fixed"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="exitUntilCollapsed|enterAlways|enterAlwaysCollapsed"
+                    app:tabBackground="@color/transparent"
+                    app:tabGravity="fill"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed"
+                    app:tabPaddingEnd="@dimen/dp_0"
+                    app:tabPaddingStart="@dimen/dp_0"
+                    app:tabRippleColor="@color/transparent"
+                    app:tabSelectedTextColor="#FF5800"
+                    app:tabTextColor="#0B1527" />
+            </com.google.android.material.appbar.AppBarLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/home_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <!--            <RelativeLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+            <!--                android:layout_height="match_parent">-->
+
+            <!--                <androidx.recyclerview.widget.RecyclerView-->
+            <!--                    android:id="@+id/home_station_recycler_view"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:background="#F5F5F5"-->
+            <!--                    android:overScrollMode="never"-->
+            <!--                    android:paddingHorizontal="2dp"-->
+            <!--                    android:scrollbars="none"-->
+            <!--                    app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+            <!--                    tools:itemCount="4"-->
+            <!--                    tools:listitem="@layout/item_discount_station_layout" />-->
+
+            <!--                <com.nucarf.member.widget.OilFilterLimitLayout-->
+            <!--                    android:id="@+id/home_oil_filter_layout"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_alignTop="@id/home_station_recycler_view"-->
+            <!--                    android:orientation="horizontal"/>-->
+
+            <!--            </RelativeLayout>-->
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    <ImageView
+        android:id="@+id/home_back_top"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_address" />
+
+    <com.example.myapp.homepage.mine.OilFilterLimitLayout
+        android:id="@+id/home_oil_filter_layout"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/dp_140"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+</RelativeLayout>

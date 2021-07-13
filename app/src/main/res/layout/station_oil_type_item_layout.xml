@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_oil_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_15"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="15sp"
+        tools:text="柴油" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_oil_name"
+        android:layout_marginBottom="@dimen/px_30"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_5">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

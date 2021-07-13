@@ -182,4 +182,21 @@ public class SharePreUtils {
     public static boolean getIsSetAlias( ) {
        return SharedPreferencesUtil.getBooleanValue(BaseAppCache.getContext(), SharedKeys.ISSETALIAS,false);
     }
+
+
+    public static String getDefaultFuel() {
+        return SharedPreferencesUtil.getSharedPreferences(BaseAppCache.getContext()).getString(SharedKeys.DEFAULTFUEL, "0");
+    }
+
+    public static String getDefaultFuelType() {
+        return SharedPreferencesUtil.getSharedPreferences(BaseAppCache.getContext()).getString(SharedKeys.DEFAULTFUELTYPE, "0#");
+    }
+
+    public static void setDefaultFuel(String type_fuelno) {
+        SharedPreferencesUtil.setValue(BaseAppCache.getContext(), SharedKeys.DEFAULTFUEL, type_fuelno);
+    }
+
+    public static void setDefaultFuelType(String oiltype) {
+        SharedPreferencesUtil.setValue(BaseAppCache.getContext(), SharedKeys.DEFAULTFUELTYPE, oiltype);
+    }
 }

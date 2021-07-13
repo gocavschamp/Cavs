@@ -3,29 +3,43 @@ package com.example.myapp.homepage;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myapp.BuildConfig;
 import com.example.myapp.R;
+import com.example.myapp.bean.ArticleListBean;
 import com.example.myapp.bean.FileVersionBean;
 import com.example.myapp.db.MySqliteHelper;
+import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetAdapter;
+import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetContract;
+import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetPresenter;
+import com.example.myapp.homepage.mine.OilFilterLimitLayout;
+import com.example.myapp.homepage.mine.bean.StationLimitBean;
 import com.example.myapp.utils.download.DownloadHelper;
 import com.example.myapp.utils.download.DownloadListener;
+import com.google.android.material.tabs.TabLayout;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.utils.GlideUtils;
+import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.widget.RoundImageView;
 import com.nucarf.base.widget.StarBar;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class MineFragment extends BaseLazyFragment implements DownloadListener {
+public class MineFragment extends BaseLazyFragment implements DownloadListener, BottomSheetContract.View, BaseQuickAdapter.RequestLoadMoreListener {
 
 
     @BindView(R.id.star_bar)
@@ -38,7 +52,12 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
     ImageView ivPic;
     @BindView(R.id.fl_content)
     FrameLayout flContent;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
     private MySqliteHelper mySqliteHelper;
+    private BottomSheetAdapter bottomSheetAdapter;
+    private BottomSheetPresenter mPresenter;
 
     public MineFragment() {
     }
@@ -70,7 +89,85 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
         GlideUtils.load(mActivity, getString(R.string.kakaluot), roundIvHead);
         GlideUtils.load(mActivity, getString(R.string.kakaluot), ivPic);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false));
+
+
+        bottomSheetAdapter = new BottomSheetAdapter(R.layout.default_normal_layout);
+        recyclerView.setAdapter(bottomSheetAdapter);
+        bottomSheetAdapter.setEnableLoadMore(true);
+        bottomSheetAdapter.setOnLoadMoreListener(this, recyclerView);
+//bottomSheetAdapter.setEnableLoadMore(false);
+//        initTabs();
+        addListenter();
+        getData();
+
     }
+
+    private void addListenter() {
+    }
+
+    private void getData() {
+        mPresenter = new BottomSheetPresenter();
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
+        if (mPresenter != null) {
+            mPresenter.loadData(true);
+        }
+    }
+    private StationLimitBean stationLimitBean = new StationLimitBean();
+
+//    private void initTabs() {
+//        String[] titles = {"地区", "0#柴油", "品牌", "油站类型"};
+//        homeTabLayout.removeAllTabs();
+//        homeTabLayout.clearOnTabSelectedListeners();
+//        LayoutInflater inflater = LayoutInflater.from(getContext());
+//        for (String title : titles) {
+//            View view = inflater.inflate(R.layout.home_custome_tab_layout, null);
+//            TextView customView = view.findViewById(R.id.tv_title);
+//            customView.setSelected(false);
+//            customView.setText(title);
+//            TabLayout.Tab tab = homeTabLayout.newTab().setCustomView(customView);
+//            homeTabLayout.addTab(tab, false);
+//        }
+//        homeTabLayout.setSelected(false);
+//        TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                LogUtils.e("tab", "--onTabSelected-");
+//                if (stationLimitBean == null && tab.getPosition() != 0) {
+////                    getStationLimit();
+//                    return;
+//                }
+//                View customView = tab.getCustomView();
+//                customView.findViewById(R.id.tv_title).setSelected(true);//第一个tab被选中
+//                homeOilFilterLayout.onTabClick(tab, true);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//                View customView = tab.getCustomView();
+//                customView.findViewById(R.id.tv_title).setSelected(false);//第一个tab被选中
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//                LogUtils.e("tab", "--onTabReselected-");
+//                if (stationLimitBean == null && tab.getPosition() != 0) {
+////                    getStationLimit();
+//                    return;
+//                }
+//                homeOilFilterLayout.onTabClick(tab, false);
+//            }
+//        };
+//        homeTabLayout.addOnTabSelectedListener(onTabSelectedListener);
+//        for (int i = 0; i < homeTabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tabAt = homeTabLayout.getTabAt(i);
+//            View customView = tabAt.getCustomView();
+//            customView.findViewById(R.id.tv_title).setSelected(false);//第一个tab被选中
+//        }
+//        homeOilFilterLayout.setTab(homeTabLayout);
+//    }
 
     // 初始化
     private DownloadHelper mDownloadHelper = new DownloadHelper(RetrofitConfig.TEST_HOST_URL, this);
@@ -162,6 +259,60 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener {
     @Override
     public void onFail(Throwable ex) {
         Log.e("TAG", "下载文件 failed");
+
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        mPresenter.loadData(false);
+
+    }
+
+    @Override
+    public void setData(boolean isRefresh, List<ArticleListBean> data, boolean isEnd) {
+        if (isRefresh) {
+            bottomSheetAdapter.setNewData(data);
+        } else {
+            bottomSheetAdapter.addData(data);
+            bottomSheetAdapter.loadMoreComplete();
+        }
+        if (isEnd) {
+            bottomSheetAdapter.loadMoreEnd();
+        }
+    }
+
+    @Override
+    public int getDataSize() {
+        return bottomSheetAdapter.getData().size();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void closeLoading() {
+
+    }
+
+    @Override
+    public void onSucess() {
+
+    }
+
+    @Override
+    public void onFail() {
+
+    }
+
+    @Override
+    public void onNetError(int errorCode, String errorMsg) {
+
+    }
+
+    @Override
+    public void onReLoad() {
 
     }
 }
