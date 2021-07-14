@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myapp.BuildConfig;
 import com.example.myapp.R;
+import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.bean.ArticleListBean;
 import com.example.myapp.bean.FileVersionBean;
 import com.example.myapp.db.MySqliteHelper;
@@ -104,6 +105,9 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener, 
     }
 
     private void addListenter() {
+        bottomSheetAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            WebViewX5KtActivity.Companion.lauch(mActivity,bottomSheetAdapter.getData().get(position).getTitle(),bottomSheetAdapter.getData().get(position).getLink());
+        });
     }
 
     private void getData() {

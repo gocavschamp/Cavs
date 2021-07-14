@@ -19,12 +19,17 @@ import com.example.myapp.R;
 import com.example.myapp.homepage.mine.AppBarStateChangeListener;
 import com.example.myapp.homepage.mine.HomeFragmentAdapter;
 import com.example.myapp.homepage.mine.OilFilterLimitLayout;
+import com.example.myapp.homepage.mine.adpter.HomeIconAdapter;
+import com.example.myapp.homepage.mine.bean.MineIconBean;
 import com.example.myapp.homepage.mine.bean.StationLimitBean;
+import com.example.myapp.widget.HorizontalScrollBarDecoration;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.utils.LogUtils;
+import com.nucarf.base.utils.ScreenUtil;
+import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.widget.CircleImageView;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
@@ -34,6 +39,9 @@ import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -87,8 +95,11 @@ public class MyCenterTestFragment extends BaseLazyFragment {
     OilFilterLimitLayout homeOilFilterLayout;
     @BindView(R.id.home_tab_layout)
     TabLayout homeTabLayout;
+    private HomeIconAdapter homeIconAdapter;
+
     public MyCenterTestFragment() {
     }
+    private List<MineIconBean> nameList;
 
     public static MyCenterTestFragment newInstance() {
         return new MyCenterTestFragment();
@@ -155,8 +166,10 @@ public class MyCenterTestFragment extends BaseLazyFragment {
 //                        appBarParams.setScrollFlags(0);//这个加了之后不可滑动
 //                    }
                     appBarChildAt.setLayoutParams(appBarParams);
+                    homeBackTop.setVisibility(View.VISIBLE);
                 } else if (state == State.EXPANDED) {
 //                    homeOilFilterLayout.setVisibility(View.GONE);
+                    homeBackTop.setVisibility(View.GONE);
 
                 } else {
 //                    idel
@@ -164,14 +177,30 @@ public class MyCenterTestFragment extends BaseLazyFragment {
                 }
             }
         });
+        ScreenUtil.setRecycleviewGridLayout(mActivity,recycleview,2,false);
+        recycleview.addItemDecoration(new HorizontalScrollBarDecoration(5,50,"#FF4081","#FFEAF1FE"));
+        homeIconAdapter = new HomeIconAdapter(R.layout.mine_icon_item);
+        recycleview.setAdapter(homeIconAdapter);
         initTabs();
+        initIcons();
+        homeIconAdapter.setNewData(nameList);
 
     }
-
     /**
      * icons  初始化
      */
     private void initIcons() {
+        nameList = new ArrayList<>();
+        nameList.add(new MineIconBean("消费记录", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("淘油宝", R.mipmap.icon_center_habit).setType(2));
+        nameList.add(new MineIconBean("储值记录", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("转万金油", R.mipmap.icon_center_habit).setShow(true));
+        nameList.add(new MineIconBean("油站地图", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("违章查询", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("路线查询", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("推荐油站", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("新手引导", R.mipmap.icon_center_habit));
+        nameList.add(new MineIconBean("最新活动", R.mipmap.icon_center_habit).setTip_icon(true).setType(2).setIcon_info("手慢无"));
     }
     private StationLimitBean stationLimitBean = new StationLimitBean();
 
@@ -233,6 +262,9 @@ public class MyCenterTestFragment extends BaseLazyFragment {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
 
             }
+        });
+        homeBackTop.setOnClickListener(v->{
+            homeAppbarLayout.setExpanded(true);
         });
     }
 
