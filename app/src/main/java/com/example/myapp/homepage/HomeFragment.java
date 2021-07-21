@@ -33,6 +33,7 @@ import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
 import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
 import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
+import com.nucarf.base.ui.TestBaseActivity;
 import com.nucarf.base.utils.UiGoto;
 
 import java.util.ArrayList;
@@ -102,6 +103,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("svga ANIMATION");
         data.add("娱乐天地");
         data.add("语音播报");
+        data.add("test");
         mycenterAdapter.setNewData(data);
 
 
@@ -195,6 +197,9 @@ public class HomeFragment extends BaseLazyFragment {
                         UiGoto.startAty(mActivity, GameActivity.class);
                     case 20:
                         UiGoto.startAty(mActivity, SpeakActivity.class);
+                        break;
+                    case 21:
+                        UiGoto.startAty(mActivity, TestBaseActivity.class);
                         break;
                 }
             }
