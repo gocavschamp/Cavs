@@ -35,6 +35,8 @@ import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.widget.RoundImageView;
 import com.nucarf.base.widget.StarBar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.List;
 
@@ -181,6 +183,29 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener, 
     @SuppressLint("CheckResult")
     @Override
     protected void initView() {
+//        String url = downloadFile();
+        ivPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TAG", "更新数据 ");
+                FileVersionBean fileVersionBean1 = new FileVersionBean();
+                fileVersionBean1.setId(1);
+                fileVersionBean1.setV("1");
+                String[] split = BuildConfig.VERSION_NAME.split("_");
+                fileVersionBean1.setCv("2.6.0");
+                fileVersionBean1.setIs_native(0);
+                mySqliteHelper.updateVersionnData(fileVersionBean1);
+                queryData();
+                count++;
+//                mDownloadHelper.downloadFile(url, mActivity.getCacheDir().getAbsolutePath(), "nucarf" + count + ".jpg");
+
+            }
+        });
+
+    }
+
+    @NotNull
+    private String downloadFile() {
         String url = "https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=9933924977310a55c471d6f287756f91/314e251f95cad1c8c983f49d713e6709c93d514b.jpg";
 //        String url = "http://fenghuoyunji.jb51.net:81/201906/tools/OkHttpJar_jb51.rar";
         Log.e("TAG", "下载文件 start");
@@ -209,24 +234,7 @@ public class MineFragment extends BaseLazyFragment implements DownloadListener, 
             queryData();
 
         }
-        ivPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("TAG", "更新数据 ");
-                FileVersionBean fileVersionBean1 = new FileVersionBean();
-                fileVersionBean1.setId(1);
-                fileVersionBean1.setV("1");
-                String[] split = BuildConfig.VERSION_NAME.split("_");
-                fileVersionBean1.setCv("2.6.0");
-                fileVersionBean1.setIs_native(0);
-                mySqliteHelper.updateVersionnData(fileVersionBean1);
-                queryData();
-                count++;
-                mDownloadHelper.downloadFile(url, mActivity.getCacheDir().getAbsolutePath(), "nucarf" + count + ".jpg");
-
-            }
-        });
-
+        return url;
     }
 
     private void queryData() {

@@ -27,11 +27,13 @@ public class MySqliteHelper extends SQLiteOpenHelper {
 
     //<--------数据库操作---------
     //数据库版本
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 5;
     private static final String DB_NAME = "happy.db";
     public static final String TABLE_NAME_STUDENT = "t_student";
     public static final String TABLE_NAME_LIBRARY = "t_library";
     public static final String TABLE_NAME_NBA = "t_nba";
+    public static final String TABLE_NAME_WEB = "t_web_history";
+    public static final String TABLE_NAME_LABEL = "t_web_label";
 
     /**
      * 数据库中创建一张student表
@@ -58,6 +60,22 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     public static final String CREAT_NBA = "create table " + TABLE_NAME_NBA +
             " (id integer primary key autoincrement," + "name text," + "age integer," + "weight integer,"
             + "height integer," + "score real," + "rebound real," + "assists real," + "note text,"
+            + "team text)";
+    /**
+     * 数据库中创建一张WEB记录表
+     * name age height weight score rebound assists  team note
+     */
+    public static final String CREAT_WEB = "create table " + TABLE_NAME_WEB +
+            " (id integer primary key autoincrement," + "title text," + "url text," + "nickname text,"
+             + "note text," + "iscollect integer,"
+            + "team text)";
+    /**
+     * 数据库中创建一张WEB 书签表
+     * name age height weight score rebound assists  team note
+     */
+    public static final String CREAT_LABEL = "create table " + TABLE_NAME_LABEL +
+            " (id integer primary key autoincrement," + "title text," + "url text," + "nickname text,"
+             + "note text," + "iscollect integer,"
             + "team text)";
 
     /*私有的静态对象，为整个应用程序提供一个sqlite操作的静态实例，
@@ -91,13 +109,15 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         db.execSQL(CREAT_STUDENT);
         db.execSQL(CREAT_LIBRARY);
         db.execSQL(CREAT_NBA);
+        db.execSQL(CREAT_WEB);
+        db.execSQL(CREAT_LABEL);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //更新数据库
-        LogUtils.e("DatabaseHelper_onUpgrade version" + newVersion);
+        LogUtils.e("DatabaseHelper_onUpgrade version" + newVersion+"--old--"+oldVersion);
         //构建删除表的SQL
 //        String sql = "DROP TABLE IF EXISTS " + TABLE_NAME_ART;
         switch (oldVersion) {
@@ -135,7 +155,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
                     } finally {
                         db.endTransaction();
                     }
-            case 3:
+            case 5:
 
                 break;
             default:

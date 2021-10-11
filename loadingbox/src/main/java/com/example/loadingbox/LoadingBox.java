@@ -205,6 +205,17 @@ public class LoadingBox {
             mSwitcher.setDisplayedChild(1);
         }
     }
+    public boolean isShowing() {
+        ArrayList<View> views = new ArrayList<View>(mDefaultViews);
+        views.addAll(mCustomViews);
+        boolean show = false;
+        for (View view : views) {
+           if(view.getVisibility() == View.VISIBLE) {
+               show = true;
+           }
+        }
+      return show;
+    }
 
     private void show(String tag) {
         ArrayList<View> views = new ArrayList<View>(mDefaultViews);
