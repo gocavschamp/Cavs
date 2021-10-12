@@ -21,8 +21,9 @@ public class LabelAdapter extends BaseQuickAdapter<WebHistory, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, WebHistory item) {
-        helper.setText(R.id.tvTitle, item.getTitle())
-                .setText(R.id.btnCollect,1== item.getIscollect()?"已收藏":"收藏");
+        helper.setText(R.id.tvTitle, item.getTitle() +" | " +item.getNote())
+                .setText(R.id.btnCollect, 1 == item.getIscollect() ? "已收藏" : "收藏");
+        helper.addOnClickListener(R.id.ivDelete,R.id.btnCollect);
 //        ImageView iv_pic = helper.getView(R.id.iv_pic);
 //        GlideUtils.load(mContext, item.getPic_url(), iv_pic);
 //        TextView tv_age = helper.getView(R.id.tv_age);

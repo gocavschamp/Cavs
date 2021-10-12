@@ -126,6 +126,11 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             rvHistoryLabel.visibility = View.GONE
         }
         labelAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when (view.id) {
+                R.id.ivDelete -> {
+                    labelAdapter.getItem(position)?.id?.let { deleteItem(tvLabel.isSelected, it) }
+                }
+            }
 
         }
         et_url!!.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus -> recycleview!!.visibility = if (hasFocus) View.VISIBLE else View.GONE }
@@ -142,9 +147,12 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         tvHome.setOnClickListener {
             rvHistoryLabel.visibility = View.GONE
             recycleview.visibility = View.VISIBLE
+            fl_content.visibility = View.GONE
 
         }
         tvHistory.setOnClickListener {
+            tvHistory.isSelected = !tvHistory.isSelected
+            tvLabel.isSelected = false
             if (rvHistoryLabel.visibility == View.VISIBLE)
                 rvHistoryLabel.visibility = View.GONE
             else
@@ -152,6 +160,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
 
         }
         tvLabel.setOnClickListener {
+            tvHistory.isSelected = false
+            tvLabel.isSelected = !tvLabel.isSelected
             if (rvHistoryLabel.visibility == View.VISIBLE)
                 rvHistoryLabel.visibility = View.GONE
             else
@@ -167,12 +177,15 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
 
     private fun addLabel(title: String, url: String, iscollect: Int?) {
         val database = mySqliteHelper!!.writableDatabase
+        val whereArgs = arrayOf(title,url)
+        database.delete(MySqliteHelper.TABLE_NAME_WEB,"title=? and url = ?",whereArgs)
         val values = ContentValues()
         values.put("title", title)
         values.put("url", url)
+        values.put("note", "" + System.currentTimeMillis())
         values.put("iscollect", iscollect)
         database.insert(MySqliteHelper.TABLE_NAME_LABEL, null, values)
-        ToastUtils.show_middle(mContext,"成功",0)
+        ToastUtils.show_middle(mContext, "成功", 0)
 
     }
 
@@ -186,22 +199,25 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         // delete from Orders where Id = 7
         // 这里都条件筛选很灵活，不仅仅可以是 XX = ?，还可以是XX > ?，XX < ?，甚至是XX > ? and YY = ?，不过这样，第三个参数里面，就需要2个值了。
         val database = mySqliteHelper!!.writableDatabase
-        val arrayOf = arrayOf<String>()
-        arrayOf[0] = id.toString()
+        val arrayOf = arrayOf<String>(id.toString())
         database.delete(MySqliteHelper.TABLE_NAME_STUDENT, "id=?", arrayOf)
-        getData(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB)
+        val data = getData(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB)
+        labelAdapter.setNewData(data)
     }
 
     private fun addHistory(title: String, url: String, iscollect: Int?) {
         val database = mySqliteHelper!!.writableDatabase
+        val whereArgs = arrayOf(title,url)
+        database.delete(MySqliteHelper.TABLE_NAME_WEB,"title=? and url = ?",whereArgs)
         val values = ContentValues()
         values.put("title", title)
         values.put("url", url)
+        values.put("note", "" + System.currentTimeMillis())
         database.insert(MySqliteHelper.TABLE_NAME_WEB, null, values)
     }
 
     private fun collect() {
-        webView?.title?.let { webView?.url?.let { it1 -> addLabel(it, it1,1) } }
+        webView?.title?.let { webView?.url?.let { it1 -> addLabel(it, it1, 1) } }
     }
 
     override fun initData() {
@@ -211,7 +227,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     private fun getData(tableName: String): MutableList<WebHistory> {
         val database: SQLiteDatabase = mySqliteHelper!!.getReadableDatabase();
 //        database.beginTransaction();
-        val cursor: Cursor = database.query(tableName, null, null, null, null, null, null);
+        val cursor: Cursor = database.query(tableName, null, null, null, null, null, "id desc");
         var data = mutableListOf<WebHistory>();
         if (cursor.moveToFirst()) {
             do {
@@ -291,6 +307,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     }
 
     private fun loadH5(url: String?) {
+        fl_content.visibility = View.VISIBLE
         webView?.run {
             addJavascriptInterface(JsEventInterface(), "\$api")
             loadUrl(url)
@@ -352,8 +369,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
                 LogUtils.e("tag", "onPageFinished" + url)
-                titlelayout.setTitleText(view.title)
-                loadingBox.hideAll()
+
                 recycleview!!.visibility = View.GONE
             }
         }
@@ -380,8 +396,9 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             override fun onReceivedTitle(web: WebView?, title: String?) {
                 super.onReceivedTitle(web, title)
                 titlelayout.setTitleText(title)
+                loadingBox.hideAll()
                 LogUtils.e("tag", "onReceivedTitle" + title)
-                title?.let { web?.url?.let { it1 -> addHistory(it, it1,0) } }
+                title?.let { web?.url?.let { it1 -> addHistory(it, it1, 0) } }
             }
 
             override fun onCreateWindow(view: WebView?, isDialog: Boolean, isUserGesture: Boolean, resultMsg: Message?): Boolean {

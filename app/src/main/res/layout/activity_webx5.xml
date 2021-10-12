@@ -42,6 +42,7 @@
 
         <FrameLayout
             android:id="@+id/fl_content"
+            android:layout_above="@id/rlOption"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -80,7 +81,7 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="后退"
+                android:text="back"
                 android:textColor="@color/main_color" />
 
             <TextView
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvBack"
                 android:gravity="center"
-                android:text="前进"
+                android:text="next"
                 android:textColor="@color/main_color" />
 
             <TextView
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvNext"
                 android:gravity="center"
-                android:text="首页"
+                android:text="home"
                 android:textColor="@color/main_color" />
 
             <TextView
@@ -107,8 +108,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvHome"
                 android:gravity="center"
-                android:text="历史"
-                android:textColor="@color/main_color" />
+                android:text="history"
+                android:textColor="@drawable/oil_name_text_selector" />
 
             <TextView
                 android:id="@+id/tvLabel"
@@ -116,8 +117,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvHistory"
                 android:gravity="center"
-                android:text="书签"
-                android:textColor="@color/main_color" />
+                android:text="label"
+                android:textColor="@drawable/oil_name_text_selector" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
