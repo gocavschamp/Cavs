@@ -199,8 +199,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         // delete from Orders where Id = 7
         // 这里都条件筛选很灵活，不仅仅可以是 XX = ?，还可以是XX > ?，XX < ?，甚至是XX > ? and YY = ?，不过这样，第三个参数里面，就需要2个值了。
         val database = mySqliteHelper!!.writableDatabase
-        val arrayOf = arrayOf<String>(id.toString())
-        database.delete(MySqliteHelper.TABLE_NAME_STUDENT, "id=?", arrayOf)
+        val arrayOf = arrayOf(id.toString())
+        database.delete(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB, "id=?", arrayOf)
         val data = getData(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB)
         labelAdapter.setNewData(data)
     }

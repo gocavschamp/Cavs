@@ -61,7 +61,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvHistoryLabel"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
+            android:layout_height="@dimen/dp_300"
             android:layout_above="@id/rlOption"
             android:background="@drawable/rec_white_stoke_eee_4"
             android:visibility="visible"
