@@ -104,6 +104,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("娱乐天地");
         data.add("语音播报");
         data.add("test");
+        data.add("OCR 扫码 百度");
         mycenterAdapter.setNewData(data);
 
 
@@ -200,6 +201,9 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 21:
                         UiGoto.startAty(mActivity, TestBaseActivity.class);
+                        break;
+                    case 22:
+                        UiGoto.startAty(mActivity, OcrReadActivity.class);
                         break;
                 }
             }
