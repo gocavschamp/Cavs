@@ -18,6 +18,9 @@ android {
         multiDexKeepProguard file("tinkerMultidexKeep.pro")
         resValue('string', 'age', '12year')// 添加至 res/value，通过 R.string.age 获取
         //keep specific classes using proguard syntax
+
+        //        token  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
+
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
             abiFilters 'armeabi-v7a'
