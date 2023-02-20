@@ -27,13 +27,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import cn.jpush.android.api.JPushInterface;
-import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.embedding.engine.FlutterEngineCache;
-import io.flutter.embedding.engine.dart.DartExecutor;
+//import io.flutter.embedding.engine.FlutterEngine;
+//import io.flutter.embedding.engine.FlutterEngineCache;
+//import io.flutter.embedding.engine.dart.DartExecutor;
 import me.jessyan.autosize.AutoSizeConfig;
 
 public class MyApplication1 extends Application {
-    private FlutterEngine flutterEngine;
+//    private FlutterEngine flutterEngine;
     private static MyApplication1 instance;
 
     protected void attachBaseContext(Context base) {
@@ -72,15 +72,15 @@ public class MyApplication1 extends Application {
             StrictMode.setVmPolicy(builder.build());
             builder.detectFileUriExposure();
         }
-        flutterEngine = new FlutterEngine(this);
-        // Start executing Dart code to pre-warm the FlutterEngine.
-        flutterEngine.getDartExecutor().executeDartEntrypoint(
-                DartExecutor.DartEntrypoint.createDefault()
-        );
-        // Cache the FlutterEngine to be used by FlutterActivity.
-        FlutterEngineCache
-                .getInstance()
-                .put("my_engine_id", flutterEngine);
+//        flutterEngine = new FlutterEngine(this);
+//        // Start executing Dart code to pre-warm the FlutterEngine.
+//        flutterEngine.getDartExecutor().executeDartEntrypoint(
+//                DartExecutor.DartEntrypoint.createDefault()
+//        );
+//        // Cache the FlutterEngine to be used by FlutterActivity.
+//        FlutterEngineCache
+//                .getInstance()
+//                .put("my_engine_id", flutterEngine);
         //去除9.0 弹框
         registerActivityLifecycleCallbacks(new ActivityHelper());
         //屏幕适配

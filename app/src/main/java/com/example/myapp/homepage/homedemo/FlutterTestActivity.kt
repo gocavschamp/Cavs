@@ -11,8 +11,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.myapp.R
 import com.nucarf.base.utils.LogUtils
-import io.flutter.embedding.android.FlutterFragment
-import io.flutter.view.FlutterView
+//import io.flutter.embedding.android.FlutterFragment
+//import io.flutter.view.FlutterView
 import kotlinx.android.synthetic.main.activity_flutter_test.*
 
 
@@ -25,78 +25,78 @@ class FlutterTestActivity : FragmentActivity() {
 
     // Declare a local variable to reference the FlutterFragment so that you
     // can forward calls to it later.
-    private var flutterFragment: FlutterFragment? = null
+//    private var flutterFragment: FlutterFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.activity_flutter_test)
         val fragmentManager: FragmentManager = supportFragmentManager
-        flutterFragment = fragmentManager
-                .findFragmentByTag(TAG_FLUTTER_FRAGMENT) as FlutterFragment?
-        if (flutterFragment == null) {
-            var flutterFragment = FlutterFragment.createDefault()
-            fragmentManager
-                    .beginTransaction()
-                    .add(
-                            R.id.rl_content,
-                            flutterFragment,
-                            TAG_FLUTTER_FRAGMENT
-                    )
-                    .commit()
-        }
+//        flutterFragment = fragmentManager
+//                .findFragmentByTag(TAG_FLUTTER_FRAGMENT) as FlutterFragment?
+//        if (flutterFragment == null) {
+//            var flutterFragment = FlutterFragment.createDefault()
+//            fragmentManager
+//                    .beginTransaction()
+//                    .add(
+//                            R.id.rl_content,
+//                            flutterFragment,
+//                            TAG_FLUTTER_FRAGMENT
+//                    )
+//                    .commit()
+//        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        flutterFragment?.onRequestPermissionsResult(
-                requestCode,
-                permissions,
-                grantResults
-        );
+//        flutterFragment?.onRequestPermissionsResult(
+//                requestCode,
+//                permissions,
+//                grantResults
+//        );
     }
     override fun onPostResume() {
         super.onPostResume()
-        flutterFragment?.onPostResume()
+//        flutterFragment?.onPostResume()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        flutterFragment?.onNewIntent(intent)
+//        flutterFragment?.onNewIntent(intent)
 
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        flutterFragment?.onTrimMemory(level)
+//        flutterFragment?.onTrimMemory(level)
     }
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        flutterFragment?.onUserLeaveHint()
+//        flutterFragment?.onUserLeaveHint()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        flutterFragment?.onBackPressed()
+//        flutterFragment?.onBackPressed()
     }
     override fun onResume() {
         super.onResume()
-        flutterFragment?.onResume()
+//        flutterFragment?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        flutterFragment?.onPause()
+//        flutterFragment?.onPause()
 
     }
 
     override fun onStart() {
         super.onStart()
-        flutterFragment?.onStart()
+//        flutterFragment?.onStart()
     }
     override fun onStop() {
         super.onStop()
-        flutterFragment?.onStop()
+//        flutterFragment?.onStop()
 
     }
 }

@@ -1,12 +1,12 @@
 include ':svglib'
 include ':banner', ':loadingbox'
-setBinding(new Binding([gradle: this]))
-evaluate(new File(
-  settingsDir,
-  '../flutter_module/.android/include_flutter.groovy'
-))
+//setBinding(new Binding([gradle: this]))
+//evaluate(new File(
+//  settingsDir,
+//  '../flutter_module/.android/include_flutter.groovy'
+//))
 include ':app', ':umeng', ':PickerView', ':base', ':apicloudlib', ':exoplayerlibrary', ':AdLibrary'
 include ':appbarspring'
 
-include ':flutter_module'
-project(':flutter_module').projectDir = new File('../flutter_module')
+//include ':flutter_module'
+//project(':flutter_module').projectDir = new File('../flutter_module')

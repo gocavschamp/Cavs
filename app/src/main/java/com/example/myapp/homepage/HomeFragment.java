@@ -41,7 +41,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.flutter.embedding.android.FlutterActivity;
 
 public class HomeFragment extends BaseLazyFragment {
 
@@ -182,11 +181,11 @@ public class HomeFragment extends BaseLazyFragment {
 
                         break;
                     case 15:
-                        Intent intentflutter = FlutterActivity.withCachedEngine("my_engine_id").build(mActivity);
-                        startActivity(intentflutter);
+//                        Intent intentflutter = FlutterActivity.withCachedEngine("my_engine_id").build(mActivity);
+//                        startActivity(intentflutter);
                         break;
                     case 16:
-                        UiGoto.startAty(mActivity, FlutterTestActivity.class);
+//                        UiGoto.startAty(mActivity, FlutterTestActivity.class);
                         break;
                     case 17:
                         UiGoto.startAty(mActivity, TanTanActivity.class);
@@ -203,7 +202,7 @@ public class HomeFragment extends BaseLazyFragment {
                         UiGoto.startAty(mActivity, TestBaseActivity.class);
                         break;
                     case 22:
-                        UiGoto.startAty(mActivity, OcrReadActivity.class);
+//                        UiGoto.startAty(mActivity, OcrReadActivity.class);
                         break;
                 }
             }

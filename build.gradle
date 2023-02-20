@@ -5,7 +5,7 @@ buildscript {
 
     repositories {
         jcenter()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
         maven { url "https://jitpack.io" }
         maven {
@@ -17,7 +17,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0' // add plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'io.fabric.tools:gradle:1.28.1'
 //        classpath 'io.fabric.tools:gradle:1.28.0' //更新为最新依赖
@@ -32,7 +32,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
         maven { url "https://jitpack.io" }
         mavenCentral() // add repository

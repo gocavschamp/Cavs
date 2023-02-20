@@ -59,7 +59,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import io.flutter.embedding.android.FlutterActivity;
+//import io.flutter.embedding.android.FlutterActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;

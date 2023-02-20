@@ -54,15 +54,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.embedding.engine.FlutterEngineCache;
-import io.flutter.embedding.engine.dart.DartExecutor;
 import me.jessyan.autosize.AutoSizeConfig;
 
 
 /**
  * because you can not use any other class in your application, we need to
- * move your implement of Application to {@link ApplicationLifeCycle}
  * As Application, all its direct reference class should be in the main dex.
  * <p>
  * We use tinker-android-anno to make sure all your classes can be patched.
