@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/goods_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/goods_girl_iv"
+            android:layout_width="70dp"
+            android:layout_height="118dp"
+            android:src="@mipmap/go_girl" />
+
+        <LinearLayout
+            android:id="@+id/recyview_root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/rec_round_solid_blackalpla50"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/goods_close"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/goods_close" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/goods_recycleview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/tv_goods_item"
+                android:layout_marginRight="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/shop_iv"
+        android:layout_width="25dp"
+        android:layout_height="55dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="18dp"
+        android:src="@mipmap/shop_go"
+        android:visibility="gone" />
+
+</FrameLayout>

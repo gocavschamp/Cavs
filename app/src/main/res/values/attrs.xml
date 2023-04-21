@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--corner_color 边角颜色，
+       scanner_color 扫描线颜色
+       possible_result_color 扫描点颜色
+       frame_color 扫描框边线颜色
+       mask_color 模糊区域颜色
+       label_text  框上方提示
+   -->
+    <declare-styleable name="ViewfinderView">
+        <attr name="corner_color" format="color" />
+        <attr name="laser_color" format="color" />
+        <attr name="frame_color" format="color" />
+        <attr name="mask_color" format="color" />
+        <attr name="result_point_color" format="color" />
+        <attr name="result_color" format="color" />
+        <attr name="label_text_color" format="color" />
+        <attr name="label_text" format="string" />
+        <attr name="label_text_size" format="float" />
+    </declare-styleable>
+    <declare-styleable name="CustomProgressBar">
+        <attr name="bar_text" format="string" />
+        <attr name="bar_text_color" format="color" />
+        <attr name="indicator_text_color" format="color" />
+        <attr name="bar_text_size" format="dimension" />
+        <attr name="bar_out_color" format="color" />
+        <attr name="bar_inner_color" format="color" />
+        <attr name="bar_out_size" format="dimension" />
+        <attr name="bar_inner_size" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="HupuGift">
+        <attr name="team1_flag" format="string" />
+        <attr name="team2_flag" format="string" />
+        <attr name="text_color" format="color" />
+        <attr name="team1_bg_color" format="color" />
+        <attr name="team2_bg_color" format="color" />
+        <attr name="name_text_size" format="dimension" />
+        <attr name="gift_text_size" format="dimension" />
+        <attr name="team_size" format="dimension" />
+        <attr name="gift_size" format="dimension" />
+        <attr name="gift_margin" format="dimension" />
+        <attr name="gift_bg" format="color" />
+    </declare-styleable>
+    <declare-styleable name="CustomImageView">
+        <attr name="top_left" format="boolean" />
+        <attr name="top_right" format="boolean" />
+        <attr name="bottom_left" format="boolean" />
+        <attr name="bottom_right" format="boolean" />
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+    <!---->
+    <declare-styleable name="GiftItemLayout">
+        <attr name="gift_index" format="integer" />
+    </declare-styleable>
+</resources>

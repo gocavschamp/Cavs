@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_start"
+            android:layout_width="62dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="100dp"
+            android:background="#FFC107"
+            android:gravity="center"
+            android:text="开始录音"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tv_stop"
+            android:layout_width="62dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:background="#FF5722"
+            android:gravity="center"
+            android:text="停止录音"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/et_result"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:hint="结果:"
+            tools:ignore="MissingConstraints" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
