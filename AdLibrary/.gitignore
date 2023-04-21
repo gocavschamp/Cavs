@@ -6,3 +6,7 @@
 /androidTest
 /test
 .properties
+/debug
+/release
+*.properties
+*.apk
