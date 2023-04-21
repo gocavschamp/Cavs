@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:background="@color/main_color"
+        android:background="@drawable/rec_gray_stoke_eee_4"
         android:gravity="center"
         android:text="item info"
-        android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:textSize="13sp" />
 
 </LinearLayout>
