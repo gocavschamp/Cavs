@@ -50,7 +50,6 @@ public interface AppService {
 
     //https://haokan.baidu.com/videoui/api/videorec?tab=yingshi&act=pcFeed&pd=pc&num=5&shuaxin_id=1577413362081
     @GET
-//好看视频
     Observable<BaseResult<VideoListData>> getVideoList(@Url String url);
 
 //    https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=9933924977310a55c471d6f287756f91/314e251f95cad1c8c983f49d713e6709c93d514b.jpg

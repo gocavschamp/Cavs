@@ -22,8 +22,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.loadingbox.LoadingBox;
 import com.example.myapp.R;
 import com.example.myapp.mvp.BaseMvpActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.retrofit.RxSchedulers;
+import com.nucarf.base.utils.AssetUtil;
+import com.nucarf.base.utils.BaseAppCache;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.widget.TitleLayout;
 import com.nucarf.exoplayerlibrary.ui.ExoPlayerLayout;
@@ -60,19 +64,26 @@ public class VideoListActivity extends BaseMvpActivity<VideoListPresenter> imple
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).titleBar(titlelayout).statusBarColor(R.color.white).init();
     }
-
+    VideoListData videoData = null;
     @Override
     protected void initInject() {
 //        getActivityComponent().inject(this);
         mPresenter = new VideoListPresenter();
 
+        try {
+            String json_str = AssetUtil.getText(BaseAppCache.getContext(), "video.text");
+            videoData = new Gson().fromJson(json_str,new TypeToken<VideoListData>(){}.getType());
+        } catch ( Exception e) {
+            LogUtils.e("$name--", e.getMessage());
+        }
     }
 
     @Override
     protected void initData() {
         initView();
         if (null != mPresenter) {
-            mPresenter.loadData(true);
+//            mPresenter.loadData(true);
+            setData(true, videoData.getResponse().getVideos(), true);
         }
     }
 

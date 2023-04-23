@@ -23,6 +23,6 @@ class VideoListAdapter extends BaseQuickAdapter<VideoListData.ResponseBean.Video
         helper.setText(R.id.tv_title, item.getTitle())
                 .setText(R.id.tv_info, item.getPublish_time() + "--" + item.getFmlike() + "--" + item.getFmplaycnt());
         ImageView iv_video_cover = helper.getView(R.id.iv_video_cover);
-        GlideUtils.load(mContext, item.getPoster(), iv_video_cover);
+        GlideUtils.load(mContext, item.getPoster_small(), iv_video_cover);
     }
 }
