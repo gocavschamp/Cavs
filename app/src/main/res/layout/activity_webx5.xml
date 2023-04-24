@@ -119,6 +119,14 @@
                 android:gravity="center"
                 android:text="label"
                 android:textColor="@drawable/oil_name_text_selector" />
+            <TextView
+                android:id="@+id/tvRefresh"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvLabel"
+                android:gravity="center"
+                android:text="refresh"
+                android:textColor="@drawable/oil_name_text_selector" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

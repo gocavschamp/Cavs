@@ -29,6 +29,7 @@ import com.nucarf.base.ui.BaseActivityWithTitle
 import com.nucarf.base.utils.KeyboardUtil
 import com.nucarf.base.utils.LogUtils
 import com.nucarf.base.utils.SharePreUtils
+import com.nucarf.base.utils.StringUtils
 import com.nucarf.base.utils.ToastUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.tencent.smtt.export.external.interfaces.JsResult
@@ -55,9 +56,12 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
 //        ButterKnife.bind(this)
         //        flContent = findViewById(R.id.fl_content);
         webView = WebView(applicationContext)
-        fl_content!!.addView(webView, FrameLayout.LayoutParams(
+        fl_content!!.addView(
+            webView, FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT))
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        )
         url = intent.getStringExtra("url")
         val title = intent.getStringExtra("title")
         titlelayout.setTitleText(title + "")
@@ -101,6 +105,10 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     }
 
     private fun initListener() {
+        titlelayout.setOnLongClickListener {
+            StringUtils.copy(mContext, webView!!.url)
+            true
+        }
         titlelayout.setLeftClickListener {
             finish()
         }
@@ -125,6 +133,11 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             loadH5(labelAdapter.getItem(position)?.url)
             rvHistoryLabel.visibility = View.GONE
         }
+        labelAdapter.setOnItemLongClickListener { adapter, view, position ->
+            labelAdapter.getItem(position)
+            StringUtils.copy(mContext, labelAdapter.getItem(position)?.url)
+            true
+        }
         labelAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.ivDelete -> {
@@ -133,7 +146,9 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             }
 
         }
-        et_url!!.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus -> recycleview!!.visibility = if (hasFocus) View.VISIBLE else View.GONE }
+        et_url!!.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            recycleview!!.visibility = if (hasFocus) View.VISIBLE else View.GONE
+        }
         tvBack.setOnClickListener {
             if (webView!!.canGoBack()) {
                 webView!!.goBack()
@@ -167,6 +182,11 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             else
                 getLabel()
         }
+        tvRefresh.setOnClickListener {
+            tvHistory.isSelected = false
+            tvRefresh.isSelected = !tvRefresh.isSelected
+           webView?.reload()
+        }
     }
 
     private fun getLabel() {
@@ -177,8 +197,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
 
     private fun addLabel(title: String, url: String, iscollect: Int?) {
         val database = mySqliteHelper!!.writableDatabase
-        val whereArgs = arrayOf(title,url)
-        database.delete(MySqliteHelper.TABLE_NAME_WEB,"title=? and url = ?",whereArgs)
+        val whereArgs = arrayOf(title, url)
+        database.delete(MySqliteHelper.TABLE_NAME_WEB, "title=? and url = ?", whereArgs)
         val values = ContentValues()
         values.put("title", title)
         values.put("url", url)
@@ -200,15 +220,20 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         // 这里都条件筛选很灵活，不仅仅可以是 XX = ?，还可以是XX > ?，XX < ?，甚至是XX > ? and YY = ?，不过这样，第三个参数里面，就需要2个值了。
         val database = mySqliteHelper!!.writableDatabase
         val arrayOf = arrayOf(id.toString())
-        database.delete(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB, "id=?", arrayOf)
-        val data = getData(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB)
+        database.delete(
+            if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB,
+            "id=?",
+            arrayOf
+        )
+        val data =
+            getData(if (isLabel) MySqliteHelper.TABLE_NAME_LABEL else MySqliteHelper.TABLE_NAME_WEB)
         labelAdapter.setNewData(data)
     }
 
     private fun addHistory(title: String, url: String, iscollect: Int?) {
         val database = mySqliteHelper!!.writableDatabase
-        val whereArgs = arrayOf(title,url)
-        database.delete(MySqliteHelper.TABLE_NAME_WEB,"title=? and url = ?",whereArgs)
+        val whereArgs = arrayOf(title, url)
+        database.delete(MySqliteHelper.TABLE_NAME_WEB, "title=? and url = ?", whereArgs)
         val values = ContentValues()
         values.put("title", title)
         values.put("url", url)
@@ -241,7 +266,14 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                         var nickname: String? = cursor.getString(cursor.getColumnIndex("nickname"));
                         var note: String? = cursor.getString(cursor.getColumnIndex("note"));
                         var iscollect: Int? = cursor.getInt(cursor.getColumnIndex("iscollect"));
-                        var item = WebHistory(id = id.toInt(), title = title, url = url, nickname = nickname, note = note, iscollect = iscollect)
+                        var item = WebHistory(
+                            id = id.toInt(),
+                            title = title,
+                            url = url,
+                            nickname = nickname,
+                            note = note,
+                            iscollect = iscollect
+                        )
                         data.add(item)
 
                     }
@@ -253,7 +285,14 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                         var nickname: String? = cursor.getString(cursor.getColumnIndex("nickname"));
                         var note: String? = cursor.getString(cursor.getColumnIndex("note"));
                         var iscollect: Int? = cursor.getInt(cursor.getColumnIndex("iscollect"));
-                        var item = WebHistory(id = id.toInt(), title = title, url = url, nickname = nickname, note = note, iscollect = iscollect)
+                        var item = WebHistory(
+                            id = id.toInt(),
+                            title = title,
+                            url = url,
+                            nickname = nickname,
+                            note = note,
+                            iscollect = iscollect
+                        )
                         data.add(item)
 
                     }
@@ -286,8 +325,10 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             settings.setAppCachePath(appCachePath)
             settings.setAppCachePath(this@WebViewX5KtActivity.getDir("appcache", 0).path)
             settings.databasePath = this@WebViewX5KtActivity.getDir("databases", 0).path
-            settings.setGeolocationDatabasePath(this@WebViewX5KtActivity.getDir("geolocation", 0)
-                    .path)
+            settings.setGeolocationDatabasePath(
+                this@WebViewX5KtActivity.getDir("geolocation", 0)
+                    .path
+            )
             settings.setGeolocationEnabled(true)
             settings.databaseEnabled = true
             settings.setAppCacheEnabled(true)
@@ -327,12 +368,23 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         // 与js交互
         webView!!.webViewClient = object : WebViewClient() {
             //webview加载https链接错误或无响应
-            override fun onReceivedSslError(webView: WebView, handler: SslErrorHandler?, sslError: SslError) {
+            override fun onReceivedSslError(
+                webView: WebView,
+                handler: SslErrorHandler?,
+                sslError: SslError
+            ) {
                 handler?.proceed()
-                Toast.makeText(this@WebViewX5KtActivity, "" + sslError.primaryError, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@WebViewX5KtActivity,
+                    "" + sslError.primaryError,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+            override fun shouldOverrideUrlLoading(
+                view: WebView,
+                request: WebResourceRequest
+            ): Boolean {
                 LogUtils.e("tag", "shouldOverrideUrlLoading---" + view.url)
                 /**
                  * 拦截tel:拨打电话。
@@ -369,6 +421,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
                 LogUtils.e("tag", "onPageFinished" + url)
+                dismissDialog()
 
                 recycleview!!.visibility = View.GONE
             }
@@ -378,7 +431,11 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             /**
              * 16(Android 4.1.2) <= API <= 20(Android 4.4W.2)回调此方法
              */
-            override fun openFileChooser(uploadMsg: ValueCallback<Uri?>, acceptType: String?, capture: String?) {
+            override fun openFileChooser(
+                uploadMsg: ValueCallback<Uri?>,
+                acceptType: String?,
+                capture: String?
+            ) {
                 mUploadCallbackBelow = uploadMsg
                 takePhoto()
             }
@@ -386,7 +443,11 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             /**
              * API >= 21(Android 5.0.1)回调此方法
              */
-            override fun onShowFileChooser(webView: WebView?, filePathCallback: ValueCallback<Array<Uri?>?>, fileChooserParams: FileChooserParams?): Boolean {
+            override fun onShowFileChooser(
+                webView: WebView?,
+                filePathCallback: ValueCallback<Array<Uri?>?>,
+                fileChooserParams: FileChooserParams?
+            ): Boolean {
                 // (1)该方法回调时说明版本API >= 21，此时将结果赋值给 mUploadCallbackAboveL，使之 != null
                 mUploadCallbackAboveL = filePathCallback
                 takePhoto()
@@ -401,7 +462,12 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                 title?.let { web?.url?.let { it1 -> addHistory(it, it1, 0) } }
             }
 
-            override fun onCreateWindow(view: WebView?, isDialog: Boolean, isUserGesture: Boolean, resultMsg: Message?): Boolean {
+            override fun onCreateWindow(
+                view: WebView?,
+                isDialog: Boolean,
+                isUserGesture: Boolean,
+                resultMsg: Message?
+            ): Boolean {
                 return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg)
             }
 
@@ -409,7 +475,12 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                 super.onProgressChanged(view, newProgress)
             }
 
-            override fun onJsAlert(webView: WebView?, s: String, s1: String, jsResult: JsResult): Boolean {
+            override fun onJsAlert(
+                webView: WebView?,
+                s: String,
+                s1: String,
+                jsResult: JsResult
+            ): Boolean {
                 LogUtils.e("web--js  alert==$s---$s1---$jsResult")
                 return super.onJsAlert(webView, s, s1, jsResult)
             }
@@ -501,18 +572,22 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     @SuppressLint("CheckResult")
     private fun takePhoto() {
         val rxPermissions = RxPermissions(this)
-        rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe { aBoolean: Boolean ->
-                    if (aBoolean) {
-                        val i = Intent(Intent.ACTION_GET_CONTENT)
-                        i.addCategory(Intent.CATEGORY_OPENABLE)
-                        i.type = "image/*"
-                        startActivityForResult(Intent.createChooser(i, "Image Chooser"), 100)
-                    } else {
-                        //用户不同意使用权限
-                        ToastUtils.show_middle(mContext, "应用缺少必要的权限！请打开所需要的权限。", 1)
-                    }
+        rxPermissions.request(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+            .subscribe { aBoolean: Boolean ->
+                if (aBoolean) {
+                    val i = Intent(Intent.ACTION_GET_CONTENT)
+                    i.addCategory(Intent.CATEGORY_OPENABLE)
+                    i.type = "image/*"
+                    startActivityForResult(Intent.createChooser(i, "Image Chooser"), 100)
+                } else {
+                    //用户不同意使用权限
+                    ToastUtils.show_middle(mContext, "应用缺少必要的权限！请打开所需要的权限。", 1)
                 }
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
