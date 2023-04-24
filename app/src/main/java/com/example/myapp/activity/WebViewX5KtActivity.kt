@@ -403,16 +403,15 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
              * 在开始加载网页时会回调
              */
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                LogUtils.e("tag", "onPageStarted" + url)
+                LogUtils.e("tag", "onPageStarted-----" + url)
 
                 super.onPageStarted(view, url, favicon)
-                loadingBox.showLoadingLayout()
+                showDialog()
             }
 
             override fun onLoadResource(p0: WebView?, p1: String?) {
                 super.onLoadResource(p0, p1)
-                LogUtils.i("tag", "onLoadResource" + url)
-
+                LogUtils.i("tag", "onLoadResource-----" + url)
             }
 
             /**
@@ -420,9 +419,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
              */
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
-                LogUtils.e("tag", "onPageFinished" + url)
+                LogUtils.e("tag", "----onPageFinished-----" + url)
                 dismissDialog()
-
                 recycleview!!.visibility = View.GONE
             }
         }
@@ -457,7 +455,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             override fun onReceivedTitle(web: WebView?, title: String?) {
                 super.onReceivedTitle(web, title)
                 titlelayout.setTitleText(title)
-                loadingBox.hideAll()
+               dismissDialog()
                 LogUtils.e("tag", "onReceivedTitle" + title)
                 title?.let { web?.url?.let { it1 -> addHistory(it, it1, 0) } }
             }
@@ -523,8 +521,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     }
 
     override fun onBackPressed() {
-        if (loadingBox.isShowing()) {
-            loadingBox.hideAll()
+        if (isDialogShowing) {
+          dismissDialog()
             return
         }
         if (webView!!.canGoBack()) {
