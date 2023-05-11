@@ -204,10 +204,9 @@ public class DialogShowActivity extends BaseActivity {
                 break;
             case R.id.tv_6:
                 MaterialDialog dialog = new MaterialDialog(this, MaterialDialog.getDEFAULT_BEHAVIOR());
-//                dialog.title(null, null);
-//                dialog.message(null, null, null);
-////                dialog.set
-//                dialog.show();
+                dialog.title(null, null);
+                dialog.message(null, null, null);
+                dialog.show();
                 break;
         }
     }

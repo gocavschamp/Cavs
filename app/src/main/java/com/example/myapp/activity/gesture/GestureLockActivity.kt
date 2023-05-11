@@ -13,6 +13,7 @@ import com.nucarf.base.ui.BaseActivityWithTitle2
 import com.nucarf.base.utils.DialogUtils
 import com.nucarf.base.utils.DialogUtils.DialogClickListener
 import kotlinx.android.synthetic.main.activity_gesture_lock.*
+import kotlinx.android.synthetic.main.customer_notitfication_layout.*
 
 
 /**
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_gesture_lock.*
 class GestureLockActivity : BaseActivityWithTitle2() {
     private val TAG = "GestureLockActivity"
     private var mFingerprintIdentify: FingerprintIdentify? = null
-    private var mAlertDialog: Dialog? = null
+    private var materialDialog: MaterialDialog? = null
 
     override fun getLayoutResId(): Int {
       return R.layout.activity_gesture_lock
@@ -59,17 +60,11 @@ class GestureLockActivity : BaseActivityWithTitle2() {
                 BaseFingerprint.FingerprintIdentifyListener {
                 override fun onSucceed() {
                     Log.i(TAG, "mFingerprintIdentify onSucceed")
-//                    MaterialDialog(mContext)
-//                        .setTitle("")
-                    DialogUtils.getInstance().showRadioDialog(mContext, "验证通过", "匹配成功", "", object :DialogClickListener{
-                        override fun confirm() {
-
-
-                        }
-
-                        override fun cancel() {
-                        }
-                    })
+                   materialDialog = MaterialDialog(mContext).show {
+                        title(text = "验证通过")
+                        message(text = "匹配成功")
+                        icon(R.mipmap.ic_finger_print)
+                    }
 
                     tv_auth_result.setText("指纹验证通过")
                     Toast.makeText(this@GestureLockActivity, "onSucceed", Toast.LENGTH_SHORT).show()
@@ -81,15 +76,11 @@ class GestureLockActivity : BaseActivityWithTitle2() {
                         "mFingerprintIdentify onNotMatch, availableTimes: $availableTimes"
                     )
                     tv_auth_result.setText("指纹验证不通过")
-                    DialogUtils.getInstance().showRadioDialog(mContext, "验证失败", "请重试", "", object :DialogClickListener{
-                        override fun confirm() {
-
-
-                        }
-
-                        override fun cancel() {
-                        }
-                    })
+                    materialDialog?.show {
+                        title(text = "验证失败")
+                        message(text = "请重试")
+                        icon(R.mipmap.ic_finger_print)
+                    }
 
 
                     Toast.makeText(this@GestureLockActivity, "onNotMatch", Toast.LENGTH_SHORT).show()
@@ -97,16 +88,11 @@ class GestureLockActivity : BaseActivityWithTitle2() {
 
                 override fun onFailed() {
                     Log.i(TAG, "mFingerprintIdentify onFailed")
-                    DialogUtils.getInstance().showRadioDialog(mContext, "警告", "指纹验证错误次数超过上限", "", object :DialogClickListener{
-                        override fun confirm() {
-
-
-                        }
-
-                        override fun cancel() {
-                        }
-                    })
-
+                    materialDialog?.show {
+                        title(text = "警告")
+                        message(text = "指纹验证错误次数超过上限")
+                        icon(R.mipmap.ic_finger_print)
+                    }
 
                     tv_auth_result.setText("指纹验证错误次数超过上限")
                     Toast.makeText(this@GestureLockActivity, "onFailed", Toast.LENGTH_SHORT).show()
