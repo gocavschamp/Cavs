@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.game.GameActivity;
+import com.example.myapp.activity.gesture.GestureLockActivity;
 import com.example.myapp.activity.speak.SpeakActivity;
 import com.example.myapp.activity.svga.SvgaGiftActivity;
 import com.example.myapp.activity.tantan.TanTanActivity;
@@ -104,6 +105,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("语音播报");
         data.add("test");
         data.add("OCR 扫码 百度");
+        data.add("手势解锁");
         mycenterAdapter.setNewData(data);
 
 
@@ -203,6 +205,9 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 22:
 //                        UiGoto.startAty(mActivity, OcrReadActivity.class);
+                        break;
+                    case 23:
+                        UiGoto.startAty(mActivity, GestureLockActivity.class);
                         break;
                 }
             }

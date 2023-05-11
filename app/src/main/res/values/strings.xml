@@ -10,5 +10,7 @@
     <string name="item_example_pager_left" translatable="false">Left Pager</string>
     <string name="item_example_pager_right" translatable="false">Right Pager</string>
     <string name="app_welcome">welcome</string>
-
+    <string name="gesture_input_old_pwd">输入旧的密码</string>
+    <string name="gesture_set_pwd">设置手势密码</string>
+    <string name="gesture_set_new_pwd">设置新的手势密码</string>
 </resources>

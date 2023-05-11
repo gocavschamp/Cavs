@@ -166,6 +166,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
+            android:name=".activity.gesture.GestureLockActivity"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateUnspecified" />
+        <activity
+            android:name=".activity.gesture.GestureUnlockActivity"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateUnspecified" />
+        <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:hardwareAccelerated="true"
