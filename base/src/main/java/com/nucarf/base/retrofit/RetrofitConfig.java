@@ -82,7 +82,7 @@ public class RetrofitConfig {
     public static final String WX_APISECRET = "yyy995f6ee44a0b28ef026f0bfca00697";
 
     //友盟 AppKey：
-    //5c19c610b465f56e03000259
-    public static final String UM_APPKEY = "5c19c610b465f56e0300";
+    //5c19c610b465f56e03000259  --->645e02c57dddcc5bad486bad  (MYSELF)
+    public static final String UM_APPKEY = "645e02c57dddcc5bad486bad";
 
 }

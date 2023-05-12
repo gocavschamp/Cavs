@@ -27,7 +27,7 @@ class GestureLockActivity : BaseActivityWithTitle2() {
     private var materialDialog: MaterialDialog? = null
 
     override fun getLayoutResId(): Int {
-      return R.layout.activity_gesture_lock
+        return R.layout.activity_gesture_lock
     }
 
     override fun initView() {
@@ -45,22 +45,18 @@ class GestureLockActivity : BaseActivityWithTitle2() {
         //启动指纹认证
         btn_fingerprint.setOnClickListener(View.OnClickListener {
             Log.i(TAG, "mStartFingerPrint onClick")
-            DialogUtils.getInstance().showRadioDialog(mContext, "指纹验证", "请将手指放于指纹传感器上", "",object :DialogClickListener{
-                override fun confirm() {
-
-
-                }
-
-                override fun cancel() {
-                }
-            })
+            materialDialog = MaterialDialog(mContext).show {
+                title(text = "指纹验证")
+                message(text = "请将手指放于指纹传感器上")
+                icon(R.mipmap.ic_finger_print)
+            }
 
             tv_auth_result.setText("等待指纹验证结果")
             mFingerprintIdentify?.startIdentify(3, object :
                 BaseFingerprint.FingerprintIdentifyListener {
                 override fun onSucceed() {
                     Log.i(TAG, "mFingerprintIdentify onSucceed")
-                   materialDialog = MaterialDialog(mContext).show {
+                    materialDialog = MaterialDialog(mContext).show {
                         title(text = "验证通过")
                         message(text = "匹配成功")
                         icon(R.mipmap.ic_finger_print)
@@ -83,7 +79,8 @@ class GestureLockActivity : BaseActivityWithTitle2() {
                     }
 
 
-                    Toast.makeText(this@GestureLockActivity, "onNotMatch", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@GestureLockActivity, "onNotMatch", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
                 override fun onFailed() {

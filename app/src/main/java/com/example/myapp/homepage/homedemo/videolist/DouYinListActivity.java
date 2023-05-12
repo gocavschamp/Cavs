@@ -31,7 +31,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
 public class DouYinListActivity extends BaseMvpActivity<VideoListPresenter> implements VideoListContract.View, ExoPlayerListener, View.OnClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.titlelayout)

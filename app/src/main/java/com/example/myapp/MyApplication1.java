@@ -58,9 +58,9 @@ public class MyApplication1 extends Application {
         String MTA_CHANNEL_VALUE = appInfo.metaData.getString("CHANNEL_VALUE");
         BaseAppCache.setChannel_name(MTA_CHANNEL_VALUE);
         BaseAppCache.setVersion_code(BuildConfig.VERSION_CODE);
+        UMConfigure.preInit(this,RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE);
         UMConfigure.init(this, RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE, UMConfigure.DEVICE_TYPE_PHONE, "");//pushSecret 58edcfeb310c93091c000be2 5965ee00734be40b580001a0
         PlatformConfig.setWeixin(RetrofitConfig.WX_APPID, RetrofitConfig.WX_APISECRET);
-
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         BaseAppCache.setContext(this);

@@ -124,6 +124,8 @@ android {
                     JPUSH_PKGNAME        : "com.moonlight.flyvideo",
                     JPUSH_APPKEY         : "f43d0d154bd1093cd75ac513", //JPush 上注册的包名对应的 Appkey.
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
+                    UMENG_APPKEY        : "645e02c57dddcc5bad486bad",
+
             ]
         }
         // 测试类型，给测试人员
@@ -153,6 +155,7 @@ android {
                     JPUSH_PKGNAME        : "com.moonlight.flyvideo",
                     JPUSH_APPKEY         : "f43d0d154bd1093cd75ac513", //JPush 上注册的包名对应的 Appkey.
                     JPUSH_CHANNEL        : "developer-default", //暂时填写默认值即可.
+                    UMENG_APPKEY        : "645e02c57dddcc5bad486bad",
             ]
         }
         // 本地类型，和后端联调使用

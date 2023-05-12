@@ -107,7 +107,13 @@ dependencies {
     api 'com.google.zxing:core:3.3.0'
     //    implementation files('libs/AMap3DMap_6.7.0_AMapSearch_6.5.0_AMapLocation_4.4.0_20190213.jar')
     api project(':PickerView')
-    api project(':umeng')
+//    api project(':umeng')
+    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+    api  'com.umeng.umsdk:common:9.5.4'// (必选)
+    api  'com.umeng.umsdk:asms:1.6.3'// 必选
+    api  'com.umeng.umsdk:abtest:1.0.1'//使用U-App中ABTest能力，可选
+    api 'com.umeng.umsdk:apm:1.9.1'// U-APM产品包依赖(必选)
+    api  'com.umeng.umsdk:share-core:7.3.2'//分享核心库，必选
     //动态url 更换
     api 'me.jessyan:retrofit-url-manager:1.4.0'
     api files('libs/Msc.jar')
