@@ -109,7 +109,7 @@ android {
         // 发布类型
         release {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
-            applicationIdSuffix ""
+//            applicationIdSuffix ""
             signingConfig signingConfigs.release
             minifyEnabled false
             buildConfigField "boolean", "LOG_DEBUG", "false"// 不显示Log
@@ -132,7 +132,7 @@ android {
         debug {
             // 若此时 applicationId 为 com.zinc.gradlestudy，则最终会形成 com.zinc.gradlestudy.debug 的包名
 //            applicationIdSuffix ".debug"//applicationId 添加后缀
-            applicationIdSuffix ""//applicationId 添加后缀
+//            applicationIdSuffix ""//applicationId 添加后缀
             signingConfig signingConfigs.debug
             debuggable true
             minifyEnabled false//开启混淆

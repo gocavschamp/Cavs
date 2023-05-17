@@ -17,6 +17,7 @@ import com.nucarf.base.BuildConfig;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.ActivityHelper;
 import com.nucarf.base.utils.BaseAppCache;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
@@ -59,7 +60,9 @@ public class MyApplication1 extends Application {
         BaseAppCache.setChannel_name(MTA_CHANNEL_VALUE);
         BaseAppCache.setVersion_code(BuildConfig.VERSION_CODE);
         UMConfigure.preInit(this,RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE);
-        UMConfigure.init(this, RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE, UMConfigure.DEVICE_TYPE_PHONE, "");//pushSecret 58edcfeb310c93091c000be2 5965ee00734be40b580001a0
+        // 选用AUTO页面采集模式
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        UMConfigure.setLogEnabled(true);
         PlatformConfig.setWeixin(RetrofitConfig.WX_APPID, RetrofitConfig.WX_APISECRET);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -101,25 +104,25 @@ public class MyApplication1 extends Application {
      * 反射 禁止弹窗
      */
     private void disableAPIDialog() {
-        if (Build.VERSION.SDK_INT < 28) return;
-        try {
-            Class aClass = Class.forName("android.content.pm.PackageParser$Package");
-            Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
-            declaredConstructor.setAccessible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            Class clazz = Class.forName("android.app.ActivityThread");
-            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
-            currentActivityThread.setAccessible(true);
-            Object activityThread = currentActivityThread.invoke(null);
-            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
-            mHiddenApiWarningShown.setAccessible(true);
-            mHiddenApiWarningShown.setBoolean(activityThread, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        if (Build.VERSION.SDK_INT < 28) return;
+//        try {
+//            Class aClass = Class.forName("android.content.pm.PackageParser$Package");
+//            Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);
+//            declaredConstructor.setAccessible(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            Class clazz = Class.forName("android.app.ActivityThread");
+//            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+//            currentActivityThread.setAccessible(true);
+//            Object activityThread = currentActivityThread.invoke(null);
+//            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+//            mHiddenApiWarningShown.setAccessible(true);
+//            mHiddenApiWarningShown.setBoolean(activityThread, true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
     /**
      * 初始化GreenDao,直接在Application中进行初始化操作
