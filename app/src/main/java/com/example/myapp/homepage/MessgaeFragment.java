@@ -1,18 +1,48 @@
 package com.example.myapp.homepage;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myapp.R;
+import com.example.myapp.activity.EditInputActivity;
+import com.example.myapp.activity.WebViewX5KtActivity;
+import com.example.myapp.activity.game.GameActivity;
+import com.example.myapp.activity.gesture.GestureLockActivity;
+import com.example.myapp.activity.speak.SpeakActivity;
+import com.example.myapp.activity.svga.SvgaGiftActivity;
+import com.example.myapp.activity.tantan.TanTanActivity;
+import com.example.myapp.homepage.homedemo.DBTestActivity;
+import com.example.myapp.homepage.homedemo.EdittextTextActivity;
+import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
+import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
+import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;
+import com.example.myapp.homepage.homedemo.bannertest.BannerActivity;
+import com.example.myapp.homepage.homedemo.bottomsheet.BottomSheetBihaverActivity;
+import com.example.myapp.homepage.homedemo.dialogshow.DialogShowActivity;
+import com.example.myapp.homepage.homedemo.dragscallview.DragAndScallActivity;
+import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
+import com.example.myapp.homepage.homedemo.videolist.DouYinListActivity;
+import com.example.myapp.homepage.homedemo.videolist.VideoListActivity;
+import com.example.myapp.homepage.homedemo.xunfei.XunFeiYuYinActivity;
+import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
 import com.example.myapp.widget.CustomView;
 import com.example.myapp.widget.HupuGiftView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.gyf.barlibrary.OnKeyboardListener;
 import com.nucarf.base.ui.BaseLazyFragment;
+import com.nucarf.base.ui.TestBaseActivity;
+import com.nucarf.base.utils.UiGoto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,6 +68,9 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
     HupuGiftView hupu;
     @BindView(R.id.hupu2)
     HupuGiftView hupu2;
+    @BindView(R.id.recycleview)
+    RecyclerView recycleview;
+    private ListAdapter mycenterAdapter;
 
     public MessgaeFragment() {
     }
@@ -54,13 +87,13 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
     @Override
     protected void initData() {
         ImmersionBar immersionBar = ImmersionBar.with(this).setOnKeyboardListener(this);
-//        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//
-//            }
-//        });
-
+        List<String> data = new ArrayList<>();
+        data.add("Edittext input limit");
+        data.add("todo1");
+        data.add("todo2");
+        data.add("todo3");
+        data.add("todo4");
+        mycenterAdapter.setNewData(data);
     }
 
     @Override
@@ -73,6 +106,33 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
         etCard.setOnClickListener(this);
         hupu.setOnGiftClick(this);
         hupu2.setOnGiftClick(this);
+        recycleview.setLayoutManager(new GridLayoutManager(mActivity, 2, RecyclerView.VERTICAL, false));
+        mycenterAdapter = new ListAdapter(R.layout.mycenter_item);
+        recycleview.setAdapter(mycenterAdapter);
+        mycenterAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String item = mycenterAdapter.getData().get(position);
+                switch (position) {
+                    case 0:
+                        UiGoto.startAty(mActivity, EditInputActivity.class);
+                        break;
+                    case 1:
+                        UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
+                        break;
+                    case 2:
+                        UiGoto.startAty(mActivity, RxjavaDemoActivity.class);
+                        break;
+                    case 3:
+                        UiGoto.startAty(mActivity, MultItemActivity.class);
+                        break;
+                    case 4:
+                        Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
+                        mActivity.startActivity(intent);
+                        break;
+                }
+            }
+        });
     }
 
     @Override

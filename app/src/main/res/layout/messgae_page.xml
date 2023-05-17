@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -44,6 +45,14 @@
         app:team2_bg_color="@color/green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/mycenter_item"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        android:layout_height="match_parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"

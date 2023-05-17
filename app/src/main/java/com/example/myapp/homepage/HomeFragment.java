@@ -64,7 +64,7 @@ public class HomeFragment extends BaseLazyFragment {
     TextView tvAmap;
     @BindView(R.id.tv_zxing)
     TextView tvZxing;
-    private MycenterAdapter mycenterAdapter;
+    private ListAdapter mycenterAdapter;
 
     public HomeFragment() {
     }
@@ -113,15 +113,8 @@ public class HomeFragment extends BaseLazyFragment {
 
     @Override
     protected void initView() {
-        new Handler().sendMessage(Message.obtain());
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
         recycleview.setLayoutManager(new GridLayoutManager(mActivity, 3, RecyclerView.VERTICAL, false));
-        mycenterAdapter = new MycenterAdapter(R.layout.mycenter_item);
+        mycenterAdapter = new ListAdapter(R.layout.mycenter_item);
         recycleview.setAdapter(mycenterAdapter);
         mycenterAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -243,15 +236,4 @@ public class HomeFragment extends BaseLazyFragment {
         }
     }
 
-    private class MycenterAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-        public MycenterAdapter(int layout) {
-            super(layout);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, String item) {
-            helper.setText(R.id.tv_info, item);
-
-        }
-    }
 }
