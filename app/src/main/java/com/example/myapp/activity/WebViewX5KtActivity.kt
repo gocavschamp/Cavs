@@ -447,12 +447,14 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
                 LogUtils.e("tag", "----onPageFinished-----" + url)
+                recycleview.visibility = View.GONE
                 dismissDialog()
             }
         }
         webView!!.webChromeClient = object : WebChromeClient() {
             override fun onShowCustomView(view: View?, callback: IX5WebChromeClient.CustomViewCallback?) {
 //                super.onShowCustomView(view, callback)
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 if (customView!=null){
                     customViewCallback?.onCustomViewHidden()
                     return
