@@ -10,6 +10,7 @@
         android:id="@+id/ll_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
@@ -19,19 +20,23 @@
         <EditText
             android:id="@+id/et_url"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_40"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_height="@dimen/dp_35"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:background="@drawable/rec_white_stoke_eee_4"
+            android:background="@drawable/rec_white_stoke_eee_r20"
             android:hint="输入网址或内容"
+            android:padding="@dimen/dp_5"
             android:textColor="@color/black"
             android:textColorHint="@color/color_333333"
-            android:textSize="17sp" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_seach"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/rec_white_stoke_eee_r20"
             android:text="搜索" />
     </LinearLayout>
 
@@ -42,14 +47,22 @@
 
         <FrameLayout
             android:id="@+id/fl_content"
-            android:layout_above="@id/rlOption"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_above="@id/rlOption" />
+
+        <FrameLayout
+            android:id="@+id/fl_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/rlOption"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
             android:background="@color/color_f5f5f5"
             android:orientation="vertical"
             android:visibility="visible"
@@ -80,7 +93,9 @@
                 android:id="@+id/tvBack"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rec_white_stoke_eee_r20"
                 android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:text="back"
                 android:textColor="@color/main_color" />
 
@@ -88,7 +103,9 @@
                 android:id="@+id/tvNext"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_toRightOf="@id/tvBack"
+                android:background="@drawable/rec_white_stoke_eee_r20"
                 android:gravity="center"
                 android:text="next"
                 android:textColor="@color/main_color" />
@@ -98,7 +115,9 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvNext"
+                android:background="@drawable/rec_white_stoke_eee_r20"
                 android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:text="home"
                 android:textColor="@color/main_color" />
 
@@ -107,6 +126,8 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvHome"
+                android:background="@drawable/rec_white_stoke_eee_r20"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:gravity="center"
                 android:text="history"
                 android:textColor="@drawable/oil_name_text_selector" />
@@ -116,15 +137,20 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvHistory"
+                android:background="@drawable/rec_white_stoke_eee_r20"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:gravity="center"
                 android:text="label"
                 android:textColor="@drawable/oil_name_text_selector" />
+
             <TextView
                 android:id="@+id/tvRefresh"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tvLabel"
+                android:background="@drawable/rec_white_stoke_eee_r20"
                 android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:text="refresh"
                 android:textColor="@drawable/oil_name_text_selector" />
         </RelativeLayout>

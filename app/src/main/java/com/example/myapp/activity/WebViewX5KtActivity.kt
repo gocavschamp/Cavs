@@ -5,13 +5,17 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Message
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
@@ -32,10 +36,7 @@ import com.nucarf.base.utils.SharePreUtils
 import com.nucarf.base.utils.StringUtils
 import com.nucarf.base.utils.ToastUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.tencent.smtt.export.external.interfaces.JsResult
-import com.tencent.smtt.export.external.interfaces.SslError
-import com.tencent.smtt.export.external.interfaces.SslErrorHandler
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest
+import com.tencent.smtt.export.external.interfaces.*
 import com.tencent.smtt.sdk.*
 import kotlinx.android.synthetic.main.activity_webx5.*
 import java.util.*
@@ -43,6 +44,7 @@ import java.util.*
 
 class WebViewX5KtActivity : BaseActivityWithTitle() {
 
+    private var islandport: Boolean = false
     private lateinit var labelAdapter: LabelAdapter
     private var mySqliteHelper: MySqliteHelper? = null
     internal var webView: WebView? = null
@@ -50,6 +52,14 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     private var webStationAdapter: WebStationAdapter? = null
     private var mUploadCallbackBelow: ValueCallback<Uri?>? = null
     private var mUploadCallbackAboveL: ValueCallback<Array<Uri?>?>? = null
+
+    private var customViewCallback: IX5WebChromeClient.CustomViewCallback? = null
+    private var customView: View? = null
+
+    private var audioManager: AudioManager? = null
+    private lateinit var listener: AudioManager.OnAudioFocusChangeListener
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webx5)
@@ -66,7 +76,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         val title = intent.getStringExtra("title")
         titlelayout.setTitleText(title + "")
         titlelayout.setRightText("收藏书签☆")
-        recycleview!!.layoutManager = GridLayoutManager(mContext, 4, RecyclerView.VERTICAL, false)
+        recycleview!!.layoutManager = GridLayoutManager(mContext, 5, RecyclerView.VERTICAL, false)
         webStationAdapter = WebStationAdapter(R.layout.item_web_station)
         recycleview!!.adapter = webStationAdapter
         labelAdapter = LabelAdapter(R.layout.item_db_history)
@@ -77,6 +87,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         initWeb()
         mySqliteHelper = MySqliteHelper.getHelperInstance(mContext)
         rvHistoryLabel.visibility = View.GONE
+        audioWebViewControl()
     }
 
     private fun initStation() {
@@ -96,14 +107,30 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         val bean4 = StringBean()
         bean4.name = "虎扑"
         bean4.value = "https://m.hupu.com/"
+        val bean5 = StringBean()
+        bean5.name = "好看视频"
+        bean5.value = "https://haokan.baidu.com/"
+        val bean6 = StringBean()
+        bean6.name = "搜神谱"
+        bean6.value = "https://www.jspoo.com/"
         data.add(bean)
         data.add(bean1)
         data.add(bean2)
         data.add(bean3)
         data.add(bean4)
+        data.add(bean5)
+        data.add(bean6)
         webStationAdapter!!.setNewData(data)
     }
-
+    private fun audioWebViewControl() {
+        audioManager = mContext?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        listener = AudioManager.OnAudioFocusChangeListener {
+//            when (it) {
+//                AudioManager.AUDIOFOCUS_LOSS -> ToastUtils.showShortToast(context, "loss")
+//                AudioManager.AUDIOFOCUS_GAIN -> ToastUtils.showShortToast(context, "gain")
+//            }
+        }
+    }
     private fun initListener() {
         titlelayout.setOnLongClickListener {
             StringUtils.copy(mContext, webView!!.url)
@@ -125,13 +152,13 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             KeyboardUtil.hideInput(et_url, mContext)
         }
         webStationAdapter!!.setOnItemClickListener { adapter, view, position ->
-            //            recycleview.setVisibility(View.GONE);
-            loadH5(webStationAdapter!!.data[position].value + "")
             rvHistoryLabel.visibility = View.GONE
+             recycleview.setVisibility(View.GONE);
+            loadH5(webStationAdapter!!.data[position].value + "")
         }
         labelAdapter.setOnItemClickListener { adapter, view, position ->
-            loadH5(labelAdapter.getItem(position)?.url)
             rvHistoryLabel.visibility = View.GONE
+            loadH5(labelAdapter.getItem(position)?.url)
         }
         labelAdapter.setOnItemLongClickListener { adapter, view, position ->
             labelAdapter.getItem(position)
@@ -421,10 +448,34 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                 super.onPageFinished(view, url)
                 LogUtils.e("tag", "----onPageFinished-----" + url)
                 dismissDialog()
-                recycleview!!.visibility = View.GONE
             }
         }
         webView!!.webChromeClient = object : WebChromeClient() {
+            override fun onShowCustomView(view: View?, callback: IX5WebChromeClient.CustomViewCallback?) {
+//                super.onShowCustomView(view, callback)
+                if (customView!=null){
+                    customViewCallback?.onCustomViewHidden()
+                    return
+                }
+                customView = view
+                customViewCallback = callback
+                fl_video.visibility = View.VISIBLE
+                fl_video.addView(customView)
+            }
+
+            override fun onHideCustomView() {
+//                super.onHideCustomView()
+                if (customViewCallback==null)return
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                if (customViewCallback != null) {
+                    fl_video.removeView(customView)
+                    fl_video.visibility = View.GONE
+                    customView?.visibility = View.GONE
+                    customView = null
+                    customViewCallback!!.onCustomViewHidden()
+
+                }
+            }
 
             /**
              * 16(Android 4.1.2) <= API <= 20(Android 4.4W.2)回调此方法
@@ -510,17 +561,39 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
 
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.i("webview", " 现在是横屏1");
+            islandport = false;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.i("webview", " 现在是竖屏1");
+            islandport = true;
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         webView!!.onResume()
     }
 
     override fun onPause() {
+        var i = 0
+        do {
+            val result = audioManager?.requestAudioFocus(listener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+            if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                break
+            }
+            i++
+        } while (i < 10)
         super.onPause()
         webView!!.onPause()
     }
 
     override fun onBackPressed() {
+        if (customView!=null){
+            webView!!.webChromeClient.onHideCustomView()
+        }
         if (isDialogShowing) {
           dismissDialog()
             return

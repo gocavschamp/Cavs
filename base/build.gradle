@@ -130,4 +130,7 @@ dependencies {
     //state layout error  empty loading
     api 'com.github.nukc:StateView:v3.0.0'
 
+    //webview
+//    api 'com.github.Victory-Over:SuperWeb:v1.0.2'
+
 }

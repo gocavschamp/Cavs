@@ -144,9 +144,9 @@
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
             android:name=".activity.WebViewX5KtActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <activity
             android:name=".homepage.homedemo.FlutterTestActivity"

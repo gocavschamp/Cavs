@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:gravity="center_horizontal"
-    android:minWidth="@dimen/dp_60"
-
+    android:background="@drawable/rec_white_stoke_eee_4"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp_10"
+    android:padding="@dimen/dp_5"
     android:orientation="vertical">
 
     <ImageView
