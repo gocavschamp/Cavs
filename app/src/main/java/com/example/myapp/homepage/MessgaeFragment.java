@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.myapp.R;
 import com.example.myapp.activity.EditInputActivity;
+import com.example.myapp.activity.WebViewPdfActivity;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.game.GameActivity;
 import com.example.myapp.activity.gesture.GestureLockActivity;
@@ -89,7 +90,7 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
         ImmersionBar immersionBar = ImmersionBar.with(this).setOnKeyboardListener(this);
         List<String> data = new ArrayList<>();
         data.add("Edittext input limit");
-        data.add("todo1");
+        data.add("web pdf signture");
         data.add("todo2");
         data.add("todo3");
         data.add("todo4");
@@ -118,7 +119,7 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
                         UiGoto.startAty(mActivity, EditInputActivity.class);
                         break;
                     case 1:
-                        UiGoto.startAty(mActivity, XunFeiYuYinActivity.class);
+                        WebViewPdfActivity.lauch(mActivity,"pdf view","http://39.106.69.89:8848/static/ImageData/contract_pdf/carrier_contract_sign/shippingContract454.pdf");
                         break;
                     case 2:
                         UiGoto.startAty(mActivity, RxjavaDemoActivity.class);

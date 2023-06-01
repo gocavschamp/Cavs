@@ -97,6 +97,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
+            android:name=".homepage.homedemo.videolist.VideoDetailsActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
             android:name=".homepage.homedemo.videolist.DouYinListActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:hardwareAccelerated="false"
@@ -138,6 +144,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.WebViewX5Activity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateUnspecified" />
+        <activity
+            android:name=".activity.WebViewPdfActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

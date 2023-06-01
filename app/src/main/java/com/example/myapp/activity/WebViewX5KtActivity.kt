@@ -29,6 +29,7 @@ import com.example.myapp.activity.webViewer.LabelAdapter
 import com.example.myapp.activity.webViewer.WebHistory
 import com.example.myapp.bean.StringBean
 import com.example.myapp.db.MySqliteHelper
+import com.example.myapp.homepage.homedemo.videolist.VideoDetailsActivity
 import com.nucarf.base.ui.BaseActivityWithTitle
 import com.nucarf.base.utils.KeyboardUtil
 import com.nucarf.base.utils.LogUtils
@@ -122,6 +123,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         data.add(bean6)
         webStationAdapter!!.setNewData(data)
     }
+
     private fun audioWebViewControl() {
         audioManager = mContext?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         listener = AudioManager.OnAudioFocusChangeListener {
@@ -131,6 +133,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
 //            }
         }
     }
+
     private fun initListener() {
         titlelayout.setOnLongClickListener {
             StringUtils.copy(mContext, webView!!.url)
@@ -153,7 +156,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         }
         webStationAdapter!!.setOnItemClickListener { adapter, view, position ->
             rvHistoryLabel.visibility = View.GONE
-             recycleview.setVisibility(View.GONE);
+            recycleview.setVisibility(View.GONE);
             loadH5(webStationAdapter!!.data[position].value + "")
         }
         labelAdapter.setOnItemClickListener { adapter, view, position ->
@@ -212,7 +215,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         tvRefresh.setOnClickListener {
             tvHistory.isSelected = false
             tvRefresh.isSelected = !tvRefresh.isSelected
-           webView?.reload()
+            webView?.reload()
         }
     }
 
@@ -423,6 +426,15 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                     }
                     return true
                 }
+                if (view.url.contains("3gp") || view.url.contains("mp4") || view.url.contains("flv")
+                    || view.url.contains("rmvb") || view.url.contains("mpeg") || view.url.contains("wmv")
+                    || view.url.contains("avi") || view.url.contains("mov") || view.url.contains("mpv")
+                ) {
+                    //todo  local video player init
+                    ToastUtils.showShort(view.url.toString())
+                    VideoDetailsActivity.launcher(mContext, view.url)
+                    return true;
+                }
                 return false
             }
 
@@ -452,10 +464,13 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             }
         }
         webView!!.webChromeClient = object : WebChromeClient() {
-            override fun onShowCustomView(view: View?, callback: IX5WebChromeClient.CustomViewCallback?) {
+            override fun onShowCustomView(
+                view: View?,
+                callback: IX5WebChromeClient.CustomViewCallback?
+            ) {
 //                super.onShowCustomView(view, callback)
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                if (customView!=null){
+                if (customView != null) {
                     customViewCallback?.onCustomViewHidden()
                     return
                 }
@@ -463,16 +478,22 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                 customViewCallback = callback
                 fl_video.visibility = View.VISIBLE
                 fl_video.addView(customView)
+                ll_bar.visibility = View.GONE
+                ll_search.visibility = View.GONE
+                rlOption.visibility = View.GONE
             }
 
             override fun onHideCustomView() {
 //                super.onHideCustomView()
-                if (customViewCallback==null)return
+                if (customViewCallback == null) return
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 if (customViewCallback != null) {
                     fl_video.removeView(customView)
                     fl_video.visibility = View.GONE
                     customView?.visibility = View.GONE
+                    ll_bar.visibility = View.VISIBLE
+                    ll_search.visibility = View.VISIBLE
+                    rlOption.visibility = View.VISIBLE
                     customView = null
                     customViewCallback!!.onCustomViewHidden()
 
@@ -508,7 +529,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
             override fun onReceivedTitle(web: WebView?, title: String?) {
                 super.onReceivedTitle(web, title)
                 titlelayout.setTitleText(title)
-               dismissDialog()
+                dismissDialog()
                 LogUtils.e("tag", "onReceivedTitle" + title)
                 title?.let { web?.url?.let { it1 -> addHistory(it, it1, 0) } }
             }
@@ -582,7 +603,11 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     override fun onPause() {
         var i = 0
         do {
-            val result = audioManager?.requestAudioFocus(listener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+            val result = audioManager?.requestAudioFocus(
+                listener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+            )
             if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                 break
             }
@@ -593,12 +618,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
     }
 
     override fun onBackPressed() {
-        if (customView!=null){
+        if (customView != null) {
             webView!!.webChromeClient.onHideCustomView()
-        }
-        if (isDialogShowing) {
-          dismissDialog()
-            return
         }
         if (webView!!.canGoBack()) {
             webView!!.goBack()

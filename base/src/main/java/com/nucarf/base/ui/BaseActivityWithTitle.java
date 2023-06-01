@@ -103,7 +103,7 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
                 alertDialog.show();
             }
         } else {
-            alertDialog = DialogUtils.dialogPro(mContext, "请稍后...", false);
+            alertDialog = DialogUtils.dialogPro(mContext, "请稍后...", true);
         }
     }
 
@@ -190,6 +190,14 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
             mCompositeDisposable = new CompositeDisposable();
         }
         mCompositeDisposable.add(subscription);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isDialogShowing()) {
+            dismissDialog();
+        }
     }
 
     @Override
