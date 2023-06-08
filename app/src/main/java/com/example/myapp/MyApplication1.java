@@ -20,6 +20,7 @@ import com.nucarf.base.utils.BaseAppCache;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.umcrash.UMCrash;
 
 import androidx.multidex.MultiDex;
 
@@ -62,7 +63,11 @@ public class MyApplication1 extends Application {
         UMConfigure.preInit(this,RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE);
         // 选用AUTO页面采集模式
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
-        UMConfigure.setLogEnabled(true);
+        UMConfigure.setLogEnabled(false);
+        //友盟分享统计
+        UMConfigure.init(this, RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE, UMConfigure.DEVICE_TYPE_PHONE, "");//pushSecret 58edcfeb310c93091c000be2 5965ee00734be40b580001a0
+        UMCrash.init(this, RetrofitConfig.UM_APPKEY, "MTA_CHANNEL_VALUE");
+
         PlatformConfig.setWeixin(RetrofitConfig.WX_APPID, RetrofitConfig.WX_APISECRET);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);

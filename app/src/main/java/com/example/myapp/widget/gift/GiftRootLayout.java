@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.bean.GiftBean;
 
 import java.util.Comparator;

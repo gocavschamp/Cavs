@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.myapp.MainActivity;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.utils.ExampleUtil;
 
 import org.json.JSONException;

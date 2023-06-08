@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.tantan.TanTanActivity;
 import com.example.myapp.activity.tantan.TanTanAdapter;

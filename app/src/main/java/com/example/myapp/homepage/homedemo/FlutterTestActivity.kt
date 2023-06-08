@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.myapp.R
+import com.moonlight.flyvideo.R
 import com.nucarf.base.utils.LogUtils
 //import io.flutter.embedding.android.FlutterFragment
 //import io.flutter.view.FlutterView

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.RxjavaDemoActivity;
 import com.example.myapp.homepage.homedemo.amap.SearchWayResultActivity;
 import com.example.myapp.homepage.homedemo.apiclound.ApiCloundTestActivity;

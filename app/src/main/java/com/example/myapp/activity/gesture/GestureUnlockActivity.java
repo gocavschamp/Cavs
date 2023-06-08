@@ -22,7 +22,7 @@ import com.dds.gestureunlock.fragment.GestureCreateFragment;
 import com.dds.gestureunlock.fragment.GestureVerifyFragment;
 import com.dds.gestureunlock.vo.ConfigGestureVO;
 import com.dds.gestureunlock.vo.ResultVerifyVO;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 /**
  * File Description: 手势密码解锁认证Activity

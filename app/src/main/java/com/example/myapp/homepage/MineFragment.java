@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.myapp.BuildConfig;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.BuildConfig;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.bean.ArticleListBean;
 import com.example.myapp.bean.FileVersionBean;

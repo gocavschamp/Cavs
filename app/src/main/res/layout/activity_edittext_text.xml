@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.myapp.homepage.homedemo.EdittextTextActivity">
 
-    <com.example.myapp.widget.CustomProgressBar
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="@dimen/dp_200" />
+<!--    <com.example.myapp.widget.CustomProgressBar-->
+<!--        android:layout_width="@dimen/dp_200"-->
+<!--        android:layout_height="@dimen/dp_200" />-->
 
     <EditText
         android:id="@+id/et_name"

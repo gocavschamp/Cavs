@@ -24,12 +24,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapp.R
 import com.example.myapp.activity.webViewer.LabelAdapter
 import com.example.myapp.activity.webViewer.WebHistory
 import com.example.myapp.bean.StringBean
 import com.example.myapp.db.MySqliteHelper
 import com.example.myapp.homepage.homedemo.videolist.VideoDetailsActivity
+import com.moonlight.flyvideo.R
 import com.nucarf.base.ui.BaseActivityWithTitle
 import com.nucarf.base.utils.KeyboardUtil
 import com.nucarf.base.utils.LogUtils

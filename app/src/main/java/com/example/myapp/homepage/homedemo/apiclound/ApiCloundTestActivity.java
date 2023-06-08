@@ -14,8 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
-import com.example.myapp.BuildConfig;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.BuildConfig;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.multitem.MultItemActivity;
 import com.uzmap.pkg.openapi.ExternalActivity;
 import com.uzmap.pkg.openapi.Html5EventListener;

@@ -2,7 +2,7 @@ package com.example.myapp.task;
 
 import android.app.Application;
 
-import com.example.myapp.BuildConfig;
+import com.moonlight.flyvideo.BuildConfig;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.liys.doubleclicklibrary.ViewDoubleHelper;

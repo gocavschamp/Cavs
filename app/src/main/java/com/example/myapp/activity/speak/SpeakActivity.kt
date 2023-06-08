@@ -1,7 +1,7 @@
 package com.example.myapp.activity.speak
 
 import android.os.Bundle
-import com.example.myapp.R
+import com.moonlight.flyvideo.R
 import com.nucarf.base.ui.BaseActivityWithTitle
 import com.nucarf.base.utils.KeyboardUtil
 import kotlinx.android.synthetic.main.activity_speak.*

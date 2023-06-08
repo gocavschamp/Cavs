@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ToastUtils;
 

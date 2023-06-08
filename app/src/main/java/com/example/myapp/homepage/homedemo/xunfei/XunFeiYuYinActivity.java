@@ -16,7 +16,7 @@ import com.amap.api.services.core.SuggestionCity;
 import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.bean.ArticleListBean;
 import com.example.myapp.database.greenDao.db.DaoSession;
 import com.example.myapp.mvp.BaseMvpActivity;

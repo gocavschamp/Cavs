@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.widget.CustomImageView;
 import com.example.myapp.widget.CustomLinealayout;
 import com.example.myapp.widget.CustomProgressBar;

@@ -17,8 +17,8 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.example.myapp.BuildConfig;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.BuildConfig;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.utils.LogUtils;
 
 import me.jessyan.autosize.utils.AutoSizeUtils;

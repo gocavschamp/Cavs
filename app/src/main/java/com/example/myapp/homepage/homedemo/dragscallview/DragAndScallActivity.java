@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.bannertest.bean.DataBean;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayoutSpringBehavior;

@@ -29,7 +29,7 @@ import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Tip;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.api.AppService;
 import com.example.myapp.bean.LineBean;
 import com.example.myapp.bean.NewPointsBean;

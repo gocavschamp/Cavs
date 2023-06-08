@@ -13,7 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.callbacks.DialogCallbackExtKt;
 import com.afollestad.materialdialogs.checkbox.DialogCheckboxExtKt;
 import com.example.myapp.MainActivity;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.login.view.LoginActivity;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.DialogTools;

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 
 /**

@@ -29,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.zxing.QRCodeEvent;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;

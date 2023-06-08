@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.mine.bean.MineIconBean;
 
 public class HomeIconAdapter extends BaseQuickAdapter<MineIconBean, BaseViewHolder> {

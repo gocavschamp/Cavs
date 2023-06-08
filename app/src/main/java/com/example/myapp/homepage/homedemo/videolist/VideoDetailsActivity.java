@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.loadingbox.LoadingBox;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.mvp.BaseMvpActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

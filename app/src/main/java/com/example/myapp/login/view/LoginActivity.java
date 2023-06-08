@@ -18,7 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapp.MainActivity;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.google.android.material.tabs.TabLayout;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.utils.KeyboardUtil;

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.bean.ArticleBean;
 import com.example.myapp.bean.StringBean;
 import com.example.myapp.bean.Student;

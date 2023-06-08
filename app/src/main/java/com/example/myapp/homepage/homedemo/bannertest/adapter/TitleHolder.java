@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 
 public class TitleHolder extends RecyclerView.ViewHolder {

@@ -26,7 +26,7 @@ import android.view.animation.Animation;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.utils.LogUtils;
 
 import java.util.Locale;

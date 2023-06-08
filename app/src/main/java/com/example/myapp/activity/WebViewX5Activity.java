@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.JavascriptInterface;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.ToastUtils;

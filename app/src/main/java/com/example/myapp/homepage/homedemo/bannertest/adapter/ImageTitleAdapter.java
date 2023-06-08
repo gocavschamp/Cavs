@@ -2,7 +2,7 @@ package com.example.myapp.homepage.homedemo.bannertest.adapter;
 
 import android.view.ViewGroup;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.bannertest.bean.DataBean;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.util.BannerUtils;

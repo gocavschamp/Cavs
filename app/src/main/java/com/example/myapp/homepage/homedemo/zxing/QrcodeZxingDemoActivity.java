@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
 import com.luck.picture.lib.entity.LocalMedia;

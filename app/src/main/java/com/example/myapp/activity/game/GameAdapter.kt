@@ -2,7 +2,7 @@ package com.example.myapp.activity.game
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.example.myapp.R
+import com.moonlight.flyvideo.R
 import kotlinx.android.synthetic.main.item_game_layout.view.*
 
 /**

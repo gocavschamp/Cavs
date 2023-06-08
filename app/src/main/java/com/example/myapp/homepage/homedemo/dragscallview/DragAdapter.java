@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 import java.util.List;
 

@@ -15,6 +15,14 @@
         app:title_center_text="video details"
         app:title_left_icon="@mipmap/icon_star_glod"
         app:title_right_text="open" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titlelayout"
+        tools:listitem="@layout/item_video_list"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15" />
 
     <RelativeLayout
         android:id="@+id/fl_content"

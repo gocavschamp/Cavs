@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.example.myapp.R
+import com.moonlight.flyvideo.R
 import com.example.myapp.activity.WebViewX5KtActivity
 import com.example.myapp.bean.SearchWayBean
 import com.google.gson.Gson

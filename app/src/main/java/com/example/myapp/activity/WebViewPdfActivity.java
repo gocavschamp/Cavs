@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;

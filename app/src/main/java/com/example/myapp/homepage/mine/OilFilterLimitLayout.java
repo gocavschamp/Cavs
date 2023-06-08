@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.bean.StringBean;
 import com.example.myapp.homepage.mine.bean.BrandsListBean;
 import com.example.myapp.homepage.mine.bean.CityListAdapter;
@@ -209,8 +209,8 @@ public class OilFilterLimitLayout extends LinearLayout {
                 hideLimit();
             }
         });
-//        oilBrandHeadView = View.inflate(mContext, R.layout.oil_brand_head_view_layout, null);
-//        oilBrandBottomView = View.inflate(context, R.layout.oil_brand_bottom_view_layout, null);
+        oilBrandHeadView = View.inflate(mContext, R.layout.oil_type_header_view_layout, null);
+        oilBrandBottomView = View.inflate(context, R.layout.oil_type_header_view_layout, null);
 //        TextView tv_brand_reset = oilBrandBottomView.findViewById(R.id.tv_brand_reset); // 重置
 //        TextView tv_brand_confirm = oilBrandBottomView.findViewById(R.id.tv_brand_confirm); // 确定
 //        tv_brand_reset.setOnClickListener(new OnClickListener() {
@@ -440,6 +440,7 @@ public class OilFilterLimitLayout extends LinearLayout {
             case 2:
                 MobclickAgent.onEvent(BaseAppCache.getContext(), "yz_yzlb_05");
                 recycleviewLimitCity.setVisibility(View.GONE);
+
                 llLimitInsertCotnent.addView(oilBrandHeadView, 0);
                 llLimitInsertCotnent.addView(oilBrandBottomView, oilBrandLayoutParams);
                 llLimitInsertCotnent.setBackgroundColor(Color.WHITE);

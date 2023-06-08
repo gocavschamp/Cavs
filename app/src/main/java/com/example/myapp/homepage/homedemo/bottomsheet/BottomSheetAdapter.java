@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.bean.ArticleListBean;
 import com.nucarf.base.utils.GlideUtils;
 
@@ -19,7 +19,8 @@ public class BottomSheetAdapter extends BaseQuickAdapter<ArticleListBean,BaseVie
 
     @Override
     protected void convert(BaseViewHolder helper, ArticleListBean item) {
-        helper.setText(R.id.tv_content,item.getTitle())
+        helper.setText(R.id.tv_content,item.getTitle());
+        helper.setText(R.id.tv_title,item.getAuthor())
                 .setText(R.id.btn,item.getAuthor());
         ImageView image = helper.getView(R.id.iv_pic);
         GlideUtils.load(mContext,item.getEnvelopePic(),image);

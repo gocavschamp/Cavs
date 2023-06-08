@@ -2,7 +2,7 @@ package com.example.myapp.homepage;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 /**
  * @auther yuwenming

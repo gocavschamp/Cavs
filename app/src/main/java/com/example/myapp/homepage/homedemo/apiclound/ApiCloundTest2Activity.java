@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.uzmap.pkg.openapi.ExternalActivity;
 import com.uzmap.pkg.openapi.Html5EventListener;
 import com.uzmap.pkg.openapi.WebViewProvider;

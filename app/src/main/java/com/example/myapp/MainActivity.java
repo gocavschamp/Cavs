@@ -26,6 +26,7 @@ import com.example.myapp.utils.ExampleUtil;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.barlibrary.ImmersionBar;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.ui.WebActivity;
 import com.nucarf.base.utils.DialogUtils;

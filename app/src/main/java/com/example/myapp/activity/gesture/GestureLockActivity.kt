@@ -8,7 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.dds.fingerprintidentify.FingerprintIdentify
 import com.dds.fingerprintidentify.base.BaseFingerprint
 import com.dds.fingerprintidentify.base.BaseFingerprint.FingerprintIdentifyExceptionListener
-import com.example.myapp.R
+import com.moonlight.flyvideo.R
 import com.nucarf.base.ui.BaseActivityWithTitle2
 import com.nucarf.base.utils.DialogUtils
 import com.nucarf.base.utils.DialogUtils.DialogClickListener

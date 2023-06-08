@@ -22,6 +22,8 @@ public class NumberUtils {
      * @return
      */
     public static String totalMoney(String money) {
+        if (TextUtils.isEmpty(money))
+            return "";
 //        Double mAmountF = Double.parseDouble(money) / 100;
         Double mAmountF = Double.parseDouble(money);
         BigDecimal bigDec = new BigDecimal(mAmountF);

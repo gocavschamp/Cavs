@@ -1,7 +1,7 @@
 package com.example.myapp.homepage.homedemo.bannertest.bean;
 
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 import java.util.ArrayList;
 import java.util.List;

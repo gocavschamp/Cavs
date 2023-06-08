@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.ui.BaseActivity;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 

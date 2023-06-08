@@ -15,7 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.mine.AppBarStateChangeListener;
 import com.example.myapp.homepage.mine.HomeFragmentAdapter;
 import com.example.myapp.homepage.mine.OilFilterLimitLayout;

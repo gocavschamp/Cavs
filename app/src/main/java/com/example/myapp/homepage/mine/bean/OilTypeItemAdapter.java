@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 
 class OilTypeItemAdapter extends BaseQuickAdapter<FuelsBean, BaseViewHolder> {
     public OilTypeItemAdapter(int layout) {

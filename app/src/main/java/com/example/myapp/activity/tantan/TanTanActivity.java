@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.widget.swipecard.OverLayCardLayoutManager;
 import com.example.myapp.widget.swipecard.RenRenCallback;
 import com.jakewharton.rxbinding2.view.RxView;

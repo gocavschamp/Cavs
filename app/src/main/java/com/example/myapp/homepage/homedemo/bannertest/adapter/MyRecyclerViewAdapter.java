@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.bannertest.bean.DataBean;
 import com.youth.banner.Banner;
 import com.youth.banner.indicator.RoundLinesIndicator;

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.db.MySqliteHelper;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.LogUtils;

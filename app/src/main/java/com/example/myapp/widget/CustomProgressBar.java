@@ -20,7 +20,7 @@ import android.view.animation.LinearInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.NumberUtils;
 

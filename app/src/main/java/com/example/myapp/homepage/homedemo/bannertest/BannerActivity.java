@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.MarginPageTransformer;
 
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.homepage.homedemo.bannertest.adapter.ImageAdapter;
 import com.example.myapp.homepage.homedemo.bannertest.adapter.ImageNetAdapter;
 import com.example.myapp.homepage.homedemo.bannertest.adapter.ImageTitleAdapter;

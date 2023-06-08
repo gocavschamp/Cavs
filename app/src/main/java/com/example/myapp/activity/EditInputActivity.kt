@@ -1,9 +1,9 @@
 package com.example.myapp.activity
 
 import android.text.InputFilter
-import com.example.myapp.R
 import com.example.myapp.utils.MoneyTextWatcher
 import com.example.myapp.utils.MoneyValueFilter
+import com.moonlight.flyvideo.R
 import com.nucarf.base.ui.BaseActivityWithTitle2
 import kotlinx.android.synthetic.main.activity_edit_input.*
 

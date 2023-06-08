@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 
 import com.example.myapp.MainActivity;
 import com.example.myapp.MsgEvent;
-import com.example.myapp.R;
+import com.moonlight.flyvideo.R;
 import com.example.myapp.login.view.LoginActivity;
 import com.gyf.barlibrary.ImmersionBar;
 import com.nucarf.base.retrofit.RetrofitConfig;
@@ -23,6 +23,7 @@ import com.nucarf.base.ui.WebActivity;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.utils.UiGoto;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.umcrash.UMCrash;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -51,17 +52,6 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //友盟分享统计
-        ApplicationInfo appInfo = null;
-        try {
-            appInfo = this.getPackageManager()
-                    .getApplicationInfo(getPackageName(),
-                            PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        String MTA_CHANNEL_VALUE = appInfo.metaData.getString("CHANNEL_VALUE");
-        UMConfigure.init(this, RetrofitConfig.UM_APPKEY, MTA_CHANNEL_VALUE, UMConfigure.DEVICE_TYPE_PHONE, "");//pushSecret 58edcfeb310c93091c000be2 5965ee00734be40b580001a0
 
         if (!isTaskRoot()) {
             finish();

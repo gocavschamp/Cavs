@@ -1,7 +1,7 @@
 package com.example.myapp.activity
 
 import android.os.Bundle
-import com.example.myapp.R
+import com.moonlight.flyvideo.R
 import com.nucarf.base.ui.BaseActivityWithTitle
 import kotlinx.android.synthetic.main.activity_spcial_top.*
 
