@@ -29,26 +29,20 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.github.barteksc.pdfviewer.PDFView;
 import com.moonlight.flyvideo.R;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.SharePreUtils;
 import com.nucarf.base.utils.ToastUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-//import com.tencent.smtt.export.external.interfaces.SslError;
-//import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
-//import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
-//import com.tencent.smtt.sdk.ValueCallback;
-//import com.tencent.smtt.sdk.WebChromeClient;
-//import com.tencent.smtt.sdk.WebSettings;
-//import com.tencent.smtt.sdk.WebView;
-//import com.tencent.smtt.sdk.WebViewClient;
 
 import butterknife.ButterKnife;
 
 public class WebViewPdfActivity extends BaseActivityWithTitle {
 
     WebView webView;
+    PDFView pdfView;
     //    @BindView(R.id.fl_content)
     FrameLayout flContent;
     private String url;
@@ -70,13 +64,18 @@ public class WebViewPdfActivity extends BaseActivityWithTitle {
         setContentView(R.layout.activity_web_pdf);
         ButterKnife.bind(this);
         flContent = findViewById(R.id.fl_content);
+        pdfView = findViewById(R.id.pdfView);
+        pdfView.setVisibility(View.GONE);
         webView = new WebView(getApplicationContext());
         flContent.addView(webView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
+        flContent.setVisibility(View.VISIBLE);
+
         url = getIntent().getStringExtra("url");
         String title = getIntent().getStringExtra("title");
         titlelayout.setTitleText(title);
+//        pdfView.fromUri(Uri.parse(url));
         initWeb();
     }
 
@@ -128,7 +127,7 @@ public class WebViewPdfActivity extends BaseActivityWithTitle {
     private void loadH5(final String url) {
         webView.addJavascriptInterface(new JsEventInterface(), "$api");
 //        webView.loadUrl(url);
-        webView.loadUrl("file:///android_asset/index.html?"+url);
+        webView.loadUrl("file:///android_asset/pdf/web/viewer.html?file="+url);
         webView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String s, String s1, String s2, String s3, long l) {

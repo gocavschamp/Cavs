@@ -52,7 +52,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/rlOption" />
-
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdfView"
+            android:layout_above="@id/rlOption"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
         <FrameLayout
             android:id="@+id/fl_video"
             android:layout_width="match_parent"
