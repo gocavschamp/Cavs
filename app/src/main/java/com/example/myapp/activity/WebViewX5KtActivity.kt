@@ -40,6 +40,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.tencent.smtt.export.external.interfaces.*
 import com.tencent.smtt.sdk.*
 import kotlinx.android.synthetic.main.activity_webx5.*
+import kotlinx.coroutines.*
 import java.util.*
 
 
@@ -89,6 +90,22 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         mySqliteHelper = MySqliteHelper.getHelperInstance(mContext)
         rvHistoryLabel.visibility = View.GONE
         audioWebViewControl()
+        GlobalScope.launch {
+            withTimeout(100){
+
+            }
+            withContext(coroutineContext){
+                delay(100)
+                getinfo()
+
+            }
+
+        }
+    }
+
+    private suspend fun getinfo() {
+
+
     }
 
     private fun initStation() {
@@ -112,6 +129,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         bean5.name = "好看视频"
         bean5.value = "https://haokan.baidu.com/"
         val bean6 = StringBean()
+        val bean7 = StringBean("UA-PC", "PC")
+        val bean8 = StringBean("UA-PHONE", "Android")
         bean6.name = "搜神谱"
         bean6.value = "https://www.jspoo.com/"
         data.add(bean)
@@ -121,6 +140,8 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         data.add(bean4)
         data.add(bean5)
         data.add(bean6)
+        data.add(bean7)
+        data.add(bean8)
         webStationAdapter!!.setNewData(data)
     }
 
@@ -157,7 +178,16 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
         webStationAdapter!!.setOnItemClickListener { adapter, view, position ->
             rvHistoryLabel.visibility = View.GONE
             recycleview.setVisibility(View.GONE);
-            loadH5(webStationAdapter!!.data[position].value + "")
+            val stringBean = webStationAdapter!!.data[position]
+            if (stringBean.name == "UA-PC") {
+                webView?.settings?.userAgentString = "PC"
+                webView?.reload()
+            } else if (stringBean.name == "UA-PHONE") {
+                webView?.settings?.userAgentString = "Android"
+                webView?.reload()
+            } else {
+                loadH5(stringBean.value + "")
+            }
         }
         labelAdapter.setOnItemClickListener { adapter, view, position ->
             rvHistoryLabel.visibility = View.GONE
@@ -359,6 +389,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                 this@WebViewX5KtActivity.getDir("geolocation", 0)
                     .path
             )
+            settings.userAgentString = "Android"
             settings.setGeolocationEnabled(true)
             settings.databaseEnabled = true
             settings.setAppCacheEnabled(true)
@@ -426,7 +457,7 @@ class WebViewX5KtActivity : BaseActivityWithTitle() {
                     }
                     return true
                 }
-                if (view.url.contains("3gp") || view.url.contains("mp4") || view.url.contains("flv")
+                if (view.url.contains("3gp") || view.url.contains("m3u8")|| view.url.contains("mp4") || view.url.contains("flv")
                     || view.url.contains("rmvb") || view.url.contains("mpeg") || view.url.contains("wmv")
                     || view.url.contains("avi") || view.url.contains("mov") || view.url.contains("mpv")
                 ) {

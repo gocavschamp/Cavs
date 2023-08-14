@@ -253,6 +253,7 @@ dependencies {
     //弹框显示
     implementation 'com.afollestad.material-dialogs:core:3.1.1'
     implementation 'com.afollestad.material-dialogs:input:3.1.1'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     //极光 此处以JPush 3.8.6 版本为例。
     implementation 'cn.jiguang.sdk:jpush:3.8.6'
     // 此处以JCore 2.5.5 版本为例。

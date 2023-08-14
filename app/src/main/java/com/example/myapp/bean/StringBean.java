@@ -16,6 +16,14 @@ public class StringBean extends MultipleItem implements Serializable {
     private String type;
     private String token;
 
+    public StringBean() {
+    }
+
+    public StringBean(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
     public int getIcon() {
         return icon;
     }

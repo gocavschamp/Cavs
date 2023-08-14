@@ -36,6 +36,7 @@ import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
@@ -144,8 +145,14 @@ public class ExoPlayerLayout extends FrameLayout implements View.OnTouchListener
             // 生成用于解析媒体数据的Extractor实例。
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
             // MediaSource代表要播放的媒体。
-            MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoInfoUri),dataSourceFactory,extractorsFactory,
-                    null,null);
+            MediaSource mediaSource =null;
+            if (videoInfoUri.endsWith(".m3u8")){
+                mediaSource =  new HlsMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(videoInfoUri));
+            }else {
+
+                mediaSource = new ExtractorMediaSource(Uri.parse(videoInfoUri),dataSourceFactory,extractorsFactory,
+                        null,null);
+            }
             player.prepare(mediaSource, !isTimelineStatic, !isTimelineStatic);
             playerNeedsSource = false;
         }

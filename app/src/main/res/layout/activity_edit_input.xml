@@ -7,13 +7,36 @@
     <EditText
         android:id="@+id/etInput"
         android:layout_width="match_parent"
+        android:hint="数字"
         android:layout_height="@dimen/dp_50"
         android:layout_margin="@dimen/dp_15"
         android:inputType="numberDecimal" />
     <EditText
+        android:id="@+id/etInput3"
+        android:layout_width="match_parent"
+        android:hint="地址"
+        android:layout_height="@dimen/dp_50"
+        android:layout_margin="@dimen/dp_15"/>
+    <EditText
         android:id="@+id/etInput2"
         android:layout_width="match_parent"
+        android:hint="其他"
         android:layout_height="@dimen/dp_50"
         android:layout_margin="@dimen/dp_15"
         android:inputType="numberDecimal" />
+    <TextView
+        android:id="@+id/play"
+        android:gravity="center"
+        android:background="@color/picture_color_bfe85d"
+        android:layout_width="@dimen/dp_100"
+        android:text="确定播放"
+        android:layout_height="@dimen/dp_60"/>
+    <TextView
+        android:id="@+id/start"
+        android:gravity="center"
+        android:background="@color/picture_color_bfe85d"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="@dimen/dp_100"
+        android:text="开始"
+        android:layout_height="@dimen/dp_60"/>
 </LinearLayout>
