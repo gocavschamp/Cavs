@@ -1,5 +1,7 @@
 package com.example.myapp.homepage;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.myapp.activity.camera.CameraTestActivity;
 import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.EditInputActivity;
 import com.example.myapp.activity.WebViewPdfActivity;
@@ -41,12 +44,14 @@ import com.gyf.barlibrary.OnKeyboardListener;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.ui.TestBaseActivity;
 import com.nucarf.base.utils.UiGoto;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusChangeListener, View.OnClickListener, OnKeyboardListener, HupuGiftView.OnGiftClickLister {
 
@@ -94,6 +99,7 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
         data.add("todo2");
         data.add("todo3");
         data.add("todo4");
+        data.add("test CAM5");
         mycenterAdapter.setNewData(data);
     }
 
@@ -131,8 +137,24 @@ public class MessgaeFragment extends BaseLazyFragment implements View.OnFocusCha
                         Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
                         mActivity.startActivity(intent);
                         break;
+                    case 5:
+                        getPemision();
+                        break;
                 }
             }
+        });
+    }
+    @SuppressLint("CheckResult")
+    private void getPemision() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+if (aBoolean)                        UiGoto.startAty(mActivity,CameraTestActivity.class);
+
+            }
+
         });
     }
 

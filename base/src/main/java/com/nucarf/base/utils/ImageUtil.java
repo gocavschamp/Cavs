@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -1147,4 +1148,81 @@ public class ImageUtil {
         opts.inTargetDensity = value.density;
         return BitmapFactory.decodeResource(resources, id, opts);
     }
+
+
+    /**
+     * 旋转图片
+     *
+     * @param bitmap
+     * @param rotation
+     * @Return
+     */
+    public static Bitmap getRotatedBitmap(Bitmap bitmap, int rotation) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(rotation);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                bitmap.getHeight(), matrix, false);
+    }
+
+    /**
+     * 镜像翻转图片
+     *
+     * @param bitmap
+     * @Return
+     */
+    public static Bitmap getFlipBitmap(Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.setScale(-1, 1);
+        matrix.postTranslate(bitmap.getWidth(), 0);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                bitmap.getHeight(), matrix, false);
+    }
+
+    /**
+     * bitmap转为base64
+     *
+     * @param bitmap
+     * @return
+     */
+    public static String bitmapToBase64(Bitmap bitmap) {
+
+        String result = null;
+        ByteArrayOutputStream baos = null;
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                baos.flush();
+                baos.close();
+
+                byte[] bitmapBytes = baos.toByteArray();
+                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.flush();
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * base64转为bitmap
+     *
+     * @param base64Data
+     * @return
+     */
+    public static Bitmap base64ToBitmap(String base64Data) {
+        byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
 }
