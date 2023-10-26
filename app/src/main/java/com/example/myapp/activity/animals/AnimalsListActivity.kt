@@ -21,6 +21,7 @@ class AnimalsListActivity : BaseActivityWithTitle() {
     }
 
     override fun initView() {
+        titlelayout.setTitleText("动物合集")
         chineseToSpeech = SpeechUtils(this)
         mAdapter = AnimalsListAdapter(R.layout.item_animals_item)
         recyclerView.layoutManager = GridLayoutManager(mContext, 2)
@@ -31,8 +32,7 @@ class AnimalsListActivity : BaseActivityWithTitle() {
             chineseToSpeech?.speakText(mAdapter.data[position].name)
         }
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            UiGoto.startAty(mContext, AnimalsItemActivity::class.java)
-
+            AnimalsItemActivity.Companion.invoke(mContext,position)
         }
     }
 

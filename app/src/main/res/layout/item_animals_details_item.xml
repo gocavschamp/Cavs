@@ -9,14 +9,16 @@
         android:id="@+id/pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/name"
         android:src="@mipmap/gou1"
         />
     <ImageView
         android:id="@+id/play"
         android:layout_width="@dimen/dp_80"
         android:layout_height="80dp"
-        android:layout_alignLeft="@id/pic"
-        android:layout_alignTop="@id/pic"
+        android:layout_alignBottom="@id/pic"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_alignRight="@id/pic"
         android:src="@mipmap/ic_play"
         />
 
@@ -32,5 +34,8 @@
         android:textStyle="bold"
         android:textColor="@color/color_f5001e"
         android:textSize="29sp" />
-
+    <FrameLayout
+        android:id="@+id/fl_content_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

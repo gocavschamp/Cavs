@@ -37,6 +37,7 @@ import com.example.myapp.homepage.homedemo.zxing.QrcodeZxingDemoActivity;
 import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.ui.TestBaseActivity;
 import com.nucarf.base.utils.UiGoto;
+import com.nucarf.base.widget.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,8 @@ public class HomeFragment extends BaseLazyFragment {
     TextView tvAmap;
     @BindView(R.id.tv_zxing)
     TextView tvZxing;
+    @BindView(R.id.animal)
+    CircleImageView animal;
     private ListAdapter mycenterAdapter;
 
     public HomeFragment() {
@@ -213,7 +216,7 @@ public class HomeFragment extends BaseLazyFragment {
     }
 
 
-    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing, R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
+    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing, R.id.animal,R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_sheet:
@@ -237,6 +240,9 @@ public class HomeFragment extends BaseLazyFragment {
             case R.id.tv_apiclound:
                 Intent intent = new Intent(mActivity, ApiCloundTestActivity.class);
                 mActivity.startActivity(intent);
+                break;
+            case R.id.animal:
+                UiGoto.startAty(mActivity, AnimalsListActivity.class);
                 break;
         }
     }
