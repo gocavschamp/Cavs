@@ -126,8 +126,6 @@ public class TanTanActivity extends BaseActivityWithTitle {
 
     @Override
     protected void initData() {
-        initView();
-
         data = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             data.add("111" + i);
@@ -159,7 +157,7 @@ public class TanTanActivity extends BaseActivityWithTitle {
 
     }
 
-    private void initView() {
+    protected void initView() {
         tanTanAdapter = new TanTanAdapter(R.layout.item_tantan_layout);
         tanTanAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @SuppressLint("CheckResult")

@@ -99,6 +99,25 @@ public class GlideUtils {
                 .load(drawId)
                 .into(requestListener);
     }
+    public static void load(Context mContext, int drawId, ImageView imageView) {
+        if (mContext == null) {
+            return;
+        }
+        if (mContext instanceof Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (((Activity) mContext).isDestroyed()) {
+                    return;
+                }
+            } else {
+                if (((Activity) mContext).isFinishing()) {
+                    return;
+                }
+            }
+        }
+        Glide.with(mContext).asDrawable()
+                .load(drawId)
+                .into(imageView);
+    }
 
     public static void load(Fragment fragment, String url, ImageView iv) {
         if (fragment == null || fragment.isDetached() || TextUtils.isEmpty(url)) {

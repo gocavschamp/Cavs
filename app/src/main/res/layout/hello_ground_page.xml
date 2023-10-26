@@ -15,10 +15,11 @@
         android:text="广场"
         android:textSize="18dp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false">
+        android:clipChildren="false"
+        android:orientation="vertical">
 
         <com.example.myapp.widget.CustomImageView
             android:id="@+id/ci_pic"
@@ -87,7 +88,7 @@
             android:text="确认角度"
             android:textColor="@color/color_ff409eff"
             android:textSize="15sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

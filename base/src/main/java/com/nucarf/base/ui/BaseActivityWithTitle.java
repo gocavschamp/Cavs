@@ -67,6 +67,8 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
         ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).titleBar(ll_bar).init();
 
         unbinder = ButterKnife.bind(this);
+        initView();
+        setListener();
         initData();
     }
 
@@ -86,6 +88,8 @@ public abstract class BaseActivityWithTitle extends AppCompatActivity {
     }
 
     protected abstract void initData();
+    protected void  setListener(){};
+    protected void  initView(){};
 
     /**
      * 注册EventBus通信组件

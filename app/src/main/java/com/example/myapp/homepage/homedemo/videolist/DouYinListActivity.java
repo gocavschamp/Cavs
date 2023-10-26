@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.myapp.widget.IndicatorLayout;
 import com.moonlight.flyvideo.R;
 import com.example.myapp.mvp.BaseMvpActivity;
 import com.gyf.barlibrary.ImmersionBar;
@@ -39,6 +40,8 @@ public class DouYinListActivity extends BaseMvpActivity<VideoListPresenter> impl
     RecyclerView videoRecycleview;
     @BindView(R.id.fl_content)
     RelativeLayout flContent;
+    @BindView(R.id.indicator)
+    IndicatorLayout indicator;
     private PagerLayoutManager mPagerLayoutManager;
     private VideoListAdapter videoListAdapter;
     private long mPlayTime = 0;
@@ -74,6 +77,7 @@ public class DouYinListActivity extends BaseMvpActivity<VideoListPresenter> impl
             finish();
         });
         mPagerLayoutManager = new PagerLayoutManager(mContext);
+        mPagerLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         videoRecycleview.setLayoutManager(mPagerLayoutManager);
         videoListAdapter = new VideoListAdapter(R.layout.item_dy_video_list);
         videoRecycleview.setAdapter(videoListAdapter);
@@ -99,6 +103,7 @@ public class DouYinListActivity extends BaseMvpActivity<VideoListPresenter> impl
                                                              if (mCurrentPosition == position) {
                                                                  return;
                                                              }
+                                                             indicator.onPageSelect(position);
                                                              startPlay(position, mVideoView);
                                                              mCurrentPosition = position;
                                                          }
@@ -223,6 +228,7 @@ public class DouYinListActivity extends BaseMvpActivity<VideoListPresenter> impl
 
     @Override
     public void setData(boolean isRefresh, List<VideoListData.ResponseBean.VideosBean> data, boolean isEnd) {
+        indicator.setCount(3);
         videoListAdapter.loadMoreComplete();
         videoListAdapter.addData(data);
     }

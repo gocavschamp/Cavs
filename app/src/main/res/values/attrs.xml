@@ -7,6 +7,14 @@
        mask_color 模糊区域颜色
        label_text  框上方提示
    -->
+    <declare-styleable name="YwnIndicator">
+        <attr name="select_icon" format="reference" />
+        <attr name="unselect_icon" format="reference" />
+        <attr name="indicator_width" format="dimension" />
+        <attr name="indicator_height" format="dimension" />
+        <attr name="indicator_margin" format="dimension" />
+        <attr name="count" format="integer" />
+    </declare-styleable>
     <declare-styleable name="ViewfinderView">
         <attr name="corner_color" format="color" />
         <attr name="laser_color" format="color" />

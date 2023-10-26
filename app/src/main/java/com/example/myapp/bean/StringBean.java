@@ -14,6 +14,7 @@ public class StringBean extends MultipleItem implements Serializable {
     private String value;
     private String id;
     private String type;
+    private String url;
     private String token;
 
     public StringBean() {
@@ -96,6 +97,13 @@ public class StringBean extends MultipleItem implements Serializable {
         isChoice = choice;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     @Override
     public int getItemType() {

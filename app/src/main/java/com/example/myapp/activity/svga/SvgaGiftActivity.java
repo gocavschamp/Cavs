@@ -102,14 +102,11 @@ public class SvgaGiftActivity extends BaseActivityWithTitle {
         parser = new SVGAParser(mContext);
         //设置礼物动画播放完后清除
         svga.setClearsAfterStop(true);
-        initView();
-
-
     }
 
 
 
-    private void initView() {
+    protected void initView() {
         recycleview.setLayoutManager(new GridLayoutManager(mContext, 3, RecyclerView.VERTICAL, false));
         mycenterAdapter = new MycenterAdapter(R.layout.mycenter_item);
         recycleview.setAdapter(mycenterAdapter);
