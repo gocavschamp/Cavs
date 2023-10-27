@@ -100,7 +100,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
         })
         speak.setOnClickListener {
             val itemPosition =
-                mPagerLayoutManager.findFirstCompletelyVisibleItemPosition()
+                mPagerLayoutManager.findFirstVisibleItemPosition()
             chineseToSpeech?.speakText(mAdapter.data.get(itemPosition).name)
           var  objectAnimator = ObjectAnimator.ofFloat(speak,"scaleX",0.5F,1.2F,1F)
           var  objectAnimator2 = ObjectAnimator.ofFloat(speak,"scaleY",0.5F,1.2F,1F)
@@ -475,7 +475,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
             )
         )
         mAdapter.setNewData(data)
-        recyclerView.smoothScrollToPosition(intent.getIntExtra("index", 0))
+        recyclerView.scrollToPosition(intent.getIntExtra("index", 0))
 
     }
 
@@ -518,7 +518,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
             return
         }
         stopPlay()
-        super.onBackPressed()
+//        super.onBackPressed()
     }
 
     private fun releasPlayer() {
