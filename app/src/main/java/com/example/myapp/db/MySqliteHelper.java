@@ -27,14 +27,23 @@ public class MySqliteHelper extends SQLiteOpenHelper {
 
     //<--------数据库操作---------
     //数据库版本
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 8;
     private static final String DB_NAME = "happy.db";
     public static final String TABLE_NAME_STUDENT = "t_student";
+    public static final String TABLE_NAME_USER = "t_user";
     public static final String TABLE_NAME_LIBRARY = "t_library";
     public static final String TABLE_NAME_NBA = "t_nba";
     public static final String TABLE_NAME_WEB = "t_web_history";
     public static final String TABLE_NAME_LABEL = "t_web_label";
 
+    /**
+     * 数据库中创建一张USER表
+     * name age height weight sex localurl weburl note  book like_star note
+     */
+    public static final String CREATE_USER = "create table " + TABLE_NAME_USER +
+            " (id integer primary key autoincrement," + "name text,"
+            + "age integer," + "height integer,"  + "note text," + "like_star text,"
+            + "weight integer," + "localurl text,"+ "weburl text," + "sex integer)";
     /**
      * 数据库中创建一张student表
      * name age height weight sex grade note  book like_star note
@@ -107,6 +116,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         LogUtils.e("DatabaseHelper_onCreate");
         db.execSQL(JsVersion);
         db.execSQL(CREAT_STUDENT);
+        db.execSQL(CREATE_USER);
         db.execSQL(CREAT_LIBRARY);
         db.execSQL(CREAT_NBA);
         db.execSQL(CREAT_WEB);

@@ -24,7 +24,11 @@ public class AnimalsListAdapter extends BaseQuickAdapter<Animals,BaseViewHolder>
     protected void convert(BaseViewHolder helper, Animals item) {
         helper.setText(R.id.name,item.getName());
         ImageView pic = helper.getView(R.id.pic);
-        GlideUtils.load(mContext,item.getSrc(),pic);
+        if (item.getSrc()==0){
+            GlideUtils.load(mContext,item.getUrl(),pic);
+        }else {
+            GlideUtils.load(mContext,item.getSrc(),pic);
+        }
         helper.addOnClickListener(R.id.speak);
 
     }

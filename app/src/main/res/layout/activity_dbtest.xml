@@ -73,19 +73,57 @@
             android:layout_below="@id/btn_add_book"
             android:layout_toRightOf="@id/btn_delete_player"
             android:text="query" />
+        <Button
+            android:id="@+id/btn_add_user"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_player"
+            android:text="user +" />
+
+        <Button
+            android:id="@+id/btn_delete_user"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_player"
+            android:layout_toRightOf="@id/btn_add_user"
+            android:text="user -" />
+        <Button
+            android:id="@+id/btn_query_user"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_player"
+            android:layout_toRightOf="@id/btn_delete_player"
+            android:text="query" />
+        <Button
+            android:id="@+id/btn_select_user"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/btn_add_player"
+            android:layout_toRightOf="@id/btn_query_user"
+            android:text="select usrs" />
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="@dimen/dp_100"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_height="@dimen/dp_50"
+            android:paddingLeft="@dimen/dp_15"
+            android:background="@drawable/rec_white_stoke_eee_4"
+            android:layout_below="@id/btn_select_user"
+            android:layout_toRightOf="@id/btn_query_user"
+            android:hint="姓名" />
 
         <Button
             android:id="@+id/btn_execute_sql"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/btn_add_player"
+            android:layout_below="@id/btn_add_user"
             android:text="execute sql +" />
 
         <Button
             android:id="@+id/btn_sqlite_upgrate"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/btn_add_player"
+            android:layout_below="@id/btn_add_user"
             android:layout_toRightOf="@id/btn_execute_sql"
             android:text="sqlite_upgrate +" />
 
@@ -97,6 +135,14 @@
             android:layout_below="@id/btn_execute_sql"
             android:background="@drawable/rec_white_stoke_eee_4"
             android:hint="please insert right sql" />
+        <TextView
+            android:id="@+id/tv_usrs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/et_sql"
+            android:textColor="@color/blue"
+            android:background="@drawable/rec_white_stoke_eee_4"
+            android:hint="select users" />
     </RelativeLayout>
 
     <Button

@@ -1,14 +1,21 @@
 package com.example.myapp.homepage.homedemo;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +27,18 @@ import com.example.myapp.db.MySqliteHelper;
 import com.nucarf.base.ui.BaseActivityWithTitle;
 import com.nucarf.base.utils.LogUtils;
 import com.nucarf.base.utils.ToastUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
+import io.reactivex.functions.Consumer;
 
 public class DBTestActivity extends BaseActivityWithTitle {
 
@@ -60,8 +72,22 @@ public class DBTestActivity extends BaseActivityWithTitle {
     Button btnQueryBook;
     @BindView(R.id.btn_query_player)
     Button btnQueryPlayer;
+    @BindView(R.id.btn_add_user)
+    Button btnAddUser;
+    @BindView(R.id.btn_delete_user)
+    Button btnDeleteUser;
+    @BindView(R.id.btn_query_user)
+    Button btnQueryUser;
+    @BindView(R.id.btn_select_user)
+    Button btnSelectUser;
+    @BindView(R.id.tv_usrs)
+    TextView tvUsrs;
+    @BindView(R.id.et_username)
+    EditText etUsername;
     private MySqliteHelper mySqliteHelper;
     private DataShowAdapter mAdapter;
+    private List<String> userData = new ArrayList<>();
+    private int RC_CHOOSE_PHOTO = 10011;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,15 +99,29 @@ public class DBTestActivity extends BaseActivityWithTitle {
 
     @Override
     protected void initData() {
+
         mySqliteHelper = MySqliteHelper.getHelperInstance(mContext);
         recycleview.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false));
         mAdapter = new DataShowAdapter(R.layout.db_test_item);
         recycleview.setAdapter(mAdapter);
-        getData(MySqliteHelper.TABLE_NAME_STUDENT);
+        getData(MySqliteHelper.TABLE_NAME_USER);
+        getPemision();
     }
+    @SuppressLint("CheckResult")
+    private void getPemision() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
 
+            }
+
+        });
+    }
     @OnClick({R.id.btn_add_student, R.id.btn_hide_show, R.id.btn_delete_student, R.id.btn_add_book, R.id.btn_delete_book,
             R.id.btn_add_player, R.id.btn_delete_player, R.id.btn_execute_sql, R.id.btn_sqlite_upgrate,
+            R.id.btn_add_user, R.id.btn_delete_user, R.id.btn_query_user, R.id.btn_select_user,
             R.id.btn_query_student, R.id.btn_query_book, R.id.btn_query_player})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -177,7 +217,78 @@ public class DBTestActivity extends BaseActivityWithTitle {
                 getData(MySqliteHelper.TABLE_NAME_NBA);
 
                 break;
+            case R.id.btn_add_user:
+                addUser();
+                break;
+            case R.id.btn_delete_user:
+                break;
+            case R.id.btn_query_user:
+                break;
+            case R.id.btn_select_user:
+//                InsGallery.openGallery(DBTestActivity.this, GlideEngine.createGlideEngine(), GlideCacheEngine.createCacheEngine(), new OnResultCallbackListenerImpl(null));
+// 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
+                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "BGAPhotoPickerTakePhoto");
+
+                Intent photoPickerIntent = new BGAPhotoPickerActivity.IntentBuilder(this)
+                        .cameraFileDir( takePhotoDir) // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话则不开启图库里的拍照功能
+                        .maxChooseCount(20) // 图片选择张数的最大值
+                        .selectedPhotos(null) // 当前已选中的图片路径集合
+                        .pauseOnScroll(false) // 滚动列表时是否暂停加载图片
+                        .build();
+                startActivityForResult(photoPickerIntent, RC_CHOOSE_PHOTO);
+                break;
         }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == RC_CHOOSE_PHOTO) {
+            List<String> selectedPhotos = BGAPhotoPickerActivity.getSelectedPhotos(data);
+            userData.clear();
+            userData.addAll(selectedPhotos);
+            tvUsrs.setText(userData.toString());
+            Log.e(TAG, "onActivityResult: photo size"+userData.size());
+        }
+    }
+
+    /**
+     * 数据库中创建一张USER表
+     * name age height weight sex localurl weburl  like_star note
+     */
+    private void addUser() {
+        if (TextUtils.isEmpty(tvUsrs.getText().toString())||userData.size()==0) {
+            ToastUtils.showShort("先选照片");
+            return;
+        }
+        if (TextUtils.isEmpty(etUsername.getText().toString())||userData.size()==0) {
+            ToastUtils.showShort("先选填写姓名");
+            return;
+        }
+        try {
+//            " (id integer primary key autoincrement," + "name text,"
+//                    + "age integer," + "height integer,"  + "note text," + "like_star text,"
+//                    + "weight integer," + "localurl text,"+ "weburl text," + "sex integer)";
+            for (int i = 0; i < userData.size(); i++) {
+                SQLiteDatabase database = mySqliteHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("name", etUsername.getText().toString());
+                values.put("age", 20);
+                values.put("height", 170);
+                values.put("note", "");
+                values.put("like_star", "1");
+                values.put("weight", 55);
+                values.put("localurl", userData.get(i));
+                values.put("weburl", "");
+                values.put("sex", 1);
+                database.insert(MySqliteHelper.TABLE_NAME_USER, null, values);
+            }
+        }catch (SQLException e){
+
+        }
+        ToastUtils.showShort("成功");
+//        database.execSQL("insert into t_student (name,age,height,weight,sex,grade,book,like_star,note) values ('bob',17,172,61,0,70,'herry pote','jasting biber','')");
+        getData(MySqliteHelper.TABLE_NAME_USER);
+        userData.clear();
     }
 
 
@@ -292,7 +403,15 @@ public class DBTestActivity extends BaseActivityWithTitle {
                         String item = name + "-id" + id + "-age" + age + "-" + height + "-" + weight + "-sex" + sex + "-grade" + grade + "-" + book + "-" + like_star + "-" + note;
                         data.add(item);
                         LogUtils.e(item);
-
+                        break;
+                    case MySqliteHelper.TABLE_NAME_USER:
+                        // name age height weight sex grade book like_star note
+                        String nameuser = cursor.getString(cursor.getColumnIndex("name"));
+                        String localurl = cursor.getString(cursor.getColumnIndex("localurl"));
+                        String noteuser = cursor.getString(cursor.getColumnIndex("note"));
+                        String itemuser = nameuser + "-url" + localurl + "-" + noteuser;
+                        data.add(itemuser);
+                        LogUtils.e(itemuser);
                         break;
                     case MySqliteHelper.TABLE_NAME_LIBRARY:
                         // book_name price author pages borrow_to note
@@ -334,6 +453,41 @@ public class DBTestActivity extends BaseActivityWithTitle {
         mAdapter.setNewData(data);
     }
 
+    private static final String TAG = "image--";
+//    private class OnResultCallbackListenerImpl implements OnResultCallbackListener<LocalMedia> {
+//        private WeakReference<GridImageAdapter> mAdapter;
+//
+//        public OnResultCallbackListenerImpl(GridImageAdapter adapter) {
+//            mAdapter = new WeakReference<>(adapter);
+//        }
+//
+//        @Override
+//        public void onResult(List<LocalMedia> result) {
+//            userData.clear();
+//            for (LocalMedia media : result) {
+//                Log.i(TAG, "是否压缩:" + media.isCompressed());
+//                Log.i(TAG, "压缩:" + media.getCompressPath());
+//                Log.i(TAG, "原图:" + media.getPath());
+//                Log.i(TAG, "是否裁剪:" + media.isCut());
+//                Log.i(TAG, "裁剪:" + media.getCutPath());
+//                Log.i(TAG, "是否开启原图:" + media.isOriginal());
+//                Log.i(TAG, "原图路径:" + media.getOriginalPath());
+//                Log.i(TAG, "Android Q 特有Path:" + media.getAndroidQToPath());
+//                Log.i(TAG, "Size: " + media.getSize());
+//                userData.add(media.getOriginalPath());
+//            }
+////            GridImageAdapter adapter = mAdapter.get();
+////            if (adapter != null) {
+////                adapter.setList(result);
+////                adapter.notifyDataSetChanged();
+////            }
+//        }
+//
+//        @Override
+//        public void onCancel() {
+//            Log.i(TAG, "PictureSelector Cancel");
+//        }
+//    }
 
     private class DataShowAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         public DataShowAdapter(int layout) {

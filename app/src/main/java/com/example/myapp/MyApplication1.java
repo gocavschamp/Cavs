@@ -10,9 +10,6 @@ import android.os.StrictMode;
 
 import com.example.myapp.database.greenDao.db.DaoMaster;
 import com.example.myapp.database.greenDao.db.DaoSession;
-//import com.example.myapp.dragger.component.AppComponent;
-//import com.example.myapp.dragger.component.DaggerAppComponent;
-//import com.example.myapp.dragger.module.AppModule;
 import com.nucarf.base.BuildConfig;
 import com.nucarf.base.retrofit.RetrofitConfig;
 import com.nucarf.base.utils.ActivityHelper;
@@ -24,17 +21,10 @@ import com.umeng.umcrash.UMCrash;
 
 import androidx.multidex.MultiDex;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 import cn.jpush.android.api.JPushInterface;
-//import io.flutter.embedding.engine.FlutterEngine;
-//import io.flutter.embedding.engine.FlutterEngineCache;
-//import io.flutter.embedding.engine.dart.DartExecutor;
 import me.jessyan.autosize.AutoSizeConfig;
 
-public class MyApplication1 extends Application {
+public class MyApplication1 extends Application  {
 //    private FlutterEngine flutterEngine;
     private static MyApplication1 instance;
 
@@ -47,6 +37,7 @@ public class MyApplication1 extends Application {
     public void onCreate() {
         super.onCreate();
         BaseAppCache.setContext(this);
+        //insta gally
         initGreenDao();
         //友盟分享统计
         ApplicationInfo appInfo = null;
@@ -144,4 +135,5 @@ public class MyApplication1 extends Application {
     public DaoSession getDaoSession() {
         return daoSession;
     }
+
 }

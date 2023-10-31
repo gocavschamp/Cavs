@@ -27,14 +27,14 @@
     <TextView
         android:id="@+id/play"
         android:gravity="center"
-        android:background="@color/picture_color_bfe85d"
+        android:background="@color/color_b3b3b3"
         android:layout_width="@dimen/dp_100"
         android:text="确定播放"
         android:layout_height="@dimen/dp_60"/>
     <TextView
         android:id="@+id/start"
         android:gravity="center"
-        android:background="@color/picture_color_bfe85d"
+        android:background="@color/color_b3b3b3"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_width="@dimen/dp_100"
         android:text="开始"

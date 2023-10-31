@@ -10,7 +10,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableRight="@drawable/picture_arrow_down"
+        android:drawableRight="@drawable/home_right_arrow"
         android:drawablePadding="@dimen/px_5"
         android:ellipsize="end"
         android:gravity="center"

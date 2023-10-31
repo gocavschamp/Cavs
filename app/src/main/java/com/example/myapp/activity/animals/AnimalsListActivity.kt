@@ -101,6 +101,11 @@ class AnimalsListActivity : BaseActivityWithTitle() {
             )
         )
         data.add(Animals(src = R.mipmap.gou6, url = "", video = "", name = "狗狗"))
+        data.add(Animals(src = 0, url = "https://sns-webpic-qc.xhscdn.com/202310311456/f7980b740dfac131135601f687d3de8f/1000g0082hn56f6gis00g5p0nguuki4hgrkivqf8!nd_whgt34_webp_wm_1", video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e49588cd3be6910103700388e8204ab7_258.mp4", name = "兔兔"))
+        data.add(Animals( src = 0,url = "https://sns-webpic-qc.xhscdn.com/202310311458/e1440ec12378235592d5659d36268887/1040g00830phgjuv1mm005p435i03olh5uvd557g!nd_whgt34_webp_prv_1", video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e3e988994552000103700386483ec4ce_258.mp4", name = "兔兔"))
+        data.add(Animals(src = 0,url = "https://sns-webpic-qc.xhscdn.com/202310311459/16870949c4d8495c612bcbb871c42c24/1040g00830qeefps2041g4bfden8bat9fk2r2dqo!nd_whgt34_webp_wm_1", video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e4e0dd9a115121010373038a0e6302d9_258.mp4", name = "兔兔"))
+        data.add(Animals(src = 0,url = "https://sns-webpic-qc.xhscdn.com/202310311502/1db52d039d5bc7d263cde1ae6b848550/1040g00830n17d1ps5ac05nkuiha099smsketss0!nd_whgt34_webp_wm_1", video = "", name = "兔兔"))
+
         data.add(
             Animals(
                 src = R.mipmap.ji1,

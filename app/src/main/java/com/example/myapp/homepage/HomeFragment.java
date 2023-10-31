@@ -1,5 +1,7 @@
 package com.example.myapp.homepage;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.activity.animals.AnimalsListActivity;
+import com.example.myapp.activity.animals.FamilyActivity;
 import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.game.GameActivity;
@@ -38,12 +41,14 @@ import com.nucarf.base.ui.BaseLazyFragment;
 import com.nucarf.base.ui.TestBaseActivity;
 import com.nucarf.base.utils.UiGoto;
 import com.nucarf.base.widget.CircleImageView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 public class HomeFragment extends BaseLazyFragment {
 
@@ -68,6 +73,8 @@ public class HomeFragment extends BaseLazyFragment {
     TextView tvZxing;
     @BindView(R.id.animal)
     CircleImageView animal;
+    @BindView(R.id.mama)
+    CircleImageView mama;
     private ListAdapter mycenterAdapter;
 
     public HomeFragment() {
@@ -216,7 +223,10 @@ public class HomeFragment extends BaseLazyFragment {
     }
 
 
-    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing, R.id.animal,R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
+    @OnClick({R.id.tv_bottom_sheet, R.id.tv_zxing,
+            R.id.animal,
+            R.id.mama,
+            R.id.tv_xunfei_yuyin, R.id.tv_rxjava, R.id.tv_mult_item, R.id.tv_apiclound, R.id.tv_amap})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_sheet:
@@ -244,7 +254,23 @@ public class HomeFragment extends BaseLazyFragment {
             case R.id.animal:
                 UiGoto.startAty(mActivity, AnimalsListActivity.class);
                 break;
+            case R.id.mama:
+                getPemision();
+                UiGoto.startAty(mActivity, FamilyActivity.class);
+                break;
         }
+    }
+    @SuppressLint("CheckResult")
+    private void getPemision() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+
+            }
+
+        });
     }
 
 }

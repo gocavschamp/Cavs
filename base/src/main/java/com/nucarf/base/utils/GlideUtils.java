@@ -80,6 +80,30 @@ public class GlideUtils {
                 .into(iv);
     }
 
+    public static void loadCenterInside(Context mContext, String url, ImageView iv) {
+        if (mContext == null || TextUtils.isEmpty(url)) {
+            return;
+        }
+        if (mContext instanceof Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (((Activity) mContext).isDestroyed()) {
+                    return;
+                }
+            } else {
+                if (((Activity) mContext).isFinishing()) {
+                    return;
+                }
+            }
+        }
+        url = url.replace("https", "http");
+        RequestOptions requestOptions = new RequestOptions()
+                .centerInside();
+        Glide.with(mContext)
+                .load(url)
+                .apply(requestOptions)
+                .into(iv);
+    }
+
     public static void load(Context mContext, int drawId, SimpleTarget<Drawable> requestListener) {
         if (mContext == null) {
             return;

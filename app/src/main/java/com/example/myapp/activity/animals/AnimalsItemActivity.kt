@@ -20,13 +20,17 @@ import com.example.myapp.activity.speak.SpeechUtils
 import com.moonlight.flyvideo.R
 import com.nucarf.base.ui.BaseActivityWithTitle
 import com.nucarf.base.utils.LogUtils
+import com.nucarf.base.utils.ToastUtils
 import com.nucarf.base.widget.PagerLayoutManager
 import com.nucarf.base.widget.PagerLayoutManager.OnPageChangedListener
 import com.nucarf.exoplayerlibrary.ui.ExoPlayerLayout
 import com.nucarf.exoplayerlibrary.ui.ExoPlayerListener
 import kotlinx.android.synthetic.main.activity_animals_details.*
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPlayerListener {
+    private var isRoudom: Boolean = false
     private var mCurrentPosition: Int = 0
     private var mExoPlayer: ExoPlayerLayout? = null
     private var mVideoView: View? = null
@@ -77,6 +81,10 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
     }
 
     override fun setListener() {
+        titlelayout.setOnClickListener {
+            isRoudom = !isRoudom
+            ToastUtils.showShort(if (isRoudom) "随机" else "定向")
+        }
         mPagerLayoutManager.setOnPageChangedListener(object : OnPageChangedListener {
             override fun onPageInitComplete() {
                 val position = mPagerLayoutManager.findFirstVisibleItemPosition()
@@ -99,16 +107,10 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
             }
         })
         speak.setOnClickListener {
+            addAnim(speak)
             val itemPosition =
                 mPagerLayoutManager.findFirstVisibleItemPosition()
             chineseToSpeech?.speakText(mAdapter.data.get(itemPosition).name)
-          var  objectAnimator = ObjectAnimator.ofFloat(speak,"scaleX",0.5F,1.2F,1F)
-          var  objectAnimator2 = ObjectAnimator.ofFloat(speak,"scaleY",0.5F,1.2F,1F)
-           var set =  AnimatorSet()
-            set.setDuration(500)
-            set.interpolator = BounceInterpolator()
-            set.playTogether(objectAnimator,objectAnimator2)
-            set.start()
         }
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
@@ -119,6 +121,8 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
             }
         }
         last.setOnClickListener {
+            addAnim(last)
+
             val itemPosition =
                 mPagerLayoutManager.findFirstCompletelyVisibleItemPosition()
             if (itemPosition != 0) {
@@ -126,12 +130,27 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
             }
         }
         next.setOnClickListener {
+            addAnim(next)
             val itemPosition =
                 mPagerLayoutManager.findFirstCompletelyVisibleItemPosition()
-            if (itemPosition != mAdapter.data.size - 1) {
-                recyclerView.smoothScrollToPosition(itemPosition + 1)
+            if (isRoudom) {
+                val random = Random.nextInt(mAdapter.data.size)
+                recyclerView.scrollToPosition(random)
+            } else {
+                if (itemPosition != mAdapter.data.size - 1) {
+                    recyclerView.smoothScrollToPosition(itemPosition + 1)
+                }
             }
         }
+    }
+    fun addAnim(v: View?){
+        var  objectAnimator = ObjectAnimator.ofFloat(v,"scaleX",0.5F,1.2F,1F)
+        var  objectAnimator2 = ObjectAnimator.ofFloat(v,"scaleY",0.5F,1.2F,1F)
+        var set =  AnimatorSet()
+        set.setDuration(500)
+        set.interpolator = BounceInterpolator()
+        set.playTogether(objectAnimator,objectAnimator2)
+        set.start()
     }
 
     override fun initData() {
@@ -196,6 +215,10 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
             )
         )
         data.add(Animals(src = R.mipmap.gou6, url = "", video = "", name = "狗狗"))
+        data.add(Animals(src = 0, url = "https://sns-webpic-qc.xhscdn.com/202310311456/f7980b740dfac131135601f687d3de8f/1000g0082hn56f6gis00g5p0nguuki4hgrkivqf8!nd_whgt34_webp_wm_1", video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e49588cd3be6910103700388e8204ab7_258.mp4", name = "兔兔"))
+        data.add(Animals( src = 0,url = "https://sns-webpic-qc.xhscdn.com/202310311458/e1440ec12378235592d5659d36268887/1040g00830phgjuv1mm005p435i03olh5uvd557g!nd_whgt34_webp_prv_1", video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e3e988994552000103700386483ec4ce_258.mp4", name = "兔兔"))
+        data.add(Animals(src = 0,url = "https://sns-webpic-qc.xhscdn.com/202310311459/16870949c4d8495c612bcbb871c42c24/1040g00830qeefps2041g4bfden8bat9fk2r2dqo!nd_whgt34_webp_wm_1", video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e4e0dd9a115121010373038a0e6302d9_258.mp4", name = "兔兔"))
+        data.add(Animals(src = 0,url = "https://sns-webpic-qc.xhscdn.com/202310311502/1db52d039d5bc7d263cde1ae6b848550/1040g00830n17d1ps5ac05nkuiha099smsketss0!nd_whgt34_webp_wm_1", video = "", name = "兔兔"))
         data.add(
             Animals(
                 src = R.mipmap.ji1,
@@ -452,7 +475,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
         )
         data.add(
             Animals(
-                src = R.mipmap.hu1,
+                src = R.mipmap.hudie1,
                 url = "",
                 video = "https://sns-video-bd.xhscdn.com/pre_post/01e2b1d0263d7feb010370038186962add_258.mp4",
                 name = "蝴蝶"
@@ -460,7 +483,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
         )
         data.add(
             Animals(
-                src = R.mipmap.hu2,
+                src = R.mipmap.hudie2,
                 url = "",
                 video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e49b872475437c0103700388ff892808_258.mp4",
                 name = "蝴蝶"
@@ -468,7 +491,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
         )
         data.add(
             Animals(
-                src = R.mipmap.hu3,
+                src = R.mipmap.hudie3,
                 url = "",
                 video = "https://sns-video-bd.xhscdn.com/stream/110/258/01e41eeb51b64852010370038718c775e4_258.mp4",
                 name = "蝴蝶"

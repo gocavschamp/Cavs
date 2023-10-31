@@ -119,13 +119,25 @@
             </LinearLayout>
 
         </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.nucarf.base.widget.CircleImageView
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/animal"
+        android:layout_weight="1"
+        android:src="@mipmap/mao2" />
+    <com.nucarf.base.widget.CircleImageView
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/mama"
+        android:layout_weight="1"
+        android:src="@mipmap/ic_baba" />
+</LinearLayout>
 
-        <com.nucarf.base.widget.CircleImageView
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="@dimen/dp_100"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/animal"
-            android:src="@mipmap/mao2" />
 
         <TextView
             android:id="@+id/tv_dialog"
