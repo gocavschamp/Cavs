@@ -104,6 +104,7 @@ class AnimalsItemActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPl
                     return
                 }
                 mCurrentPosition = position
+                chineseToSpeech?.speakText(mAdapter.data.get(mCurrentPosition).name)
             }
         })
         speak.setOnClickListener {

@@ -108,6 +108,7 @@ class FamilyActivity : BaseActivityWithTitle(), View.OnClickListener, ExoPlayerL
                     return
                 }
                 mCurrentPosition = position
+                chineseToSpeech?.speakText(mAdapter.data.get(mCurrentPosition).name)
             }
         })
         speak.setOnClickListener {
