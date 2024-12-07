@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.activity.animals.AnimalsListActivity;
 import com.example.myapp.activity.animals.FamilyActivity;
+import com.example.myapp.activity.child.ChildAbcLearnActivity;
 import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.game.GameActivity;
@@ -118,6 +119,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("OCR 扫码 百度");
         data.add("手势解锁");
         data.add("小动物");
+        data.add("A B C D");
         mycenterAdapter.setNewData(data);
 
 
@@ -216,6 +218,10 @@ public class HomeFragment extends BaseLazyFragment {
                         break;
                     case 24:
                         UiGoto.startAty(mActivity, AnimalsListActivity.class);
+                        break;
+                    case 25:
+//                        UiGoto.startAty(mActivity, ChildAbcLearnActivity.class);
+                        ChildAbcLearnActivity.Companion.invoke(mActivity,0);
                         break;
                 }
             }

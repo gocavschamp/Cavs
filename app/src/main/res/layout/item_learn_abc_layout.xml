@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:layout_above="@id/name"
+        />
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="80dp"
+        android:visibility="visible"
+        android:layout_alignBottom="@id/pic"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_alignRight="@id/pic"
+        android:src="@mipmap/ic_play"
+        />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_80"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:text="狗狗"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/color_f5001e"
+        android:textSize="69sp" />
+    <TextView
+        android:id="@+id/nameLittle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_80"
+        android:gravity="center"
+        android:layout_below="@id/name"
+        android:padding="@dimen/dp_10"
+        android:text="A"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@color/color_f5001e"
+        android:textSize="29sp" />
+    <FrameLayout
+        android:id="@+id/fl_content_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

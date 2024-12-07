@@ -63,7 +63,7 @@ public class SpeechUtils {
                     if (i == TextToSpeech.SUCCESS) {
                         int result = textToSpeech.setLanguage(Locale.CHINA);
                         textToSpeech.setPitch(1.0f);// 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
-                        textToSpeech.setSpeechRate(1.0f);
+                        textToSpeech.setSpeechRate(0.8f);
                     /*if(result != TextToSpeech.LANG_COUNTRY_AVAILABLE
                             && result != TextToSpeech.LANG_AVAILABLE){
                         Toast.makeText(context, "TTS暂时不支持这种语音的朗读！",
