@@ -18,6 +18,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.umcrash.UMCrash;
+import com.yanbo.lib_screen.VApplication;
 
 import androidx.multidex.MultiDex;
 
@@ -37,6 +38,8 @@ public class MyApplication1 extends Application  {
     public void onCreate() {
         super.onCreate();
         BaseAppCache.setContext(this);
+        //投屏初始化
+        VApplication.init(this);
         //insta gally
         initGreenDao();
         //友盟分享统计

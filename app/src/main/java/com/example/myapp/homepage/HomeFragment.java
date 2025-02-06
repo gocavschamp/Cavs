@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapp.activity.animals.AnimalsListActivity;
 import com.example.myapp.activity.animals.FamilyActivity;
 import com.example.myapp.activity.child.ChildAbcLearnActivity;
+import com.example.myapp.activity.touping.TouPingLearnActivity;
 import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.game.GameActivity;
@@ -120,6 +121,8 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("手势解锁");
         data.add("小动物");
         data.add("A B C D");
+        data.add("投 屏");
+
         mycenterAdapter.setNewData(data);
 
 
@@ -222,6 +225,10 @@ public class HomeFragment extends BaseLazyFragment {
                     case 25:
 //                        UiGoto.startAty(mActivity, ChildAbcLearnActivity.class);
                         ChildAbcLearnActivity.Companion.invoke(mActivity,0);
+                        break;
+                    case 26:
+//                        UiGoto.startAty(mActivity, ChildAbcLearnActivity.class);
+                        TouPingLearnActivity.Companion.invoke(mActivity,0);
                         break;
                 }
             }

@@ -186,6 +186,8 @@ android {
     }
 
     packagingOptions {
+        //投屏i相关
+        exclude 'META-INF/beans.xml'
         //出现这个问题是因为butterknife 与gradle 同时引用了annotation。
         exclude 'META-INF/services/javax.annotation.processing.Processor'
 
@@ -292,6 +294,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+    //    投屏相关
+    compileOnly 'javax.enterprise:cdi-api:2.0'
+    implementation 'com.github.yanbo469:VideoDlnaScreen:v1.0'
 //    implementation project(path: ':flutter')
 }
 
