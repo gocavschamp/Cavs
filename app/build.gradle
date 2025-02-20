@@ -297,6 +297,8 @@ dependencies {
     //    投屏相关
     compileOnly 'javax.enterprise:cdi-api:2.0'
     implementation 'com.github.yanbo469:VideoDlnaScreen:v1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'//google location
+
 //    implementation project(path: ':flutter')
 }
 

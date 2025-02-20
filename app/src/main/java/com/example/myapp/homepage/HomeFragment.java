@@ -17,6 +17,7 @@ import com.example.myapp.activity.animals.AnimalsListActivity;
 import com.example.myapp.activity.animals.FamilyActivity;
 import com.example.myapp.activity.child.ChildAbcLearnActivity;
 import com.example.myapp.activity.touping.TouPingLearnActivity;
+import com.example.myapp.google.GoogleInfoActivity;
 import com.moonlight.flyvideo.R;
 import com.example.myapp.activity.WebViewX5KtActivity;
 import com.example.myapp.activity.game.GameActivity;
@@ -122,6 +123,7 @@ public class HomeFragment extends BaseLazyFragment {
         data.add("小动物");
         data.add("A B C D");
         data.add("投 屏");
+        data.add("locations");
 
         mycenterAdapter.setNewData(data);
 
@@ -229,6 +231,11 @@ public class HomeFragment extends BaseLazyFragment {
                     case 26:
 //                        UiGoto.startAty(mActivity, ChildAbcLearnActivity.class);
                         TouPingLearnActivity.Companion.invoke(mActivity,0);
+                        break;
+                    case 27:
+//                        UiGoto.startAty(mActivity, ChildAbcLearnActivity.class);
+                        UiGoto.startAty(mActivity, GoogleInfoActivity.class);
+
                         break;
                 }
             }
